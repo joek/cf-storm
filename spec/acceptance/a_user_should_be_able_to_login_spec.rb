@@ -1,4 +1,3 @@
-require_relative "../../app"
 require_relative '../helper'
 
 describe "A user should be able to login" , :type => :feature do
