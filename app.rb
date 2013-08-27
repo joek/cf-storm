@@ -18,13 +18,27 @@ Cuba.use Rack::Protection
 Cuba.use Rack::Protection::RemoteReferrer
 
 Cuba.define do
-  on root do
-    res.write 'hello'
+
+  on get do
+
+    on root do
+      res.write 'hello'
+    end
+
+    on 'sessions' do
+      on 'new' do
+        res.write view('session/new')
+      end
+    end
+
   end
 
-  on 'session' do
-    on 'new' do
-      res.write view('session/new')
+  on post do
+    on 'sessions' do
+      on true do
+        res.write "Success"
+      end
     end
   end
+
 end

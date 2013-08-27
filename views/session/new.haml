@@ -1,1 +1,9 @@
 Login with your cf user:
+      
+%form{:name => 'session', :id => 'session', 
+      :action => '/sessions', :method => 'post'}
+  
+  %input{:type => "text", :name => "Login", :class => "text"}
+  %input{:type => "password", :name => "Password", :class => "text"}
+  
+  %input{:type => "submit", :value => "Sign in", :class => "button"}
