@@ -6,12 +6,10 @@ Cuba.plugin Cuba::Mote
 Cuba.plugin Cuba::Render
 Cuba.settings[:render][:template_engine] = 'haml'
 
-
-
-
 Cuba.use Rack::Session::Cookie,
   key: '__insert app name__',
   secret: '__insert secret here__'
+
 Cuba.use Rack::Static,
   root: 'public',
   urls: ['/js', '/css', '/less', '/img']
