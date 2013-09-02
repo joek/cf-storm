@@ -9,12 +9,12 @@ describe 'A user should be able to login' , :type => :feature do
     it 'logins the user' do
       visit '/sessions/new'
       within('#session') do
-        fill_in 'Login', with: 'an@example.com'
-        fill_in 'Password', with: 'password'
+        fill_in 'Email', with: 'manuel.garcia@altoros.com'
+        fill_in 'Password', with: '12345678'
       end
 
       click_button 'Sign in'
-      expect(page).to have_content 'You are logged in as an@expect'
+      expect(page).to have_content 'You are logged in as manuel.garcia@altoros.com'
     end
   end
 end

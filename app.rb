@@ -15,6 +15,7 @@ Cuba.use Rack::Static,
   urls: ['/js', '/css', '/less', '/img']
 
 Dir["./models/**/*.rb"].each { |rb| require rb }
+Dir["./lib/**/*.rb"].each { |rb| require rb }
 
 Cuba.use Rack::Protection
 Cuba.use Rack::Protection::RemoteReferrer
@@ -23,8 +24,8 @@ Cuba.define do
 
   on get do
 
-    on root do
-      res.write 'hello'
+    on "apps" do
+      res.write view('apps/index')
     end
 
     on 'sessions' do
@@ -37,8 +38,9 @@ Cuba.define do
 
   on post do
     on 'sessions' do
-      on true do
-        res.write "Success"
+
+      on param("email"), param("password") do |email, password|
+        res.redirect "/apps"
       end
     end
   end
