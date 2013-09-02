@@ -1,4 +1,5 @@
 require File.expand_path('shotgun',  File.dirname(__FILE__))
+require File.expand_path("settings", File.dirname(__FILE__))
 
 require 'cuba/render'
 
@@ -20,6 +21,10 @@ Dir["./lib/**/*.rb"].each { |rb| require rb }
 Cuba.use Rack::Protection
 Cuba.use Rack::Protection::RemoteReferrer
 
+
+Ohm.connect(url: Settings::REDIS_URL)
+
+
 Cuba.define do
 
   on get do
@@ -38,6 +43,7 @@ Cuba.define do
 
   on post do
     on 'sessions' do
+      raise req.session.inspect
 
       on param("email"), param("password") do |email, password|
         res.redirect "/apps"

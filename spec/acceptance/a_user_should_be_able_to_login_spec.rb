@@ -9,8 +9,8 @@ describe 'A user should be able to login' , :type => :feature do
     it 'logins the user' do
       visit '/sessions/new'
       within('#session') do
-        fill_in 'Email', with: 'manuel.garcia@altoros.com'
-        fill_in 'Password', with: '12345678'
+        fill_in 'email', with: 'manuel.garcia@altoros.com'
+        fill_in 'password', with: '12345678'
       end
 
       click_button 'Sign in'

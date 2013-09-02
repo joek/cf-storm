@@ -1,6 +1,11 @@
 module UserHelper
 
   def current_user
-    User.new
+    User[session['current_user_id']]
   end
+
+  def session
+    req.session
+  end
+
 end

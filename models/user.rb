@@ -1,12 +1,12 @@
-class User
+class User  < Ohm::Model
   extend Forwardable
 
   def_delegators :@client, :login
 
-  attr_reader :client
+  attribute :email
 
-  def initialize
-    @client = CFoundry::Client.get 'http://api.run.pivotal.io'
+  def client
+    @client ||= CFoundry::Client.get 'http://api.run.pivotal.io'
   end
 
 end

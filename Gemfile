@@ -8,6 +8,7 @@ gem 'mote'
 gem 'tilt'
 gem 'haml'
 gem 'rack-protection'
+gem 'ohm'
 
 group :development, :test do
   gem "rspec"
