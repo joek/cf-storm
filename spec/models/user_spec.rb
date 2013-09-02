@@ -4,8 +4,8 @@ describe User do
 
   before do
     @email          = "manuel.garcia@altoros.com"
-    @password       = "12345678"
     @user           = User.new
+    @password       = "12345678"
     @cf_description = "Cloud Foundry sponsored by Pivotal"
   end
 
@@ -16,5 +16,10 @@ describe User do
 
   it "Should be able to get info from cloudfoundry" do
     expect(@user.client.info[:description]).to eq(@cf_description)
+  end
+
+  it "authenticates should login to CF api and return a User obj" do
+   user = User.authenticate @email, @password
+   expect(user.email).to eq(@email)
   end
 end

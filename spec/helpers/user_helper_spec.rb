@@ -10,11 +10,6 @@ end
 describe UserHelper do
   include UserHelper
 
-  before(:all) do
-    User.create :email => 'manuel.garcia@altoros.com'
-
-  end
-
   def req
     FakeReq.new
   end

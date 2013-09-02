@@ -20,7 +20,7 @@ Dir["./lib/**/*.rb"].each { |rb| require rb }
 
 Cuba.use Rack::Protection
 Cuba.use Rack::Protection::RemoteReferrer
-
+Cuba.plugin UserHelper
 
 Ohm.connect(url: Settings::REDIS_URL)
 
@@ -43,9 +43,12 @@ Cuba.define do
 
   on post do
     on 'sessions' do
-      raise req.session.inspect
+      # raise req.session.inspect
 
       on param("email"), param("password") do |email, password|
+        @user = User.authenticate email, password
+        req.session['current_user_id'] = @user.id
+
         res.redirect "/apps"
       end
     end

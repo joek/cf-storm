@@ -12,3 +12,5 @@ end
 def app
   Capybara.app = Cuba.app
 end
+
+User.create :email => 'manuel.garcia@altoros.com'
