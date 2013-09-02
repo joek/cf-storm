@@ -1,6 +1,3 @@
-class User
+class User  < CFoundry::Client
 
-  def login email, password
-    true
-  end
 end
