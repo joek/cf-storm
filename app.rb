@@ -14,6 +14,8 @@ Cuba.use Rack::Static,
   root: 'public',
   urls: ['/js', '/css', '/less', '/img']
 
+Dir["./models/**/*.rb"].each { |rb| require rb }
+
 Cuba.use Rack::Protection
 Cuba.use Rack::Protection::RemoteReferrer
 

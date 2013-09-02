@@ -14,8 +14,7 @@ describe 'A user should be able to login' , :type => :feature do
       end
 
       click_button 'Sign in'
-
-      expect(page).to have_content 'Success'
+      expect(page).to have_content 'You are logged in as an@expect'
     end
   end
 end
