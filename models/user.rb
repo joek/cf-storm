@@ -16,7 +16,7 @@ class User  < Ohm::Model
     if user.nil?
       login_and_create!(email, password)
     else
-      user.login :email => email, :password => password
+      user.login :username => email, :password => password
     end
 
     user
@@ -24,7 +24,7 @@ class User  < Ohm::Model
 
   def self.login_and_create!(email, password)
     user = User.new if user.nil?
-    if user.login :email => email, :password => password
+    if user.login :username => email, :password => password
       User.create :email => email
     end
   end
