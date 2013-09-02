@@ -22,4 +22,13 @@ describe User do
    user = User.authenticate @email, @password
    expect(user.email).to eq(@email)
   end
+
+  it "should create local user when succesfully logged in" do
+    users_count_before_login = User.all.size
+    @a_user = User.new
+    @a_user.should_receive(:login).and_return(true)
+    User.stub!(:new).and_return(@a_user)
+    User.authenticate "an@example.com", "apass"
+    expect(User.all.size).to eq(users_count_before_login + 1)
+  end
 end
