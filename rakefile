@@ -1,0 +1,9 @@
+task :default => :test
+
+desc "Run tests in test/ folder"
+task :test do
+  require "cutest"
+
+  puts "Runing tests..."
+  Cutest.run(Dir["test/**/*_test.rb"])
+end
