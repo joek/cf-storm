@@ -43,11 +43,9 @@ Cuba.define do
 
   on post do
     on 'sessions' do
-      # raise req.session.inspect
-
       on param("email"), param("password") do |email, password|
         @user = User.authenticate email, password
-        req.session['current_user_id'] = @user.id
+        session['current_user_id'] = @user.id
 
         res.redirect "/apps"
       end
