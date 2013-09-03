@@ -11,28 +11,16 @@ class User  < Ohm::Model
   end
 
   def self.authenticate email, password
-    user = User.find(:email => email).first
+    user   = User.find(:email => email).first
+    user ||= User.new :email => email
+
     begin
-      attepmt_authentication user, email,password
-    rescue CFoundry::Denied
-      user = nil
-    end
-    user
-  end
-
-  def self.login_and_create!(email, password)
-    user = User.new if user.nil?
-    if user.login :username => email, :password => password
-      User.create :email => email
-    end
-  end
-
-  private
-  def self.attepmt_authentication user=nil, email, password
-    if user.nil?
-      login_and_create!(email, password)
-    else
       user.login :username => email, :password => password
+    rescue CFoundry::Denied
+      return nil
     end
+
+    user.save
   end
+
 end
