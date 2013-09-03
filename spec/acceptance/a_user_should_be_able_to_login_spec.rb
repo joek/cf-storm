@@ -1,20 +1,19 @@
 require_relative '../helper'
 
-describe 'A user should be able to login' , :type => :feature do
-  before do
+scope do
+  setup do
     Capybara.app = Cuba.app
   end
 
-  context 'when credentials are ok' do
-    it 'logins the user' do
-      visit '/sessions/new'
-      within('#session') do
-        fill_in 'email', with: 'manuel.garcia@altoros.com'
-        fill_in 'password', with: '12345678'
-      end
-
-      click_button 'Sign in'
-      expect(page).to have_content 'You are logged in as manuel.garcia@altoros.com'
+  test 'when credentials are ok logins the user' do
+    visit '/sessions/new'
+    within('#session') do
+      fill_in 'email', with: 'manuel.garcia@altoros.com'
+      fill_in 'password', with: '12345678'
     end
+
+    click_button 'Sign in'
+    assert has_content? 'You are logged in as manuel.garcia@altoros.com'
   end
+
 end
