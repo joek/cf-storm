@@ -7,7 +7,15 @@ class User  < Ohm::Model
   index :email
 
   def client
-    @client ||= CFoundry::Client.get 'http://api.run.pivotal.io'
+    @client ||= User.default_client.get 'http://api.run.pivotal.io'
+  end
+
+  def self.default_client
+    @default_client || CFoundry::Client
+  end
+
+  def self.default_client=(client)
+    @default_client = client
   end
 
   def self.authenticate email, password
