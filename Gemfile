@@ -9,7 +9,10 @@ gem 'tilt'
 gem 'haml'
 gem 'rack-protection'
 gem 'ohm'
+gem 'rake'
+gem 'cfoundry'
 
 group :development, :test do
   gem "capybara"
+  gem 'cutest'
 end
