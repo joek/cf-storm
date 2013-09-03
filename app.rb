@@ -32,9 +32,11 @@ Cuba.define do
     run Sessions
   end
 
-  on "apps" do
-    on get do
-      res.write view('apps/index')
+  on "spaces/:space" do |space|
+    on "apps" do
+      on get do
+        res.write view('apps/index')
+      end
     end
   end
 
