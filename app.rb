@@ -36,13 +36,9 @@ Cuba.define do
     run Sessions
   end
 
-  on "spaces/:space" do |space|
+  on "spaces" do |space|
     if current_user
-      on "apps" do
-        on get do
-          res.write view('apps/index')
-        end
-      end
+      run Spaces
     else
       res.redirect '/sessions/new'
     end
