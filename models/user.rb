@@ -13,12 +13,15 @@ class User  < Ohm::Model
   def self.authenticate email, password
     user = User.find(:email => email).first
 
-    if user.nil?
-      login_and_create!(email, password)
-    else
-      user.login :username => email, :password => password
+    begin
+      if user.nil?
+        login_and_create!(email, password)
+      else
+        user.login :username => email, :password => password
+      end
+    rescue CFoundry::Denied
+      user = nil
     end
-
     user
   end
 
