@@ -1,4 +1,4 @@
-require_relative '../helper'
+require_relative './acceptance_helper'
 
 scope do
   setup do

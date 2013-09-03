@@ -19,3 +19,26 @@ class Cutest::Scope
     Capybara.current_session.driver.request.env["rack.session"]
   end
 end
+
+class FakeClient
+  def login(credentials)
+    true
+  end
+
+  def info
+    {:description => "Cloud Foundry sponsored by Pivotal"}
+  end
+
+  def self.get(target)
+    new
+  end
+
+end
+
+class FakeClientLoginFail < FakeClient
+  def login(credentials)
+    raise CFoundry::Denied
+  end
+end
+
+User.default_client = FakeClient

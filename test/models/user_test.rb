@@ -22,16 +22,16 @@ scope do
     assert user.email == @email
   end
 
-  # test "should create local user when succesfully logged in" do
-  #   users_count_before_login = User.all.size
-  #   @a_user = User.new
-  #   @a_user.should_receive(:login).and_return(true)
-  #   User.stub(:new).and_return(@a_user)
-  #   User.authenticate "an@example.com", "apass"
-  #   expect(User.all.size).to eq(users_count_before_login + 1)
-  # end
+  test "should create local user when succesfully logged in" do
+    users_count_before_login = User.all.size
+
+    User.authenticate "an@example.com", "apass"
+    assert User.all.size == users_count_before_login + 1
+  end
 
   test 'should reject invalid user' do
-    assert User.authenticate('invalid@mail.com', 'asd') == nil
+    User.with_default_client(FakeClientLoginFail) do
+      assert User.authenticate('invalid@mail.com', 'asd') == nil
+    end
   end
 end
