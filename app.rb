@@ -28,15 +28,23 @@ Ohm.connect(url: Settings::REDIS_URL)
 
 Cuba.define do
 
+
+  on 'favicon.ico' do
+  end
+
   on "sessions" do
     run Sessions
   end
 
   on "spaces/:space" do |space|
-    on "apps" do
-      on get do
-        res.write view('apps/index')
+    if current_user
+      on "apps" do
+        on get do
+          res.write view('apps/index')
+        end
       end
+    else
+      res.redirect '/sessions/new'
     end
   end
 
