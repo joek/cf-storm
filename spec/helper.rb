@@ -1,7 +1,5 @@
 require_relative "../app"
 
-User.create :email => 'manuel.garcia@altoros.com'
-
 ################################
 # In order to sandbox the test and dev env, we declare a
 # different value for REDIS_URL when doing tests.
@@ -13,6 +11,7 @@ require 'cuba/capybara'
 prepare do
   Capybara.reset!
   Ohm.flush
+  User.create :email => 'manuel.garcia@altoros.com'
 end
 
 class Cutest::Scope

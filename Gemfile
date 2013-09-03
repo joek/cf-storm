@@ -11,6 +11,5 @@ gem 'rack-protection'
 gem 'ohm'
 
 group :development, :test do
-  gem "rspec"
   gem "capybara"
 end
