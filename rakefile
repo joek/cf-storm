@@ -1,10 +1,14 @@
+require_relative "./app"
 require "cutest"
+require_relative "test/helper"
+
 task :default => 'test:unit'
 
 namespace 'test' do
   desc "Run tests in test/ folder"
   task :acceptance  do
     require 'cuba/capybara'
+    require_relative "test/acceptance/acceptance_helper"
 
     puts "Runing acceptance tests..."
     Cutest.run Dir["test/acceptance/*_test.rb"]

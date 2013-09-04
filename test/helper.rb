@@ -1,5 +1,3 @@
-require_relative "../app"
-
 ################################
 # In order to sandbox the test and dev env, we declare a
 # different value for REDIS_URL when doing tests.

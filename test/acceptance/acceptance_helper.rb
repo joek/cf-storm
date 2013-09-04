@@ -1,5 +1,3 @@
-require_relative '../helper'
-
 prepare do
   Capybara.reset!
 end
