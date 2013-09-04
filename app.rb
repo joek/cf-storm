@@ -19,6 +19,10 @@ Dir["./models/**/*.rb"].each { |rb| require rb }
 Dir["./lib/**/*.rb"].each { |rb| require rb }
 Dir["./routes/**/*.rb"].each { |rb| require rb }
 
+Cuba.use Rack::Static,
+  root: "public",
+  urls: ["/js", "/css", "/img"]
+
 Cuba.use Rack::Protection
 Cuba.use Rack::Protection::RemoteReferrer
 Cuba.plugin UserHelper
