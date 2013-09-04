@@ -3,3 +3,6 @@
 # Emacs temp buffers
 \#*.*\#
 .\#*
+
+# rvmc for rvm users
+.rvmrc

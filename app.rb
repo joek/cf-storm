@@ -45,7 +45,7 @@ Cuba.define do
 
   # Nothing matched the request address
   on default do
-    res.write view('error_404')
+    res.write view('404')
     res.status = 404
   end
 
