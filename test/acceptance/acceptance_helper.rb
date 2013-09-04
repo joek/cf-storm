@@ -1,8 +1,11 @@
 require_relative '../helper'
 
+prepare do
+  Capybara.reset!
+end
+
 if ENV['INTEGRATION']
   User.default_client = nil
-  puts " ==> Running with #{User.api_url}"
 end
 
 def login_user!

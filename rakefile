@@ -1,9 +1,23 @@
-task :default => :test
+require "cutest"
+task :default => 'test:unit'
 
-desc "Run tests in test/ folder"
-task :test do
-  require "cutest"
+namespace 'test' do
+  desc "Run tests in test/ folder"
+  task :acceptance  do
+    require 'cuba/capybara'
 
-  puts "Runing tests..."
-  Cutest.run(Dir["test/**/*_test.rb"])
+    puts "Runing acceptance tests..."
+    Cutest.run Dir["test/acceptance/*_test.rb"]
+  end
+
+  desc "Run model tests"
+  task :unit do
+    unit_files = Dir["test/models/*_test.rb"] +
+                 Dir["test/helper/*_test.rb"]
+
+    Cutest.run unit_files
+  end
+
+  desc "Run all tests acceptance + unit"
+  task :all => [:unit, :acceptance]
 end

@@ -5,11 +5,7 @@ require_relative "../app"
 # different value for REDIS_URL when doing tests.
 ENV["REDIS_URL"] ||= "redis://localhost:6379/13"
 
-require "cuba/test"
-require 'cuba/capybara'
-
 prepare do
-  Capybara.reset!
   Ohm.flush
   User.create :email => 'manuel.garcia@altoros.com'
 end
@@ -32,7 +28,6 @@ class FakeClient
   def self.get(target)
     new
   end
-
 end
 
 class FakeClientLoginFail < FakeClient
