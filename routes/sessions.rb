@@ -7,9 +7,15 @@ class Sessions < Cuba
     on post do
       on param("email"), param("password") do |email, password|
         @user = User.authenticate email, password
-        session['current_user_id'] = @user.id
+        if @user
+          session['current_user_id'] = @user.id
 
-        res.redirect "/spaces/development/apps"
+          res.redirect "/spaces/development/apps"
+        else
+          session[:error_message] = 'Invalid credentials'
+          res.redirect "/sessions/new"
+        end
+
       end
     end
   end

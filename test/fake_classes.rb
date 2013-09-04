@@ -5,7 +5,13 @@ class FakeClient
   Struct.new("Token", :auth_header, :refresh_token)
 
   def login(credentials)
-    Struct::Token.new "my-auth-token", "my-refresh-token"
+    valid_usernames = ['manuel.garcia@altoros.com']
+    if valid_usernames.include? credentials[:username]
+      Struct::Token.new "my-auth-token", "my-refresh-token"
+    else
+      raise CFoundry::Denied
+    end
+
   end
 
   def info
@@ -26,11 +32,5 @@ class FakeClient
     ["Windows 8", "Win95", "DOS"].map do |a|
       Struct::App.new a
     end
-  end
-end
-
-class FakeClientLoginFail < FakeClient
-  def login(credentials)
-    raise CFoundry::Denied
   end
 end

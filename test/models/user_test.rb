@@ -31,9 +31,7 @@ scope do
   end
 
   test 'should reject invalid user' do
-    User.with_default_client(FakeClientLoginFail) do
-      assert User.authenticate('invalid@mail.com', 'asd') == nil
-    end
+    assert User.authenticate('invalid@mail.com', 'asd') == nil
   end
 
   test "should store the token and use it to get a client and avoid re-login" do

@@ -1,9 +1,13 @@
+- if session[:error_message]
+  #flash-error
+    = session[:error_message]
+
 Login with your cf user:
-      
-%form{:name => 'session', :id => 'session', 
+
+%form{:name => 'session', :id => 'session',
       :action => '/sessions', :method => 'post'}
-  
+
   %input{:type => "text", :name => "email", :class => "text"}
   %input{:type => "password", :name => "password", :class => "text"}
-  
+
   %input{:type => "submit", :value => "Sign in", :class => "button"}
