@@ -15,4 +15,5 @@ gem 'cfoundry'
 group :development, :test do
   gem "capybara"
   gem 'cutest'
+  gem 'debugger'
 end

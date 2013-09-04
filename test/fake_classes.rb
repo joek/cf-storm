@@ -2,16 +2,17 @@ class FakeClient
 
   Struct.new("Space", :name, :apps)
   Struct.new("App", :name)
+  Struct.new("Token", :auth_header, :refresh_token)
 
   def login(credentials)
-    true
+    Struct::Token.new "my-auth-token", "my-refresh-token"
   end
 
   def info
     {:description => "Cloud Foundry sponsored by Pivotal"}
   end
 
-  def self.get(target)
+  def self.get(target, token = nil)
     new
   end
 

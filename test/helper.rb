@@ -3,6 +3,10 @@
 # different value for REDIS_URL when doing tests.
 ENV["REDIS_URL"] ||= "redis://localhost:6379/13"
 
+require_relative 'fake_classes'
+
+User.default_client = ENV['INTEGRATION'] ? nil : FakeClient
+
 prepare do
   Ohm.flush
   User.create :email => 'manuel.garcia@altoros.com'
@@ -13,7 +17,3 @@ class Cutest::Scope
     Capybara.current_session.driver.request.env["rack.session"]
   end
 end
-
-require_relative 'fake_classes'
-
-User.default_client = FakeClient

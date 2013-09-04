@@ -10,7 +10,6 @@ scope do
       assert has_content? "Windows 8"
       assert has_content? "Win95"
       assert has_content? "DOS"
-
     end
   end
 

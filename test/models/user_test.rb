@@ -23,9 +23,10 @@ scope do
   end
 
   test "should create local user when succesfully logged in" do
+    User.find(:email => "manuel.garcia@altoros.com").first.delete
     users_count_before_login = User.all.size
 
-    User.authenticate "an@example.com", "apass"
+    User.authenticate "manuel.garcia@altoros.com", '12345678'
     assert User.all.size == users_count_before_login + 1
   end
 
@@ -33,5 +34,12 @@ scope do
     User.with_default_client(FakeClientLoginFail) do
       assert User.authenticate('invalid@mail.com', 'asd') == nil
     end
+  end
+
+  test "should store the token and use it to get a client and avoid re-login" do
+    User.authenticate "manuel.garcia@altoros.com", '12345678'
+    user = User.find(:email => "manuel.garcia@altoros.com").first
+
+    assert user.client.spaces
   end
 end

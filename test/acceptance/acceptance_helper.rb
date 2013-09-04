@@ -2,10 +2,6 @@ prepare do
   Capybara.reset!
 end
 
-if ENV['INTEGRATION']
-  User.default_client = nil
-end
-
 def login_user!
   visit '/sessions/new'
   within('#session') do

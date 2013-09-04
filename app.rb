@@ -25,9 +25,6 @@ Cuba.plugin UserHelper
 
 Ohm.connect(url: Settings::REDIS_URL)
 
-require_relative 'test/fake_classes'
-User.default_client = FakeClient
-
 Cuba.define do
 
   on 'favicon.ico' do
