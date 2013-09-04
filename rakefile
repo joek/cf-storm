@@ -10,7 +10,7 @@ namespace 'test' do
     require 'cuba/capybara'
     require_relative "test/acceptance/acceptance_helper"
 
-    puts "Runing acceptance tests..."
+    puts "==> Runing acceptance tests..."
     Cutest.run Dir["test/acceptance/*_test.rb"]
   end
 
@@ -19,6 +19,7 @@ namespace 'test' do
     unit_files = Dir["test/models/*_test.rb"] +
                  Dir["test/helper/*_test.rb"]
 
+     puts "==> Runing unit tests..."
     Cutest.run unit_files
   end
 
