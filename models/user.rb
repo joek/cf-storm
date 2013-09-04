@@ -1,7 +1,7 @@
 class User  < Ohm::Model
   extend Forwardable
 
-  def_delegators :client, :login
+  def_delegators :client, :login, :spaces
 
   attribute :email
   index :email

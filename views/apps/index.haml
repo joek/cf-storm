@@ -1,3 +1,11 @@
 "You are logged in as #{current_user.email}"
 
-%h2= "#{space} applications"
+%h2= "#{space.name}'s applications"
+
+
+#apps-list
+  %ul
+    - apps.each do |app|
+      %li= app.name
+
+	
