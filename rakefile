@@ -17,7 +17,7 @@ namespace 'test' do
   desc "Run model tests"
   task :unit do
     unit_files = Dir["test/models/*_test.rb"] +
-                 Dir["test/helper/*_test.rb"]
+                 Dir["test/helpers/*_test.rb"]
 
      puts "==> Runing unit tests..."
     Cutest.run unit_files
