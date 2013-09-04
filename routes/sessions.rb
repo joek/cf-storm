@@ -12,7 +12,7 @@ class Sessions < Cuba
 
           res.redirect "/spaces/development/apps"
         else
-          session[:error_message] = 'Invalid credentials'
+          set_flash! 'Invalid credentials', :alert
           res.redirect "/sessions/new"
         end
 

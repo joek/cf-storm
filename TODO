@@ -1,5 +1,5 @@
 * User logout
 * Show an error message when the CF Api is down
-* Flash message
+* Flash message - Done
 * Add app state button
 * Add validations on data fetched from api (not nil)

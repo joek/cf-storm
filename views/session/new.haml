@@ -1,6 +1,6 @@
-- if session[:error_message]
+- if flash? :alert
   #flash-error
-    = session[:error_message]
+    = flash :alert
 
 Login with your cf user:
 
