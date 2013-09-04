@@ -42,4 +42,9 @@ scope do
 
     assert user.client.spaces
   end
+
+  test 'should return avatar url'do
+    user = User.new :email => 'lolmaster@example.com'
+    assert user.avatar_file == "a7d174ed732e7799e762a184d5213193.png"
+  end
 end

@@ -1,2 +1,3 @@
 * User logout
 * Show an error message when the CF Api is down
+* Flash message

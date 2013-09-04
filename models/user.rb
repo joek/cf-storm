@@ -10,6 +10,7 @@ class User  < Ohm::Model
   index :email
 
   def client
+    #require 'debugger' ; debugger
     @client ||= User.default_client.get User.api_url, cftoken
   end
 
@@ -54,6 +55,11 @@ class User  < Ohm::Model
 
     user.cftoken = token
     user.save
+  end
+
+  require 'digest/md5'
+  def avatar_file
+    "#{Digest::MD5.hexdigest(self.email)}.png"
   end
 
 end

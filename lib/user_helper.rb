@@ -8,4 +8,8 @@ module UserHelper
     req.session
   end
 
+  def user_avatar_path(user, size=30)
+    "http://www.gravatar.com/avatar/#{user.avatar_file}?s=#{size}"
+  end
+
 end
