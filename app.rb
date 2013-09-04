@@ -28,7 +28,6 @@ Ohm.connect(url: Settings::REDIS_URL)
 
 Cuba.define do
 
-
   on 'favicon.ico' do
   end
 
@@ -43,7 +42,6 @@ Cuba.define do
       res.redirect '/sessions/new'
     end
   end
-
 
   # Nothing matched the request address
   on default do

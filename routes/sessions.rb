@@ -1,9 +1,7 @@
 class Sessions < Cuba
   define do
-    on get do
-      on 'new' do
-        res.write view('session/new')
-      end
+    on get, 'new' do
+      res.write view('session/new')
     end
 
     on post do
