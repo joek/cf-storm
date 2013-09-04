@@ -2,3 +2,4 @@
 * Show an error message when the CF Api is down
 * Flash message
 * Add app state button
+* Add validations on data fetched from api (not nil)
