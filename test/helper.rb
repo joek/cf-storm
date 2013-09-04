@@ -1,7 +1,7 @@
 ################################
 # In order to sandbox the test and dev env, we declare a
 # different value for REDIS_URL when doing tests.
-ENV["REDIS_URL"] ||= "redis://localhost:6379/13"
+ENV["REDIS_URL"] = "redis://localhost:6379/13"
 
 require_relative 'fake_classes'
 
