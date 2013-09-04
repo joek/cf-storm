@@ -10,7 +10,6 @@ class User  < Ohm::Model
   index :email
 
   def client
-    #require 'debugger' ; debugger
     @client ||= User.default_client.get User.api_url, cftoken
   end
 
