@@ -1,12 +1,8 @@
 class Spaces < Cuba
 
   define do
-    on ':space' do |space|
-      on 'apps' do
-        on get do
-          res.write view('apps/index', :space => space)
-        end
-      end
+    on get, ':space/apps' do |space|
+      res.write view('apps/index', :space => space)
     end
   end
 
