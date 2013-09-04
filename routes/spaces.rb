@@ -4,7 +4,7 @@ class Spaces < Cuba
     on ':space' do |space|
       on 'apps' do
         on get do
-          res.write view('apps/index')
+          res.write view('apps/index', :space => space)
         end
       end
     end

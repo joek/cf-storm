@@ -5,5 +5,4 @@ scope do
     login_user!
     assert has_content? 'You are logged in as manuel.garcia@altoros.com'
   end
-
 end

@@ -11,7 +11,7 @@ class Sessions < Cuba
         @user = User.authenticate email, password
         session['current_user_id'] = @user.id
 
-        res.redirect "/apps"
+        res.redirect "/spaces/development/apps"
       end
     end
   end
