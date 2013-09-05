@@ -3,7 +3,7 @@ require_relative './acceptance_helper'
 scope do
   test 'when a guest tries to access private content' do
     visit '/spaces/development/apps'
-    assert has_content? 'CF Storm Login'
+    assert page.find '#session'
   end
 
   test "a guest shouldn't see main menu" do

@@ -2,6 +2,7 @@
 * Show an error message when the CF Api is down
 * Add app state button
 * Add validations on data fetched from api (not nil)
+* If logged user access login form, redirect to somewhere else
 * Views
   - Add app show view
   - Make buttons functional
