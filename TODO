@@ -7,7 +7,8 @@
   - Add app show view
   - Make buttons functional
   X Add user_signed_in? helper
-
+* Assets
+  - Include only the components that we are using for, pure and font awesome
 
 * Done
 =======

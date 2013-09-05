@@ -6,15 +6,29 @@ body {
   color: red
 }
 
-ul {
-  list-style-type:none;
+.red {
+  background-color: red;  
 }
 
-li {
-  padding: 3px 10px;
-  border-bottom: 1px solid #e5e5e5;
-  width:150px;
-  float:left;
+.pure-button-success {
+  background: rgb(28, 184, 65); /* this is a green */
 }
 
+#apps-list ul {
+  list-style-type: none;
+  margin: 0;
+}
+
+#apps-list ul li {
+  border-bottom: 1px solid silver;
+  padding-bottom: 7px;
+ 
+}
+
+#app-actions {
+  float: right;
+}
+
+.app-action {
+  margin-left: 10px;
 }

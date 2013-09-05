@@ -1,19 +1,14 @@
-
-
 %h2.content-subhead= "#{space.name.capitalize}'s applications"
 
 #apps-list
   %ul
     - apps.each do |app|
       %li
+        %i.icon-ok
         = app.name
-
-        %button.pure-button
-          %i.icon-play-sign
-        
-        %button.pure-button
-          %i.icon-trash
-        
-        %button.pure-button
-          %i.icon-cog
+        #app-actions
+          %i.icon-power-off.icon-border
+          %i.icon-signout.icon-border
+          %i.icon-cog.icon-border
+          %i.icon-trash.icon-border 
 
