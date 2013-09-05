@@ -6,8 +6,8 @@
 * Views
   - Add app show view
   - Make buttons functional
-  - Add user_signed_in? helper
-  - Move private content when not logged in
+  X Add user_signed_in? helper
+
 
 * Done
 =======
@@ -15,3 +15,4 @@
 * Flash message 
 * Views
   - Improve styling
+  - Move private content when not logged in
