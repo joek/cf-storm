@@ -1,11 +1,16 @@
 * User logout
 * Show an error message when the CF Api is down
-* Flash message - Done
 * Add app state button
 * Add validations on data fetched from api (not nil)
 * Views
   - Add app show view
-  - Improve styling
   - Make buttons functional
   - Add user_signed_in? helper
   - Move private content when not logged in
+
+* Done
+=======
+
+* Flash message 
+* Views
+  - Improve styling

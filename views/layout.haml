@@ -25,7 +25,11 @@
             %a{:href => '#'} Spaces
           %li 
             %a About
-
+          %li    
+            %a{:href => '#'}
+              %img#user-avatar{:src => user_avatar_path(current_user), 
+                :title => "You are logged in as #{current_user.email}"}
+ 
     .content
       = content
   
