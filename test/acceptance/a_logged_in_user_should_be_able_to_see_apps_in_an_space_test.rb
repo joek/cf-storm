@@ -13,4 +13,9 @@ scope do
     end
   end
 
+  test 'Given I logged in I should see main menu' do
+    login_user!
+    assert page.find '#nav-menu'
+  end
+
 end
