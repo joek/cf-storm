@@ -18,4 +18,10 @@ scope do
     assert page.find '#nav-menu'
   end
 
+  test 'Given I have an app I should be able to see its state' do
+    login_user!
+    visit '/spaces/development/apps'
+    assert has_css? '.app-state-started'
+  end
+
 end

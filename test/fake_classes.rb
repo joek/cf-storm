@@ -1,8 +1,14 @@
 class FakeClient
 
   Struct.new("Space", :name, :apps)
-  Struct.new("App", :name)
+  Struct.new("App", :name, :state, :started?)
   Struct.new("Token", :auth_header, :refresh_token)
+
+  class Struct::App
+    def started?
+      true
+    end
+  end
 
   def login(credentials)
     valid_usernames = ['manuel.garcia@altoros.com']
@@ -30,7 +36,7 @@ class FakeClient
 
   def apps
     ["Windows 8", "Win95", "DOS"].map do |a|
-      Struct::App.new a
+      Struct::App.new a, 'STARTED', true
     end
   end
 end

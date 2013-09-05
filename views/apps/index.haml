@@ -4,11 +4,10 @@
   %ul
     - apps.each do |app|
       %li
-        %i.icon-ok
+        %i{:class => app_state(app)}
         = app.name
         #app-actions
           %i.icon-power-off.icon-border
           %i.icon-signout.icon-border
           %i.icon-cog.icon-border
-          %i.icon-trash.icon-border 
-
+          %i.icon-trash.icon-border

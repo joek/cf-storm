@@ -1,4 +1,4 @@
-module AppHelper
+module Helper
   def flash kind=:notice
     session_flash.delete kind
   end
