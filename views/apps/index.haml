@@ -1,6 +1,6 @@
 %blockquote
-  %img{:src => user_avatar_path(current_user)}
-  You are logged in as #{current_user.email}
+  %img#user-avatar{:src => user_avatar_path(current_user), 
+                   :title =>"You are logged in as #{current_user.email}"}
 
 %h2.content-subhead= "#{space.name.capitalize}'s applications"
 
@@ -10,7 +10,6 @@
       %li
         = app.name
 
-        
         %button.pure-button
           %i.icon-play-sign
         
