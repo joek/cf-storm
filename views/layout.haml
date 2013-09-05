@@ -14,13 +14,11 @@
     %link{:rel => "stylesheet", :href => "/css/app.css"}
 
   %body
-    .header
-      %h2 Storm the CF open source console
-      
+    .header.custom-header
       - if current_user 
         #nav-menu.pure-menu.pure-menu-open.pure-menu-horizontal
-
-          %ul#std-menu-items
+          .pure-menu-heading.custom-heading Storm the CF open source console
+          %ul#std-menu-items.custom-menu
             %li.pure-menu-selected
               %a{:href => '#'} Apps
             %li
