@@ -3,7 +3,7 @@
 }
 
 .red {
-  background-color: red;  
+  background-color: red;
 }
 
 .pure-button-success {
@@ -18,7 +18,7 @@
 #apps-list ul li {
   border-bottom: 1px solid silver;
   padding-bottom: 7px;
- 
+
 }
 
 #app-actions {
@@ -54,8 +54,28 @@
 
 .custom-menu {
   float: right;
+  margin-right: 10px !important
 }
 
 #user-avatar {
   border-radius: 15px
+}
+
+.avatar-button {
+  padding: 4px 7px 0 7px !important;
+}
+
+.minimal-width {
+  min-width: 1073px
+}
+
+.app-state-started {
+  color: white;
+  background-color: green;
+}
+
+.app-state-stopped {
+  color: white;
+  background-color: red;
+
 }
