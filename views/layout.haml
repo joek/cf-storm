@@ -2,7 +2,7 @@
 %html
   %head
     %title= 'Storm the CF OpenSource Console'
-    
+
     -# ----------------------------------------------------
     -# Use pure css framework and font-awesome for icons
     -# http://purecss.io/
@@ -15,7 +15,7 @@
 
   %body
     .header.custom-header
-      - if current_user 
+      - if current_user
         #nav-menu.pure-menu.pure-menu-open.pure-menu-horizontal
           .pure-menu-heading.custom-heading Storm the CF open source console
           %ul#std-menu-items.custom-menu
@@ -23,13 +23,16 @@
               %a{:href => '#'} Apps
             %li
               %a{:href => '#'} Spaces
-            %li 
+            %li
               %a About
-            %li    
+            %li
               %a{:href => '#'}
-                %img#user-avatar{:src => user_avatar_path(current_user), 
+                %img#user-avatar{:src => user_avatar_path(current_user),
                   :title => "You are logged in as #{current_user.email}"}
- 
+            %li
+              %a{:href => '#'} Logout
+      - else
+        .pure-menu-heading.custom-heading Login
+
     .content
       = content
-  
