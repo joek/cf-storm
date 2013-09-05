@@ -16,19 +16,20 @@
     .header
       %h2 Storm the CF open source console
       
-      .pure-menu.pure-menu-open.pure-menu-horizontal
+      - if current_user 
+        .pure-menu.pure-menu-open.pure-menu-horizontal
 
-        %ul#std-menu-items
-          %li.pure-menu-selected
-            %a{:href => '#'} Apps
-          %li
-            %a{:href => '#'} Spaces
-          %li 
-            %a About
-          %li    
-            %a{:href => '#'}
-              %img#user-avatar{:src => user_avatar_path(current_user), 
-                :title => "You are logged in as #{current_user.email}"}
+          %ul#std-menu-items
+            %li.pure-menu-selected
+              %a{:href => '#'} Apps
+            %li
+              %a{:href => '#'} Spaces
+            %li 
+              %a About
+            %li    
+              %a{:href => '#'}
+                %img#user-avatar{:src => user_avatar_path(current_user), 
+                  :title => "You are logged in as #{current_user.email}"}
  
     .content
       = content

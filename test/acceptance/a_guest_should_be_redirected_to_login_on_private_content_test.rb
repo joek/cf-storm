@@ -6,4 +6,11 @@ scope do
     assert has_content? 'CF Storm Login'
   end
 
+  test "a guest shouldn't see main menu" do
+    visit '/'
+    assert_raise Capybara::ElementNotFound do
+      page.find '#nav-menu'
+    end
+  end
+
 end
