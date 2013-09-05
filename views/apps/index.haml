@@ -1,9 +1,22 @@
-%img{:src => user_avatar_path(current_user)}
-"You are logged in as #{current_user.email}"
+%blockquote
+  %img{:src => user_avatar_path(current_user)}
+  You are logged in as #{current_user.email}
 
-%h2= "#{space.name.capitalize}'s applications"
+%h2.content-subhead= "#{space.name.capitalize}'s applications"
 
 #apps-list
   %ul
     - apps.each do |app|
-      %li= app.name
+      %li
+        = app.name
+
+        
+        %button.pure-button
+          %i.icon-play-sign
+        
+        %button.pure-button
+          %i.icon-trash
+        
+        %button.pure-button
+          %i.icon-cog
+

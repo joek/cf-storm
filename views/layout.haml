@@ -1,7 +1,31 @@
 !!!
 %html
   %head
-    %title= 'CF OpenSource Console'
-    %link{:rel => "stylesheet", :type => "text/css", :href => "/css/app.css"}
+    %title= 'Storm the CF OpenSource Console'
+    
+    -# ----------------------------------------------------
+    -# Use pure css framework and font-awesome for icons
+    -# http://purecss.io/
+    -# http://fortawesome.github.io/Font-Awesome/
+    -# ----------------------------------------------------
+    %link{:rel => "stylesheet", :href => "http://yui.yahooapis.com/pure/0.2.1/pure-min.css"}
+    %link{:rel => "stylesheet", :href => "http://purecss.io/combo/1.5.4?/css/main.css&/css/rainbow/baby-blue.css"}
+    %link{:rel => "stylesheet", :href => "//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"}
+
   %body
-    = content
+    .header
+      %h2 Storm the CF open source console
+      
+      .pure-menu.pure-menu-open.pure-menu-horizontal
+
+        %ul#std-menu-items
+          %li.pure-menu-selected
+            %a{:href => '#'} Apps
+          %li
+            %a{:href => '#'} Spaces
+          %li 
+            %a About
+
+    .content
+      = content
+  

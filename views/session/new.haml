@@ -2,12 +2,19 @@
   #flash-error
     = flash :alert
 
-Login with your cf user:
-
-%form{:name => 'session', :id => 'session',
+%form.pure-form.pure-form-aligned{:name => 'session', :id => 'session',
       :action => '/sessions', :method => 'post'}
 
-  %input{:type => "text", :name => "email", :class => "text"}
-  %input{:type => "password", :name => "password", :class => "text"}
+  %fieldset
+    %legend CF Storm Login
+    .pure-control-group
 
-  %input{:type => "submit", :value => "Sign in", :class => "button"}
+      %label{:for => "email"} Email
+      %input{:type => "email", :name => "email", :placeholder => "Email"}
+
+    .pure-control-group    
+      %label{:for => "password"} Password
+      %input{:type => "password", :name => "password", :placeholder => "Password"}
+
+    .pure-controls    
+      %input.pure-button.pure-button-primary{:type => "submit", :value => "Sign in", :class => "button"}
