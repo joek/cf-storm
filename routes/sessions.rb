@@ -4,6 +4,11 @@ class Sessions < Cuba
       res.write view('session/new')
     end
 
+    on get, 'delete' do
+      session.delete 'current_user_id'
+      res.redirect '/sessions/new'
+    end
+
     on post do
       on param("email"), param("password") do |email, password|
         @user = User.authenticate email, password
@@ -15,8 +20,8 @@ class Sessions < Cuba
           set_flash! 'Invalid credentials', :alert
           res.redirect "/sessions/new"
         end
-
       end
     end
+
   end
 end

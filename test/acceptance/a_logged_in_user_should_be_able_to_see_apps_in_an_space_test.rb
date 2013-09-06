@@ -24,4 +24,9 @@ scope do
     assert has_css? '.app-state-started'
   end
 
+  test 'Given I logged in I should be able to logout' do
+    login_user!
+    click_link 'Logout'
+    assert page.find '#session'
+  end
 end
