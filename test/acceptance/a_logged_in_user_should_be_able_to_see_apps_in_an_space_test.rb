@@ -27,6 +27,6 @@ scope do
   test 'Given I logged in I should be able to logout' do
     login_user!
     click_link 'Logout'
-    assert page.find '#session'
+    assert page.find '#new-session'
   end
 end

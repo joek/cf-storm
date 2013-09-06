@@ -4,7 +4,7 @@ end
 
 def login_user!
   visit '/sessions/new'
-  within('#session') do
+  within('#new-session') do
     fill_in 'email', with: 'manuel.garcia@altoros.com'
     fill_in 'password', with: '12345678'
   end
