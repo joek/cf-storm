@@ -1,1 +1,19 @@
-%h1= "#{app.name}'s details"
+%h2.content-subhead.custom-content-subhead= "#{app.name}'s details"
+
+
+#app-state
+  %strong State: 
+  = app.state
+
+#app-memory
+  %strong Memory:
+  = app.memory
+
+#app-instances
+  %strong Instances: 
+  = app.instances.size
+  
+#app-uris
+  %strong Uris: 
+  - app.uris.each do |uri|
+    = uri

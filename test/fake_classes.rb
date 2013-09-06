@@ -1,7 +1,7 @@
 class FakeClient
 
   Struct.new("Space", :name, :apps)
-  Struct.new("App", :name, :state, :started?)
+  Struct.new("App", :name, :state, :started?, :memory, :instances, :uris)
   Struct.new("Token", :auth_header, :refresh_token)
 
   class Struct::App
@@ -36,7 +36,9 @@ class FakeClient
 
   def apps
     ["Windows 8", "Win95", "DOS"].map do |a|
-      Struct::App.new a, 'STARTED', true
+      Struct::App.new a, 'STARTED', true, 128,
+       ['LOL INSTANACE', 'LOLOLOL'], ['mswin.run.io']
     end
   end
+
 end
