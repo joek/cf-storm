@@ -2,8 +2,7 @@ scope do
 
   setup do
     login_user!
-    space = current_user.spaces.find{ |s| s.name == 'development'}
-    @app = space.apps.find{ |a| a.name == 'DOS' }
+    load_default_space_and_app
   end
 
   test 'Given I have a space called development and I have an app called lolmaster' +
