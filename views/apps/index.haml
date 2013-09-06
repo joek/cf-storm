@@ -5,7 +5,7 @@
     - apps.each do |app|
       %li
         %i{:class => app_state(app)}
-        = app.name
+        %a{:href => app_path(space, app)}= app.name
         #app-actions
           %i.icon-power-off.icon-border
           %i.icon-signout.icon-border

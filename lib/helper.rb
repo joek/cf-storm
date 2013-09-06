@@ -11,6 +11,10 @@ module Helper
     kind ? session_flash.keys.include?(kind) : session_flash.keys.any?
   end
 
+  def app_path space, app
+    "/spaces/#{space.name}/apps/#{app.name}"
+  end
+
   private
   def session_flash
     session[:flash] ||= {}

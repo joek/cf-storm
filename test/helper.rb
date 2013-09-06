@@ -5,6 +5,8 @@ ENV["REDIS_URL"] = "redis://localhost:6379/13"
 
 require_relative 'fake_classes'
 
+require File.expand_path("../app", File.dirname(__FILE__))
+
 User.default_client = ENV['INTEGRATION'] ? nil : FakeClient
 
 prepare do

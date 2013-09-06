@@ -1,5 +1,3 @@
-require_relative './acceptance_helper'
-
 scope do
   test 'when an invalid user tries to login' do
     visit '/sessions/new'

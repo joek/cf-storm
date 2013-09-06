@@ -1,5 +1,3 @@
-require_relative './acceptance_helper'
-
 scope do
   test 'when credentials are ok logins the user' do
     login_user!

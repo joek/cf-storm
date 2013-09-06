@@ -1,3 +1,5 @@
+include UserHelper
+
 prepare do
   Capybara.reset!
 end
@@ -10,4 +12,8 @@ def login_user!
   end
 
   click_button 'Sign in'
+end
+
+def assert_app_details app
+  assert has_content? app.name
 end
