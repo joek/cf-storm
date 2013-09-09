@@ -3,7 +3,6 @@ class Spaces < Cuba
 
   define do
     on ':space_name/apps/:app_name' do |space_name, app_name|
-      puts param('state').call
       with :space_name => space_name, :app_name => app_name do
         run Apps
       end

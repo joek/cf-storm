@@ -9,10 +9,10 @@
         #app-actions
           %form{:action => app_path(space, app), :method => 'post'}
             %input{:type => 'hidden', :value => 'put', :name => '_method'}
-            %input{:type => 'hidden', :value => 'STOPPED'}
-            %input.icon-power-off.icon-border{:type => 'submit', 
-               :id => app_state_class(app), 
-               :name => app_state_class(app), :value => 'stop'}
+            %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
+            %input.icon-power-off.icon-border{:type => 'submit',
+               :id => app_state_class(app),
+               :value => 'stop'}
 
           %i.icon-signout.icon-border
           %i.icon-cog.icon-border

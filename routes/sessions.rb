@@ -15,6 +15,7 @@ class Sessions < Cuba
         if @user
           session['current_user_id'] = @user.id
 
+          # TODO Change this to fetch default space
           res.redirect "/spaces/development/apps"
         else
           set_flash! 'Invalid credentials', :alert
