@@ -26,3 +26,7 @@ def load_default_space_and_app
   @space = current_user.spaces.find{ |s| s.name == 'development'}
   @app   = @space.apps.find{ |a| a.name == 'DOS' }
 end
+
+def load_default_organization
+  @organization = current_user.organizations.delete_if{ |o| o.name == current_user.current_organization.name }.first
+end

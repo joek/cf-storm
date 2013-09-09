@@ -42,7 +42,7 @@
           %ul#std-menu-items.custom-menu
             %li
               %a#current-organization{:href => '#'}= current_organization.name
-              
+
               %ul
                 - current_user.organizations.each do |org|
                   - if current_organization.name == org.name
@@ -50,8 +50,8 @@
                       %a{:href => organization_path(org)}= org.name
                   - else
                     %li
-                      %a{:href => ''}= org.name
-                
+                      %a{:href => organization_path(org)}= org.name
+
             %li
               %a{:href => '#'} Spaces
             %li

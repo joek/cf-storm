@@ -48,6 +48,14 @@ Cuba.define do
     end
   end
 
+  on "organizations" do
+    if current_user
+      run Organizations
+    else
+      res.redirect '/sessions/new'
+    end
+  end
+
   # Nothing matched the request address
   on default do
     res.write view('404')
