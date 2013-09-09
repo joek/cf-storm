@@ -1,5 +1,11 @@
+################################
+# In order to sandbox the test and dev env, we declare a
+# different value for REDIS_URL when doing tests.
+ENV["REDIS_URL"] = "redis://localhost:6379/13"
+
 require_relative "./app"
 require "cutest"
+require_relative 'test/fake_classes'
 require_relative "test/helper"
 
 task :default => 'test:all'
