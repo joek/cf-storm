@@ -12,15 +12,46 @@
     %link{:rel => "stylesheet", :href => "http://purecss.io/combo/1.5.4?/css/main.css&/css/rainbow/baby-blue.css"}
     %link{:rel => "stylesheet", :href => "//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"}
     %link{:rel => "stylesheet", :href => "/css/app.css"}
+    %script{:src => "http://yui.yahooapis.com/3.12.0/build/yui/yui-min.js"}
+
+    %script
+      YUI({
+      classNamePrefix: 'pure'
+      }).use('gallery-sm-menu', function (Y) {
+
+      var horizontalMenu = new Y.Menu({
+      container         : '#horizontal-menu',
+      sourceNode        : '#std-menu-items',
+      orientation       : 'horizontal',
+      hideOnOutsideClick: false,
+      hideOnClick       : false
+      });
+
+      horizontalMenu.render();
+      horizontalMenu.show();
+
+      });
+
+
 
   %body
     .header.custom-header.minimal-width
       - if current_user
-        #nav-menu.pure-menu.pure-menu-open.pure-menu-horizontal
+        #nav-menu.pure-menu.pure-menu-open.pure-menu-horizontal.horizontal-menu
           .pure-menu-heading.custom-heading Storm the CF open source console
           %ul#std-menu-items.custom-menu
-            %li.pure-menu-selected
-              %a{:href => '#'} Apps
+            %li
+              %a#current-organization{:href => '#'}= current_organization.name
+              
+              %ul
+                - current_user.organizations.each do |org|
+                  - if current_organization.name == org.name
+                    %li#selected-organization
+                      %a{:href => organization_path(org)}= org.name
+                  - else
+                    %li
+                      %a{:href => ''}= org.name
+                
             %li
               %a{:href => '#'} Spaces
             %li
@@ -31,7 +62,6 @@
                   :title => "You are logged in as #{current_user.email}"}
             %li
               %a{:href => '/sessions/delete'} Logout
-
       - else
         .pure-menu-heading.custom-heading Login
 

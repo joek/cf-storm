@@ -4,6 +4,10 @@ module UserHelper
     User[session['current_user_id']]
   end
 
+  def current_organization
+    current_user.current_organization || current_user.organizations.first
+  end
+
   def session
     req.session
   end

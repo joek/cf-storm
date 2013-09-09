@@ -3,6 +3,7 @@ class FakeClient
   Struct.new("Space", :name, :apps)
   Struct.new("App", :name, :state, :memory, :instances, :uris)
   Struct.new("Token", :auth_header, :refresh_token)
+  Struct.new("Organization", :name)
 
   class Struct::App
     def started?
@@ -25,6 +26,20 @@ class FakeClient
     else
       raise CFoundry::Denied
     end
+  end
+
+  def organizations
+    %w(Acme Lolcat).map do |n|
+      Struct::Organization.new n
+    end
+  end
+
+  def current_organization
+    @organization || organizations.first
+  end
+
+  def current_organization= org
+    @organization = org
   end
 
   def info

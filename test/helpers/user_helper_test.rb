@@ -26,4 +26,8 @@ scope do
     user = User.new :email => 'lolmaster@example.com'
     assert req.user_avatar_path(user) == "http://www.gravatar.com/avatar/#{user.avatar_file}?s=30"
   end
+
+  test 'current_organization should return the first organization when client.current_organization is nil' do
+    assert req.current_organization == req.current_user.organizations.first
+  end
 end
