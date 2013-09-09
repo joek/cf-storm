@@ -42,10 +42,13 @@ class FakeClient
   end
 
   def apps
+    @@_apps ||=
     ["Windows 8", "Win95", "DOS"].map do |a|
       Struct::App.new a, 'STARTED', 128,
        ['LOL INSTANACE', 'LOLOLOL'], ['mswin.run.io']
     end
+
+    @@_apps
   end
 
 end

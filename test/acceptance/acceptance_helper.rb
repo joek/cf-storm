@@ -24,5 +24,5 @@ end
 
 def load_default_space_and_app
   @space = current_user.spaces.find{ |s| s.name == 'development'}
-  @app = @space.apps.find{ |a| a.name == 'DOS' }
+  @app   = @space.apps.find{ |a| a.name == 'DOS' }
 end

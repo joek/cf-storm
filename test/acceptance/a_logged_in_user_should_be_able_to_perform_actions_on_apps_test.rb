@@ -8,7 +8,6 @@ scope do
   test 'Given Im seeing apps in development space then I should be able
        to stop an app' do
     click_on "stop-#{@app.name}"
-    require 'debugger'; debugger
     assert all("#start-#{@app.name}").size > 0
   end
 end
