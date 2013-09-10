@@ -44,6 +44,7 @@
   border-radius: 6px 6px 6px 6px;
   margin: 15px 0 20px !important;
   padding: 5px;
+  z-index: 1 !important;
 }
 
 .custom-heading {
@@ -54,11 +55,12 @@
 
 .custom-menu {
   float: right;
-  margin-right: 10px !important
+  margin-right: 10px !important;
+  list-style: none;
 }
 
 #user-avatar {
-  border-radius: 15px
+  border-radius: 15px;
 }
 
 .avatar-button {
@@ -78,4 +80,15 @@
   color: white;
   background-color: red;
 
+}
+
+.menu-item {
+  float: left;
+  margin-right: 10px;
+  position: relative;
+  z-index: 10;
+}
+
+#space-menu {
+  display: none;
 }

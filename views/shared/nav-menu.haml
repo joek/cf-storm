@@ -1,29 +1,23 @@
-%script 
-  $(function() {
-  $('#org-menu').menu() });
+%script
+  $(document).ready(function() {
+  $('#space-menu').menu();
+  $('#current-space').click(function(){ $('#space-menu').toggle() }) });
 
 #nav-menu
   .pure-menu-heading.custom-heading Storm the CF open source console
-  %ul#std-menu-items.custom-menu
-    %li
-      #current-organization= current_organization.name
-      %ul#org-menu
-        - current_user.organizations.each do |org|
+  %ul.custom-menu
+    %li.menu-item
+      #current-space= current_user.spaces.first.name
+      %ul#space-menu
+        - current_user.spaces.each do |space|
+          %li
+            %a{:href => space_path(space)}= space.name
 
-          - if current_organization.name == org.name
-            %li#selected-organization
-              %a{:href => '#'}= org.name
-          - else
-            %li= partial 'shared/button_form', :path => organization_path(org),                             :value => org.name, :name => 'org_name' 
-  
-
-    %li
-      %a{:href => '#'} Spaces
-    %li
+    %li.menu-item
       %a{:href => '#'} About
-    %li
+    %li.menu-item
       %a.avatar-button{:href => '#'}
         %img#user-avatar{:src => user_avatar_path(current_user),
           :title => "You are logged in as #{current_user.email}"}
-    %li
+    %li.menu-item
       %a{:href => '/sessions/delete'} Logout

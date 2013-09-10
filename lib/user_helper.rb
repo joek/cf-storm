@@ -16,4 +16,8 @@ module UserHelper
     "http://www.gravatar.com/avatar/#{user.avatar_file}?s=#{size}"
   end
 
+  def space_path(space)
+    "/spaces/#{space.name}/apps"
+  end
+
 end
