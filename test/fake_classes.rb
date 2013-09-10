@@ -57,6 +57,7 @@ class FakeClient
     %w(development test production).map do |s|
       Struct::Space.new s, apps
     end
+
     @@_spaces
   end
 

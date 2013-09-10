@@ -1,0 +1,25 @@
+#nav-menu.pure-menu.pure-menu-open.pure-menu-horizontal.horizontal-menu
+  .pure-menu-heading.custom-heading Storm the CF open source console
+  %ul#std-menu-items.custom-menu
+    %li
+      %a#current-organization{:href => '#'}= current_organization.name
+
+      %ul
+        - current_user.organizations.each do |org|
+          - if current_organization.name == org.name
+            %li#selected-organization
+              %a{:href => organization_path(org)}= org.name
+          - else
+            %li
+              %a{:href => organization_path(org)}= org.name
+
+    %li
+      %a{:href => '#'} Spaces
+    %li
+      %a{:href => '#'} About
+    %li
+      %a.avatar-button{:href => '#'}
+        %img#user-avatar{:src => user_avatar_path(current_user),
+          :title => "You are logged in as #{current_user.email}"}
+    %li
+      %a{:href => '/sessions/delete'} Logout

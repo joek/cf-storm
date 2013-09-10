@@ -9,6 +9,8 @@ scope do
     find('#current-organization').click
     click_link @organization.name
     assert(find('#current-organization').text == @organization.name)
+
+    Capybara.ignore_hidden_elements = true
   end
 
 end
