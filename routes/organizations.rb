@@ -7,13 +7,11 @@ class Organizations < Cuba
   end
 
   define do
-    on get do
+    on post do
       on ':org_name' do |org_name|
         set_current_organization org_name
-        res.write view "apps/index", :space => @space, :apps => @space.apps
+        res.redirect "/spaces/#{@space.name}/apps"
       end
-
     end
-
   end
 end

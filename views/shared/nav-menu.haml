@@ -1,19 +1,21 @@
-#nav-menu.pure-menu.pure-menu-open.pure-menu-horizontal.horizontal-menu
+%script 
+  $(function() {
+  $('#org-menu').menu() });
+
+#nav-menu
   .pure-menu-heading.custom-heading Storm the CF open source console
   %ul#std-menu-items.custom-menu
     %li
-      %a#current-organization{:href => '#'}= current_organization.name
-
-      %ul
+      #current-organization= current_organization.name
+      %ul#org-menu
         - current_user.organizations.each do |org|
+
           - if current_organization.name == org.name
             %li#selected-organization
-              = partial 'shared/button_form', :path => organization_path(org), 
-                                              :value => org.name 
-
+              %a{:href => '#'}= org.name
           - else
-            %li
-              %a{:href => organization_path(org)}= org.name
+            %li= partial 'shared/button_form', :path => organization_path(org),                             :value => org.name, :name => 'org_name' 
+  
 
     %li
       %a{:href => '#'} Spaces

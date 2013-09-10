@@ -28,5 +28,7 @@ def load_default_space_and_app
 end
 
 def load_default_organization
-  @organization = current_user.organizations.delete_if{ |o| o.name == current_user.current_organization.name }.first
+  @organization = current_user.organizations.delete_if do
+    |o| o.name == current_user.current_organization.name
+  end.first
 end
