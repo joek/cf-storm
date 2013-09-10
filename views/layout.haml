@@ -13,25 +13,7 @@
     %link{:rel => "stylesheet", :href => "//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"}
     %link{:rel => "stylesheet", :href => "/css/app.css"}
     %script{:src => "http://yui.yahooapis.com/3.12.0/build/yui/yui-min.js"}
-
-    %script
-      YUI({
-      classNamePrefix: 'pure'
-      }).use('gallery-sm-menu', function (Y) {
-
-      var horizontalMenu = new Y.Menu({
-      container         : '#horizontal-menu',
-      sourceNode        : '#std-menu-items',
-      orientation       : 'horizontal',
-      hideOnOutsideClick: false,
-      hideOnClick       : false
-      });
-
-      horizontalMenu.render();
-      horizontalMenu.show();
-
-      });
-
+    = partial 'yui_script'
 
 
   %body
