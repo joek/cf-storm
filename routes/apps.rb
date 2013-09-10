@@ -1,4 +1,4 @@
-class Apps < Cuba;
+class Apps < Cuba
 
   def load_app
     @space = current_user.spaces.find{ |s| s.name == vars[:space_name] }
