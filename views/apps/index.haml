@@ -7,12 +7,13 @@
         %i{:class => app_state_icon_class(app)}
         %a{:href => app_path(@space, app)}= app.name
         #app-actions
-          %form{:action => app_path(@space, app), :method => 'post'}
+          %form{:action => app_path(@space, app), :method => 'post', :class => 'simple-button'}
             %input{:type => 'hidden', :value => 'put', :name => '_method'}
             %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
-            %input.icon-power-off.icon-border{:type => 'submit',
+            %input{:type => 'submit',
                :id => app_state_class(app),
                :value => 'stop'}
+              //%span.icon-power-off.icon-border
 
           %i.icon-signout.icon-border
           %i.icon-cog.icon-border

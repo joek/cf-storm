@@ -3,7 +3,6 @@ class User  < Ohm::Model
 
   def_delegators :client, :login, :spaces
 
-
   attribute :email
   attribute :token
   attribute :refresh_token

@@ -92,3 +92,7 @@
 #space-menu {
   display: none;
 }
+
+.simple-button {
+  float: left;
+}
