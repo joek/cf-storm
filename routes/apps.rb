@@ -21,11 +21,13 @@ class Apps < Cuba
     on post, param('instances') do |instances|
       load_app
       @app.total_instances = instances.to_i
-      @app.update!
-
-      set_flash! 'Update successful'
+      begin
+        @app.update!
+        set_flash! 'Update successful'
+      rescue CFoundry::InstancesError
+        set_flash! 'Update failed', :alert
+      end
       res.redirect "/spaces/#{@space.name}/apps/#{@app.name}"
-
     end
   end
 end

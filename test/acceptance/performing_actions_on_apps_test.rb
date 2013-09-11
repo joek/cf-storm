@@ -28,4 +28,17 @@ scope do
     assert has_content? 'Update successful'
   end
 
+  # instance limit is 10
+  test 'should not update instances if exedes instance limit' do
+    find("#app-details-#{@app.guid}").click
+    within '#instance-quota' do
+      assert find('.current-instances').value.to_i == @app.total_instances
+
+      select '11', :from => 'instances'
+      click_on 'Update'
+    end
+
+    assert has_content? 'Update failed'
+  end
+
 end

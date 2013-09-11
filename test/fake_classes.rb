@@ -18,8 +18,8 @@ class FakeClient
       self.state = 'STARTED'
     end
 
-    def update!(ret_value = true)
-      ret_value
+    def update!
+      self.total_instances > 10 ? raise(CFoundry::InstancesError) : true
     end
 
   end
