@@ -11,4 +11,8 @@ scope do
     click_on "stop-#{@app.name}"
     assert find("#start-#{@app.name}")
   end
+
+  test 'should be able to visit the app url' do
+    assert find("#app-url-#{@app.name}")['href'] == "http://#{@app.url}"
+  end
 end
