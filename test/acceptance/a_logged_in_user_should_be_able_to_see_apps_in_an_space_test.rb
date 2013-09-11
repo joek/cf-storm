@@ -29,4 +29,11 @@ scope do
     click_link 'Logout'
     assert page.find '#new-session'
   end
-end
+
+  test 'Given I have some spaces i should be able to list them' do
+    login_user!
+    with_hidden_elements do
+      current_user.spaces.each{|s| find("#space-#{s.guid}")}
+    end
+  end
+ end

@@ -11,7 +11,7 @@
       %ul#space-menu
         - current_user.spaces.each do |space|
           %li
-            %a{:href => space_path(space)}= space.name
+            %a{:href => space_path(space), :id => "space-#{space.guid}"}= space.name
 
     %li.menu-item
       %a{:href => '#'} About

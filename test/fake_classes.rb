@@ -1,6 +1,6 @@
 class FakeClient
 
-  Struct.new("Space", :name, :apps)
+  Struct.new("Space", :name, :apps, :guid)
   Struct.new("App", :name, :state, :memory, :instances, :uris)
   Struct.new("Token", :auth_header, :refresh_token)
   Struct.new("Organization", :name, :spaces)
@@ -55,7 +55,7 @@ class FakeClient
   def spaces
     @@_spaces ||=
     %w(development test production).map do |s|
-      Struct::Space.new s, apps
+      Struct::Space.new s, apps, Digest::MD5.hexdigest(s)
     end
 
     @@_spaces
