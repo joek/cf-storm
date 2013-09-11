@@ -1,8 +1,8 @@
 class User  < Ohm::Model
   extend Forwardable
 
-  def_delegators :client, :login, :spaces, :current_organization, :organizations,
-  :current_organization=
+  def_delegators :client, :login, :spaces
+
 
   attribute :email
   attribute :token

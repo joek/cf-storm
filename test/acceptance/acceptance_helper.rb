@@ -27,12 +27,6 @@ def load_default_space_and_app
   @app   = @space.apps.find{ |a| a.name == 'DOS' }
 end
 
-def load_default_organization
-  @organization = current_user.organizations.delete_if do
-    |o| o.name == current_user.current_organization.name
-  end.first
-end
-
 def with_hidden_elements
   Capybara.ignore_hidden_elements = false
   yield

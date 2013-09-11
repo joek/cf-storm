@@ -28,22 +28,6 @@ class FakeClient
     end
   end
 
-  def organizations
-    @@_organizations ||=
-    ['Acme', 'Lolcat'].map do |n|
-      Struct::Organization.new n, spaces
-    end
-    @@_organizations
-  end
-
-  def current_organization
-    @@_current_organization ||= organizations.first
-  end
-
-  def current_organization= org
-    @@_current_organization = org
-  end
-
   def info
     {:description => "Cloud Foundry sponsored by Pivotal"}
   end
