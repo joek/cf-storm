@@ -1,13 +1,13 @@
-%h2.content-subhead.custom-content-subhead= "#{space.name.capitalize}'s applications"
+%h2.content-subhead.custom-content-subhead= "#{@space.name.capitalize}'s applications"
 
 #apps-list
   %ul
-    - apps.each do |app|
+    - @space.apps.each do |app|
       %li
         %i{:class => app_state_icon_class(app)}
-        %a{:href => app_path(space, app)}= app.name
+        %a{:href => app_path(@space, app)}= app.name
         #app-actions
-          %form{:action => app_path(space, app), :method => 'post'}
+          %form{:action => app_path(@space, app), :method => 'post'}
             %input{:type => 'hidden', :value => 'put', :name => '_method'}
             %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
             %input.icon-power-off.icon-border{:type => 'submit',

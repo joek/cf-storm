@@ -11,7 +11,7 @@ class Spaces < Cuba
 
     on get, ':space_name/apps' do |space_name|
       @space = current_user.spaces.find{ |s| s.name  == space_name }
-      res.write view('apps/index', :space => @space, :apps => @space.apps)
+      res.write view('apps/index')
     end
   end
 
