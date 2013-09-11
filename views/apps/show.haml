@@ -15,7 +15,7 @@
             %option.current-app-mem{:value => 2**mem, :selected => true}= 2**mem
           - else
             %option{:value => 2**mem}= 2**mem
-      %input{:type => 'submit', :value => 'Update'}
+      %input{:type => 'submit', :value => 'Update', :class => 'app-submit'}
 
 
 
@@ -33,7 +33,7 @@
             %option{:value => n}= n
 
 
-      %input{:type => 'submit', :value => 'Update'}
+      %input{:type => 'submit', :value => 'Update', :class => 'app-submit'}
 #app-uris
   %strong Uris:
   - @app.uris.each do |uri|
