@@ -13,4 +13,11 @@
         .pure-menu-heading.custom-heading Login
 
     .content.minimal-width
+      - if flash? :alert
+        #flash-error
+          = flash :alert
+      - else
+        #flash-error
+          = flash :notice
+
       = content

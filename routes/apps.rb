@@ -8,7 +8,6 @@ class Apps < Cuba
   define do
     on get do
       load_app
-
       res.write view('apps/show')
     end
 
@@ -17,6 +16,16 @@ class Apps < Cuba
       @app.started? ? @app.stop! : @app.start!
 
       res.redirect "/spaces/#{@space.name}/apps"
+    end
+
+    on post, param('instances') do |instances|
+      load_app
+      @app.total_instances = instances.to_i
+      @app.update!
+
+      set_flash! 'Update successful'
+      res.redirect "/spaces/#{@space.name}/apps/#{@app.name}"
+
     end
   end
 end

@@ -12,7 +12,13 @@
 #app-instances
   %strong Instances: 
   = @app.instances.size
-  
+  #instance-quota
+    %form{:action => app_path(@space, @app), :method => 'post'}
+
+      %select{:name => 'instances'}
+        - 20.times do |n|
+          %option{:value => n}= n
+      %input{:type => 'submit', :value => 'Update'}
 #app-uris
   %strong Uris: 
   - @app.uris.each do |uri|

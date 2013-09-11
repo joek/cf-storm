@@ -16,4 +16,13 @@ scope do
     assert find("#app-url-#{@app.name}")['href'] == "http://#{@app.url}"
   end
 
+  test 'should be able to change number of instances' do
+    find("#app-details-#{@app.guid}").click
+    within '#instance-quota' do
+      select '8', :from => 'instances'
+      click_on 'Update'
+    end
+    assert has_content? 'Update successful'
+  end
+
 end

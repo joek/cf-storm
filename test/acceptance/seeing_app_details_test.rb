@@ -10,4 +10,5 @@ scope do
     find("#app-details-#{@app.guid}").click
     assert_app_details @app
   end
+
 end

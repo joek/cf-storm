@@ -1,7 +1,7 @@
 class FakeClient
 
   Struct.new("Space", :name, :apps, :guid)
-  Struct.new("App", :name, :state, :memory, :instances, :uris, :url, :guid)
+  Struct.new("App", :name, :state, :memory, :instances, :uris, :url, :guid, :total_instances)
   Struct.new("Token", :auth_header, :refresh_token)
   Struct.new("Organization", :name, :spaces)
 
@@ -17,6 +17,11 @@ class FakeClient
     def start!
       self.state = 'STARTED'
     end
+
+    def update!(ret_value = true)
+      ret_value
+    end
+
   end
 
   def login(credentials)
@@ -49,7 +54,7 @@ class FakeClient
     @@_apps ||=
     ["Windows 8", "Win95", "DOS"].map do |a|
       Struct::App.new a, 'STARTED', 128,
-       ['LOL INSTANACE', 'LOLOLOL'], ['mswin.run.io'], 'mswin.run.io', Digest::MD5.hexdigest(a)
+       ['LOL INSTANACE', 'LOLOLOL'], ['mswin.run.io'], 'mswin.run.io', Digest::MD5.hexdigest(a), 1
     end
 
     @@_apps
