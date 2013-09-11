@@ -35,4 +35,16 @@ scope do
       current_user.spaces.each{|s| find("#space-#{s.guid}")}
     end
   end
+
+  test 'Given I have some spaces and I select one from the list ' +
+       'it should be shown as current space' do
+
+    space = current_user.spaces[1]
+
+    with_hidden_elements do
+      click_link "#{space.name}"
+      puts find('#current-space').text
+      assert find('#current-space').text == space.name
+    end
+  end
  end
