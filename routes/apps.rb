@@ -9,14 +9,14 @@ class Apps < Cuba
     on get do
       load_app
 
-      res.write view('apps/show', :app => @app )
+      res.write view('apps/show')
     end
 
     on post, param('state') do |state|
       load_app
       @app.started? ? @app.stop! : @app.start!
 
-      res.redirect "/spaces/#{vars[:space_name]}/apps"
+      res.redirect "/spaces/#{@space.name}/apps"
     end
   end
 end
