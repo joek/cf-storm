@@ -19,7 +19,10 @@ class FakeClient
     end
 
     def update!
-      self.total_instances > 10 ? raise(CFoundry::InstancesError) : true
+      success = false
+      self.total_instances > 10 ? raise(CFoundry::InstancesError) : success = true
+      self.memory > 1024 ? raise(CFoundry::AppMemoryQuotaExceeded) : success = true
+      return success
     end
 
   end

@@ -1,30 +1,40 @@
 %h2.content-subhead.custom-content-subhead= "#{@app.name}'s details"
 
-
 #app-state
-  %strong State: 
+  %strong State:
   = @app.state
 
 #app-memory
   %strong Memory:
   = @app.memory
+  #app-mem-form
+    %form{:action => app_path(@space, @app), :method => 'post'}
+      %select{:name => 'memory'}
+        - (7..14).each do |mem|
+          - if 2**mem == @app.memory
+            %option.current-app-mem{:value => 2**mem, :selected => true}= 2**mem
+          - else
+            %option{:value => 2**mem}= 2**mem
+      %input{:type => 'submit', :value => 'Update'}
+
+
 
 #app-instances
-  %strong Instances: 
+  %strong Instances:
   = @app.total_instances
   #instance-quota
     %form{:action => app_path(@space, @app), :method => 'post'}
 
       %select{:name => 'instances'}
         - 20.times do |n|
-          - if n == @app.total_instances 
-            %option.current-instances{:value => n, :selected => true}= n 
-          - else  
+          - if n == @app.total_instances
+            %option.current-instances{:value => n, :selected => true}= n
+          - else
             %option{:value => n}= n
 
-          
+
       %input{:type => 'submit', :value => 'Update'}
 #app-uris
-  %strong Uris: 
+  %strong Uris:
   - @app.uris.each do |uri|
     = uri

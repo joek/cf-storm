@@ -29,5 +29,17 @@ class Apps < Cuba
       end
       res.redirect "/spaces/#{@space.name}/apps/#{@app.name}"
     end
+
+    on post, param('memory') do |memory|
+      load_app
+      @app.memory = memory.to_i
+      begin
+        @app.update!
+        set_flash! 'Update successful'
+      rescue CFoundry::AppMemoryQuotaExceeded
+        set_flash! 'Update failed', :alert
+      end
+      res.redirect "/spaces/#{@space.name}/apps/#{@app.name}"
+    end
   end
 end

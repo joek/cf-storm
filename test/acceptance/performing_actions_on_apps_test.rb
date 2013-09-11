@@ -39,6 +39,35 @@ scope do
     end
 
     assert has_content? 'Update failed'
+    assert find('.current-instances').value.to_i == @app.total_instances
+
+    # This is needed because we don't implement the array of instances
+    # to provide this value, and instances are 11 after last test, this
+    # makes fail the next one
+    @app.total_instances = 8
   end
 
+  test 'should be able to change ammount of memory of an app' do
+    find("#app-details-#{@app.guid}").click
+    within('#app-mem-form') do
+      assert find('.current-app-mem').value.to_i == @app.memory
+
+      select '1024', :from => 'memory'
+      click_on 'Update'
+    end
+    assert has_content? 'Update successful'
+  end
+
+  # Mem limit is 2048
+  test 'should not update memory if excedes limit' do
+    find("#app-details-#{@app.guid}").click
+    within('#app-mem-form') do
+      assert find('.current-app-mem').value.to_i == @app.memory
+
+      select '4096', :from => 'memory'
+      click_on 'Update'
+    end
+    assert has_content? 'Update failed'
+    @app.memory = 128
+  end
 end
