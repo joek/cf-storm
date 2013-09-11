@@ -19,9 +19,12 @@ scope do
   test 'should be able to change number of instances' do
     find("#app-details-#{@app.guid}").click
     within '#instance-quota' do
+      assert find('.current-instances').value.to_i == @app.total_instances
+
       select '8', :from => 'instances'
       click_on 'Update'
     end
+
     assert has_content? 'Update successful'
   end
 

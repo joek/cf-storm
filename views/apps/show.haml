@@ -17,7 +17,12 @@
 
       %select{:name => 'instances'}
         - 20.times do |n|
-          %option{:value => n}= n
+          - if n == @app.total_instances 
+            %option.current-instances{:value => n, :selected => true}= n 
+          - else  
+            %option{:value => n}= n
+
+          
       %input{:type => 'submit', :value => 'Update'}
 #app-uris
   %strong Uris: 
