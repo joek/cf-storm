@@ -7,7 +7,7 @@
   .pure-menu-heading.custom-heading Storm the CF open source console
   %ul.custom-menu
     %li.menu-item
-      #current-space= current_user.spaces.first.name
+      #current-space= @space.name
       %ul#space-menu
         - current_user.spaces.each do |space|
           %li

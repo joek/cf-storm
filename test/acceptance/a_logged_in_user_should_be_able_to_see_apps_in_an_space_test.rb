@@ -43,7 +43,6 @@ scope do
 
     with_hidden_elements do
       click_link "#{space.name}"
-      puts find('#current-space').text
       assert find('#current-space').text == space.name
     end
   end
