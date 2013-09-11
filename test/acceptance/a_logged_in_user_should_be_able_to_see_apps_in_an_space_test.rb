@@ -1,7 +1,10 @@
 scope do
 
-  test 'Given I logged in when there are some apps into the development space' do
+  setup do
     login_user!
+  end
+
+  test 'Given I logged in when there are some apps into the development space' do
     visit '/spaces/development/apps'
 
     assert has_content? "Development's applications"
@@ -14,24 +17,20 @@ scope do
   end
 
   test 'Given I logged in I should see main menu' do
-    login_user!
     assert page.find '#nav-menu'
   end
 
   test 'Given I have an app I should be able to see its state' do
-    login_user!
     visit '/spaces/development/apps'
     assert has_css? '.app-state-started'
   end
 
   test 'Given I logged in I should be able to logout' do
-    login_user!
     click_link 'Logout'
     assert page.find '#new-session'
   end
 
   test 'Given I have some spaces i should be able to list them' do
-    login_user!
     with_hidden_elements do
       current_user.spaces.each{|s| find("#space-#{s.guid}")}
     end
