@@ -11,7 +11,7 @@
 
 #app-instances
   %strong Instances: 
-  = @app.instances.size
+  = @app.total_instances
   #instance-quota
     %form{:action => app_path(@space, @app), :method => 'post'}
 
