@@ -5,7 +5,8 @@
     - @space.apps.each do |app|
       %li
         %i{:class => app_state_icon_class(app)}
-        %a{:href => app_path(@space, app)}= app.name
+        = app.name
+
         #app-actions
           %form{:action => app_path(@space, app), :method => 'post', :class => 'simple-button'}
             %input{:type => 'hidden', :value => 'put', :name => '_method'}
@@ -17,6 +18,8 @@
 
           %a{:href => "http://#{app.url}", :id => "app-url-#{app.name}", :target => '_blank'}    
             %i.icon-signout.icon-border
-  
-          %i.icon-cog.icon-border
-          %i.icon-trash.icon-border
+              
+          %a{:href => app_path(@space, app), :id => "app-details-#{app.guid}"}
+            
+            %i.icon-cog.icon-border
+ 

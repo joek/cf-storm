@@ -1,7 +1,7 @@
 class FakeClient
 
   Struct.new("Space", :name, :apps, :guid)
-  Struct.new("App", :name, :state, :memory, :instances, :uris, :url)
+  Struct.new("App", :name, :state, :memory, :instances, :uris, :url, :guid)
   Struct.new("Token", :auth_header, :refresh_token)
   Struct.new("Organization", :name, :spaces)
 
@@ -49,7 +49,7 @@ class FakeClient
     @@_apps ||=
     ["Windows 8", "Win95", "DOS"].map do |a|
       Struct::App.new a, 'STARTED', 128,
-       ['LOL INSTANACE', 'LOLOLOL'], ['mswin.run.io'], 'mswin.run.io'
+       ['LOL INSTANACE', 'LOLOLOL'], ['mswin.run.io'], 'mswin.run.io', Digest::MD5.hexdigest(a)
     end
 
     @@_apps

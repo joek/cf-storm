@@ -15,4 +15,5 @@ scope do
   test 'should be able to visit the app url' do
     assert find("#app-url-#{@app.name}")['href'] == "http://#{@app.url}"
   end
+
 end
