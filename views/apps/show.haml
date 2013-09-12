@@ -39,6 +39,13 @@
   - @app.uris.each do |uri|
     = uri
 
+#app-destroy-form
+  %form{:action => app_path(@space, @app), :method => 'post'}
+    %input{:type => 'hidden', :value => 'delete', :name => '_method'}
+    %input{:type => 'text', :name => 'app_name'}
+    %input{:type => 'submit', :value => 'Destroy'}
+
+
 #app-stats
   %ul
     - @stats.each do |instance_id, app_stat|

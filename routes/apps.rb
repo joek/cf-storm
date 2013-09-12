@@ -42,5 +42,15 @@ class Apps < Cuba
       end
       res.redirect "/spaces/#{@space.name}/apps/#{@app.name}"
     end
+
+    on delete, param('app_name') do |app_name|
+      load_app
+      if app_name == @app.name
+        @app.destroy ? set_flash("#{@app.name} destroyed") : set_flash("#{@app.name} was not destroyed, a problem occured")
+        res.redirect "/spaces/#{@space.name}/apps"
+      else
+        res.write "/space/#{@space.name}/apps/#{@apps.name}"
+      end
+    end
   end
 end
