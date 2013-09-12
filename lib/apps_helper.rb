@@ -16,4 +16,10 @@ module AppsHelper
     mega_bytes = (bytes / 1024.0) / 1024.0
     "%.2f MB" % mega_bytes
   end
+
+  def human_time seconds
+    days       = seconds / 86400
+    remaining  = seconds % 86400
+    "#{days} days #{Time.at(remaining).gmtime.strftime('%R:%S')}"
+  end
 end

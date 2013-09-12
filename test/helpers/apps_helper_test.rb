@@ -14,4 +14,9 @@ scope do
   test 'should humanize memory amount' do
     assert req.to_megabytes(19628032) == '18.72 MB'
   end
+
+  test 'should convert seconds in days hours:mins:secs' do
+    assert req.human_time(17288000) == '200 days 02:13:20'
+  end
+
 end

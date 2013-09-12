@@ -16,11 +16,13 @@ scope do
     expected_cpu_usage  = req.cpu_usage(@app.stats['0'][:stats][:usage][:cpu])
     expected_mem_usage  = req.to_megabytes(@app.stats['0'][:stats][:usage][:mem])
     expected_disk_usage = req.to_megabytes(@app.stats['0'][:stats][:usage][:disk])
+    expected_uptime     = req.human_time(@app.stats['0'][:stats][:uptime])
 
     within('#app-stats') do
       assert find('.cpu-usage').text == expected_cpu_usage
       assert find('.mem-usage').text == expected_mem_usage
       assert find('.disk-usage').text == expected_disk_usage
+      assert find('.uptime').text == expected_uptime
     end
 
   end
