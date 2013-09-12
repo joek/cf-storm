@@ -49,3 +49,4 @@
           %li.mem-usage= to_megabytes(app_stat[:stats][:usage][:mem])
           %li.disk-usage= to_megabytes(app_stat[:stats][:usage][:disk])
           %li.uptime= human_time(app_stat[:stats][:uptime])
+          %li.instance-state= app_stat[:state]

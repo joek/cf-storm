@@ -23,6 +23,7 @@ scope do
       assert find('.mem-usage').text == expected_mem_usage
       assert find('.disk-usage').text == expected_disk_usage
       assert find('.uptime').text == expected_uptime
+      assert find('.instance-state').text == @app.stats['0'][:state]
     end
 
   end
