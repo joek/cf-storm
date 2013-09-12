@@ -11,4 +11,9 @@ module AppsHelper
   def cpu_usage number
     "%.2f%" % number
   end
+
+  def mem_usage bytes
+    mega_bytes = (bytes / 1024.0) / 1024.0
+    "%.2f MB" % mega_bytes
+  end
 end
