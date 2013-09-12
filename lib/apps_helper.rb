@@ -7,4 +7,8 @@ module AppsHelper
   def app_state_class app
     app.started? ? "stop-#{app.name}" : "start-#{app.name}"
   end
+
+  def cpu_usage number
+    "%.2f%" % number
+  end
 end

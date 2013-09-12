@@ -8,6 +8,7 @@ class Apps < Cuba
   define do
     on get do
       load_app
+      @stats = @app.stats
       res.write view('apps/show')
     end
 

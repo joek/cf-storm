@@ -19,10 +19,20 @@ class FakeClient
     end
 
     def update!
-      success = false
-      self.total_instances > 10 ? raise(CFoundry::InstancesError) : success = true
-      self.memory > 1024 ? raise(CFoundry::AppMemoryQuotaExceeded) : success = true
-      return success
+      raise CFoundry::InstancesError if self.total_instances > 10
+      raise CFoundry::AppMemoryQuotaExceeded if self.memory > 1024
+      return true
+    end
+
+    def stats
+      {"0" => {:state => "RUNNING", :stats => {
+            :uptime => 111,
+            :mem_quota => 134217728,
+            :disk_quota => 1073741824,
+            :usage => {:time => "2013-09-12 14:58:33 +0000",
+              :cpu => 2.2491581771068845e-05,
+              :mem => 19628032,
+              :disk => 55828480}}}}
     end
 
   end

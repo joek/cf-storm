@@ -38,3 +38,11 @@
   %strong Uris:
   - @app.uris.each do |uri|
     = uri
+
+#app-stats
+  %ul
+    - @stats.each do |instance_id, app_stat|
+      %li
+        %ul
+          %li
+            .cpu-usage= cpu_usage(app_stat[:stats][:usage][:cpu])

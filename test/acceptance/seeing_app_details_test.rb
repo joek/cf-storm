@@ -11,4 +11,11 @@ scope do
     assert_app_details @app
   end
 
+  test 'Given I have an app I should be able to see its stats' do
+    find("#app-details-#{@app.guid}").click
+    expected_cpu_usage = req.cpu_usage(@app.stats['0'][:stats][:usage][:cpu])
+
+    assert find('#app-stats').find('.cpu-usage').text == expected_cpu_usage
+  end
+
 end
