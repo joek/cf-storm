@@ -46,4 +46,5 @@
         %ul
           %li= instance_id
           %li.cpu-usage= cpu_usage(app_stat[:stats][:usage][:cpu])
-          %li.mem-usage= mem_usage(app_stat[:stats][:usage][:mem])
+          %li.mem-usage= to_megabytes(app_stat[:stats][:usage][:mem])
+          %li.disk-usage= to_megabytes(app_stat[:stats][:usage][:disk])

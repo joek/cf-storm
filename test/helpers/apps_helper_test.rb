@@ -12,6 +12,6 @@ scope do
   end
 
   test 'should humanize memory amount' do
-    assert req.mem_usage(19628032) == '18.72 MB'
+    assert req.to_megabytes(19628032) == '18.72 MB'
   end
 end

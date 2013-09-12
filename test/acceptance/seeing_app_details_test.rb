@@ -13,12 +13,14 @@ scope do
 
   test 'Given I have an app I should be able to see its stats' do
     find("#app-details-#{@app.guid}").click
-    expected_cpu_usage = req.cpu_usage(@app.stats['0'][:stats][:usage][:cpu])
-    expected_mem_usage = req.mem_usage(@app.stats['0'][:stats][:usage][:mem])
+    expected_cpu_usage  = req.cpu_usage(@app.stats['0'][:stats][:usage][:cpu])
+    expected_mem_usage  = req.to_megabytes(@app.stats['0'][:stats][:usage][:mem])
+    expected_disk_usage = req.to_megabytes(@app.stats['0'][:stats][:usage][:disk])
 
     within('#app-stats') do
       assert find('.cpu-usage').text == expected_cpu_usage
       assert find('.mem-usage').text == expected_mem_usage
+      assert find('.disk-usage').text == expected_disk_usage
     end
 
   end
