@@ -28,8 +28,6 @@
                       %option{:value => 2**mem}= 2**mem
                 %button.btn{:type => 'submit'} Update
 
-
-
       #app-instances
         #instance-quota
           %form{:action => app_path(@space, @app), :method => 'post'}
@@ -42,17 +40,15 @@
                   - else
                     %option{:value => n}= n
               %button.btn{:type => 'submit'} Update
-
-        #app-uris
-          %strong Uris:
-          - @app.uris.each do |uri|
-            = uri
-
     %hr
-
       #app-destroy-form.well
         %h4 Danger Zone
         %hr
+        %p
+          In order to destroy an app, you should input its name on the
+          following box. Only if the name is correct, the application will be
+          destroyed from the space.
+          %b This change can't be undone.
         %form{:action => app_path(@space, @app), :method => 'post'}
           %input{:type => 'hidden', :value => 'delete', :name => '_method'}
           .input-prepend.input-append
@@ -75,8 +71,24 @@
         - @stats.each do |instance_id, app_stat|
           %tr
             %td= instance_id
-            %td.cpu-usage= cpu_usage(app_stat[:stats][:usage][:cpu])
-            %td.mem-usage= to_megabytes(app_stat[:stats][:usage][:mem])
-            %td.disk-usage= to_megabytes(app_stat[:stats][:usage][:disk])
-            %td.uptime= human_time(app_stat[:stats][:uptime])
-            %td.instance-state= app_stat[:state]
+            - if app_stat.keys.include? :stats
+              %td.cpu-usage= cpu_usage(app_stat[:stats][:usage][:cpu])
+              %td.mem-usage= to_megabytes(app_stat[:stats][:usage][:mem])
+              %td.disk-usage= to_megabytes(app_stat[:stats][:usage][:disk])
+              %td.uptime= human_time(app_stat[:stats][:uptime])
+            - else
+              %td.cpu-usage -
+              %td.mem-usage -
+              %td.disk-usage -
+              %td.uptime -
+            %td.instance-state
+              %span{:class => instance_status_class(app_stat)}= app_stat[:state]
+    %hr
+      #app-uris.well
+        %h4 URL List
+        %hr
+        %table.table
+          - @app.uris.each do |uri|
+            %tr
+              %td
+                %a{:href => "http://#{uri}", :target => '_blank'}= "http://#{uri}"

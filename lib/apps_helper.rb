@@ -27,4 +27,11 @@ module AppsHelper
     "/spaces/#{space.name}/apps/#{app.name}"
   end
 
+  def instance_status_class instance
+    return 'label label-success' if instance[:state] == 'STARTED'
+    return 'label label-warning' if  instance[:state] == 'RUNNING'
+    return 'label label.important' if instance[:state] == 'STOPPED'
+    return 'label'
+  end
+
 end
