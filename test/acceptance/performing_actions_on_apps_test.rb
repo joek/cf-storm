@@ -5,15 +5,16 @@ scope do
     load_default_space_and_app
   end
 
-  test 'Given Im seeing apps in development space then I should be able
-       to stop an app' do
+  test 'Given Im seeing apps in development space then I ' + 
+       'should be able to stop an app' do
 
     click_on "stop-#{@app.name}"
     assert find("#start-#{@app.name}")
   end
 
   test 'should be able to visit the app url' do
-    assert find("#app-url-#{@app.name}")['href'] == "http://#{@app.url}"
+    app_url_href = find("#app-url-#{@app.name}")['href']
+    assert app_url_href == "http://#{@app.url}"
   end
 
   test 'should be able to change number of instances' do

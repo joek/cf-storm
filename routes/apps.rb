@@ -13,6 +13,14 @@ class Apps < Cuba
       set_flash! 'Update failed', :alert
     end
   end  
+  
+  def destroy_and_set_flash!
+    if @app.destroy
+      set_flash("#{@app.name} destroyed") 
+    else
+      set_flash("#{@app.name} was not destroyed, a problem occured")
+    end  
+  end
 
   define do
     on get do
@@ -44,11 +52,13 @@ class Apps < Cuba
  
       res.redirect "/spaces/#{@space.name}/apps/#{@app.name}"
     end
-
+    
+  
     on delete, param('app_name') do |app_name|
       load_app
+
       if app_name == @app.name
-        @app.destroy ? set_flash("#{@app.name} destroyed") : set_flash("#{@app.name} was not destroyed, a problem occured")
+        destroy_and_set_flash!
         res.redirect "/spaces/#{@space.name}/apps"
       else
         res.write "/space/#{@space.name}/apps/#{@apps.name}"
