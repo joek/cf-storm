@@ -1,22 +1,20 @@
-%script
-  $(document).ready(function() {
-  $('#space-menu').menu();
-  $('#current-space').click(function(){ $('#space-menu').toggle() }) });
-
-%ul#nav-menu.nav.nav-pills
-  %li
-    %a.avatar-button{:href => '#'}
-      %img#user-avatar{:src => user_avatar_path(current_user),
-        :title => "You are logged in as #{current_user.email}"}
-  %li
-    %a{:href => '/sessions/delete'} Logout
-
-  %li.dropdown.pull-right
-    %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-      #current-space= @space.name
-      %strong.caret
-    %ul#space-manu.dropdown-menu
-      - current_user.spaces.each do |space|
-        %li
-          %a{:href => space_path(space), :id => "space-#{space}"}= space.name      
+#nav-menu.navbar.navbar-inverse
+  .navbar-inner
+    %span.brand CF Storm
+    %ul.nav
+      %li.dropdown.pull-right
+        %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+          #current-space
+            = @space.name
+            %strong.caret
+        %ul#space-manu.dropdown-menu
+          - current_user.spaces.each do |space|
+            %li
+              %a{:href => space_path(space), :id => "space-#{space}"}= space.name      
+      %li
+        %a.avatar-button{:href => '#'}
+          %img#user-avatar{:src => user_avatar_path(current_user),
+            :title => "You are logged in as #{current_user.email}"}
+      %li
+        %a{:href => '/sessions/delete'} Logout
 

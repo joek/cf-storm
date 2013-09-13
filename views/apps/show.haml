@@ -1,59 +1,83 @@
-%h2.content-subhead.custom-content-subhead= "#{@app.name}'s details"
+%ul.breadcrumb
+  %li
+    %a{:href => "#"}= @space.name.capitalize
+    %span.divider /
+  %li
+    %a{:href => '#'}= @app.name.capitalize
 
-#app-state
-  %strong State:
-  = @app.state
+.row-fluid
+  .span4
+    .well
+      %h4 
+        Info
+        %span.label.label-success.pull-right
+          = @app.state
 
-#app-memory
-  %strong Memory:
-  = @app.memory
-  #app-mem-form
-    %form{:action => app_path(@space, @app), :method => 'post'}
-      %select{:name => 'memory'}
-        - (7..14).each do |mem|
-          - if 2**mem == @app.memory
-            %option.current-app-mem{:value => 2**mem, :selected => true}= 2**mem
-          - else
-            %option{:value => 2**mem}= 2**mem
-      %input{:type => 'submit', :value => 'Update', :class => 'app-submit'}
-
-
-
-#app-instances
-  %strong Instances:
-  = @app.total_instances
-  #instance-quota
-    %form{:action => app_path(@space, @app), :method => 'post'}
-
-      %select{:name => 'instances'}
-        - 20.times do |n|
-          - if n == @app.total_instances
-            %option.current-instances{:value => n, :selected => true}= n
-          - else
-            %option{:value => n}= n
+      %hr  
+    
+      #app-memory
+        #app-mem-form
+          %form{:action => app_path(@space, @app), :method => 'post'}
+            .input-append
+              .input-prepend.input-append  
+                %span.add-on.span3 Memory
+                %select#appendedInputButton{:name => 'memory'}
+                  - (7..14).each do |mem|
+                    - if 2**mem == @app.memory
+                      %option.current-app-mem{:value => 2**mem, :selected => true}= 2**mem
+                    - else
+                      %option{:value => 2**mem}= 2**mem
+                %button.btn{:type => 'submit'} Update
 
 
-      %input{:type => 'submit', :value => 'Update', :class => 'app-submit'}
-#app-uris
-  %strong Uris:
-  - @app.uris.each do |uri|
-    = uri
 
-#app-destroy-form
-  %form{:action => app_path(@space, @app), :method => 'post'}
-    %input{:type => 'hidden', :value => 'delete', :name => '_method'}
-    %input{:type => 'text', :name => 'app_name'}
-    %input{:type => 'submit', :value => 'Destroy'}
+      #app-instances
+        #instance-quota
+          %form{:action => app_path(@space, @app), :method => 'post'}
+            .input-prepend.input-append  
+              %span.add-on.span3 Instances
+              %select#appendedInputButton{:name => 'instances'}
+                - 20.times do |n|
+                  - if n == @app.total_instances
+                    %option.current-instances{:value => n, :selected => true}= n
+                  - else
+                    %option{:value => n}= n
+              %button.btn{:type => 'submit'} Update
 
+        #app-uris
+          %strong Uris:
+          - @app.uris.each do |uri|
+            = uri
 
-#app-stats
-  %ul
-    - @stats.each do |instance_id, app_stat|
-      %li
-        %ul
-          %li= instance_id
-          %li.cpu-usage= cpu_usage(app_stat[:stats][:usage][:cpu])
-          %li.mem-usage= to_megabytes(app_stat[:stats][:usage][:mem])
-          %li.disk-usage= to_megabytes(app_stat[:stats][:usage][:disk])
-          %li.uptime= human_time(app_stat[:stats][:uptime])
-          %li.instance-state= app_stat[:state]
+    %hr
+
+      #app-destroy-form.well
+        %h4 Danger Zone
+        %hr
+        %form{:action => app_path(@space, @app), :method => 'post'}
+          %input{:type => 'hidden', :value => 'delete', :name => '_method'}
+          .input-prepend.input-append  
+            %span.add-on.span3 App name
+            %input{:type => 'text', :name => 'app_name'}
+            %button.btn.btn-danger{:type => 'submit'} Delete
+
+  .span8
+    #app-stats.well
+      %h4 Stats
+      %hr
+      %table.table
+        %tr 
+          %th Instance Id
+          %th Cpu Usage
+          %th Memory
+          %th Disk Usage
+          %th Uptime
+          %th State
+        - @stats.each do |instance_id, app_stat|
+          %tr
+            %td= instance_id
+            %td.cpu-usage= cpu_usage(app_stat[:stats][:usage][:cpu])
+            %td.mem-usage= to_megabytes(app_stat[:stats][:usage][:mem])
+            %td.disk-usage= to_megabytes(app_stat[:stats][:usage][:disk])
+            %td.uptime= human_time(app_stat[:stats][:uptime])
+            %td.instance-state= app_stat[:state]

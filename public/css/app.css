@@ -10,54 +10,6 @@
   background: rgb(28, 184, 65); /* this is a green */
 }
 
-#apps-list ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-#apps-list ul li {
-  border-bottom: 1px solid silver;
-  padding-bottom: 7px;
-
-}
-
-#app-actions {
-  float: right;
-}
-
-.app-action {
-  margin-left: 10px;
-}
-
-.custom-header {
-  border: none;
-  width: 70%;
-  margin: auto;
-  min-height: 35px;
-  padding: 0 0 9px;
-  background-color: #E8F9E5;
-  border-radius: 0 0 14px 14px;
-}
-
-.custom-content-subhead {
-  background-color: #CDF6EB;
-  border-radius: 6px 6px 6px 6px;
-  margin: 15px 0 20px !important;
-  padding: 5px;
-  z-index: 1 !important;
-}
-
-.custom-heading {
-  float: left;
-  margin-top: 6px !important;
-  padding-left: 8px !important;
-}
-
-.custom-menu {
-  float: right;
-  margin-right: 10px !important;
-  list-style: none;
-}
 
 #user-avatar {
   border-radius: 15px;
@@ -65,34 +17,4 @@
 
 .avatar-button {
   padding: 4px 7px 0 7px !important;
-}
-
-.minimal-width {
-  min-width: 1073px
-}
-
-.app-state-started {
-  color: white;
-  background-color: green;
-}
-
-.app-state-stopped {
-  color: white;
-  background-color: red;
-
-}
-
-.menu-item {
-  float: left;
-  margin-right: 10px;
-  position: relative;
-  z-index: 10;
-}
-
-#space-menu {
-  display: none;
-}
-
-.simple-button {
-  float: left;
 }
