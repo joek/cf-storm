@@ -78,8 +78,10 @@ scope do
       fill_in 'app_name', :with => @app.name
       click_button 'Destroy'
     end
+
     assert has_content? "#{@app.name} destroyed"
-    assert has_no_content? @app.name
-    assert has_content? '#apps-list'
+    within '#apps-list' do
+      assert has_no_content? @app.name
+    end
   end
 end

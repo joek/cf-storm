@@ -15,10 +15,10 @@ class Apps < Cuba
   end  
   
   def destroy_and_set_flash!
-    if @app.destroy
-      set_flash("#{@app.name} destroyed") 
+    if @app.delete
+      set_flash! "#{@app.name} destroyed" 
     else
-      set_flash("#{@app.name} was not destroyed, a problem occured")
+      set_flash! "#{@app.name} was not destroyed, a problem occured"
     end  
   end
 
@@ -54,7 +54,7 @@ class Apps < Cuba
     end
     
   
-    on delete, param('app_name') do |app_name|
+    on post, param('app_name') do |app_name|
       load_app
 
       if app_name == @app.name

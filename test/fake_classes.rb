@@ -1,5 +1,5 @@
 class FakeClient
-
+  
   Struct.new("Space", :name, :apps, :guid)
   Struct.new("App", :name, :state, :memory, :instances, :uris, :url, :guid, :total_instances)
   Struct.new("Token", :auth_header, :refresh_token)
@@ -17,13 +17,17 @@ class FakeClient
     def start!
       self.state = 'STARTED'
     end
+    
+    def delete
+      FakeClient.apps.delete_if{|a| a.name == self.name}
+    end  
 
     def update!
       raise CFoundry::InstancesError if self.total_instances > 10
       raise CFoundry::AppMemoryQuotaExceeded if self.memory > 1024
       return true
     end
-
+    
     def stats
       {"0" => {:state => "RUNNING", :stats => {
             :uptime => 111,
@@ -36,6 +40,7 @@ class FakeClient
     end
 
   end
+
 
   def login(credentials)
     valid_usernames = ['manuel.garcia@altoros.com']
@@ -62,7 +67,11 @@ class FakeClient
 
     @@_spaces
   end
-
+  
+  def self.apps
+    @@_apps
+  end
+  
   def apps
     @@_apps ||=
     ["Windows 8", "Win95", "DOS"].map do |a|
