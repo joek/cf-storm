@@ -8,6 +8,8 @@ end
 class FakeReq
   include UserHelper
   include AppsHelper
+  include SpaceHelper
+  include Helper
 
   def session
     { 'current_user_id' => 1}

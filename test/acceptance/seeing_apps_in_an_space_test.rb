@@ -42,8 +42,10 @@ scope do
     space = current_user.spaces[1]
 
     with_hidden_elements do
-      click_link "#{space.name}"
-      assert find('#current-space').text == space.name
+      within("#nav-menu") do
+        click_on "space-#{space.guid}"
+      end
+      assert find('#current-space').text == req.space_human_name(space)
     end
   end
  end

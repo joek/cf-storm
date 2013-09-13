@@ -22,4 +22,9 @@ module AppsHelper
     remaining  = seconds % 86400
     "#{days} days #{Time.at(remaining).gmtime.strftime('%R:%S')}"
   end
+
+  def app_path space, app
+    "/spaces/#{space.name}/apps/#{app.name}"
+  end
+
 end

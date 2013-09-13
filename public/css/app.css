@@ -6,15 +6,14 @@
   background-color: red;
 }
 
-.pure-button-success {
-  background: rgb(28, 184, 65); /* this is a green */
-}
-
-
 #user-avatar {
   border-radius: 15px;
 }
 
 .avatar-button {
   padding: 4px 7px 0 7px !important;
+}
+
+.body-custom {
+  padding-top: 56px
 }

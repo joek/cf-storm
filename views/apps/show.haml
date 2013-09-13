@@ -1,9 +1,9 @@
 %ul.breadcrumb
   %li
-    %a{:href => "#"}= @space.name.capitalize
+    %a{:href => space_path(@space)}= space_human_name(@space)
     %span.divider /
   %li
-    %a{:href => '#'}= @app.name.capitalize
+    %a{:href => app_path(@space, @app)}= @app.name.capitalize
 
 .row-fluid
   .span4

@@ -1,19 +1,20 @@
-#nav-menu.navbar.navbar-inverse
+#nav-menu.navbar.navbar-inverse.navbar-fixed-top
   .navbar-inner
-    %span.brand CF Storm
-    %ul.nav
-      %li.dropdown.pull-right
-        %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-          #current-space
-            = @space.name
-            %strong.caret
-        %ul#space-manu.dropdown-menu
-          - current_user.spaces.each do |space|
-            %li
-              %a{:href => space_path(space), :id => "space-#{space.guid}"}= space.name
-      %li
-        %a.avatar-button{:href => '#'}
-          %img#user-avatar{:src => user_avatar_path(current_user),
-            :title => "You are logged in as #{current_user.email}"}
-      %li
-        %a{:href => '/sessions/delete'} Logout
+    .container
+      %span.brand CF Storm
+      %ul.nav
+        %li.dropdown.pull-right
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            #current-space
+              = space_human_name(@space)
+              %strong.caret
+          %ul#space-manu.dropdown-menu
+            - current_user.spaces.each do |space|
+              %li
+                %a{:href => space_path(space), :id => "space-#{space.guid}"}= space_human_name(@space)
+        %li
+          %a.avatar-button{:href => '#'}
+            %img#user-avatar{:src => user_avatar_path(current_user),
+              :title => "You are logged in as #{current_user.email}"}
+        %li
+          %a{:href => '/sessions/delete'} Logout

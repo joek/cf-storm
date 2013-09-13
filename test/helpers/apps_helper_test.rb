@@ -19,4 +19,10 @@ scope do
     assert req.human_time(17288000) == '200 days 02:13:20'
   end
 
+  test 'should return app path' do
+    @space = FakeClient.new.spaces.first
+    @app = @space.apps.first
+    assert req.app_path(@space, @app) == "/spaces/#{@space.name}/apps/#{@app.name}"
+  end
+
 end

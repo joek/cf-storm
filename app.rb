@@ -28,6 +28,7 @@ Cuba.use Rack::Protection::RemoteReferrer
 Cuba.plugin UserHelper
 Cuba.plugin Helper
 Cuba.plugin AppsHelper
+Cuba.plugin SpaceHelper
 
 Ohm.connect(url: Settings::REDIS_URL)
 

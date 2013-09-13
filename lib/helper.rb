@@ -11,10 +11,6 @@ module Helper
     kind ? session_flash.keys.include?(kind) : session_flash.keys.any?
   end
 
-  def app_path space, app
-    "/spaces/#{space.name}/apps/#{app.name}"
-  end
-
   def organization_path org
     "/organizations/#{org.name}"
   end

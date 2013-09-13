@@ -1,9 +1,6 @@
 %ul.breadcrumb
   %li
-    %a{:href => "#"}= @space.name.capitalize
-    /%span.divider /
-
-
+    %a{:href => space_path(@space)}= space_human_name(@space)
 
 %table#apps-list.table.table-striped
   %tbody
@@ -20,9 +17,10 @@
               .btn-group
                 %button{:type => 'submit',
                    :id => app_state_class(app),
-                   :class => 'btn btn-warning'}
+                   :class => 'btn btn-warning',
+                   :title => 'Start/Stop Application'}
                   %i.icon-off
-                %a{:href => "http://#{app.url}", :id => "app-url-#{app.name}", :target => '_blank', :class => 'btn'}
+                %a{:href => "http://#{app.url}", :id => "app-url-#{app.name}", :target => '_blank', :class => 'btn', :title => "Visit application's first url"}
                   %i.icon-share-alt
-                %a{:href => app_path(@space, app), :id => "app-details-#{app.guid}", :class => 'btn'}
+                %a{:href => app_path(@space, app), :id => "app-details-#{app.guid}", :class => 'btn', :title => 'View application details'}
                   %i.icon-cog
