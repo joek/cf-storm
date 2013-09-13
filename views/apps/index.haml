@@ -1,25 +1,32 @@
-%h2.content-subhead.custom-content-subhead= "#{@space.name.capitalize}'s applications"
+%ul.breadcrumb
+  %li
+    %a{:href => "#"}= "#{@space.name.capitalize}'s applications"
+    /%span.divider /
+
+
 
 #apps-list
-  %ul
-    - @space.apps.each do |app|
-      %li
-        %i{:class => app_state_icon_class(app)}
-        = app.name
+  %table#apps-list.table.table-striped
+    %tbody
+      - @space.apps.each do |app|
+        %tr
+          %td
+            %i{:class => app_state_icon_class(app)}
+            = app.name
+          %td
+            #app-actions
+              %form{:action => app_path(@space, app), :method => 'post', :class => 'simple-button'}
+                %input{:type => 'hidden', :value => 'put', :name => '_method'}
+                %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
+                %input{:type => 'submit',
+                   :id => app_state_class(app),
+                   :value => 'stop'}
+                  //%span.icon-power-off.icon-border
 
-        #app-actions
-          %form{:action => app_path(@space, app), :method => 'post', :class => 'simple-button'}
-            %input{:type => 'hidden', :value => 'put', :name => '_method'}
-            %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
-            %input{:type => 'submit',
-               :id => app_state_class(app),
-               :value => 'stop'}
-              //%span.icon-power-off.icon-border
+              %a{:href => "http://#{app.url}", :id => "app-url-#{app.name}", :target => '_blank'}    
+                %i.icon-signout.icon-border
 
-          %a{:href => "http://#{app.url}", :id => "app-url-#{app.name}", :target => '_blank'}    
-            %i.icon-signout.icon-border
-              
-          %a{:href => app_path(@space, app), :id => "app-details-#{app.guid}"}
-            
-            %i.icon-cog.icon-border
- 
+              %a{:href => app_path(@space, app), :id => "app-details-#{app.guid}"}
+
+                %i.icon-cog.icon-border
+

@@ -1,23 +1,26 @@
 !!!
-%html
+%html{:lang => "en"}
   %head
-    %title= 'Storm the CF OpenSource Console'
-    
     = partial 'shared/header'
 
   %body
-    .header.custom-header.minimal-width
-      - if current_user
-        = partial 'shared/nav-menu'
-      - else
-        .pure-menu-heading.custom-heading Login
+    .container-fluid
+      .row-fluid
+        .span12
 
-    .content.minimal-width
-      - if flash? :alert
-        #flash-error
-          = flash :alert
-      - else
-        #flash-error
-          = flash :notice
 
-      = content
+          .header.custom-header.minimal-width
+            - if current_user
+              = partial 'shared/nav-menu'
+            - else
+              .pure-menu-heading.custom-heading Login
+
+          .content.minimal-width
+            - if flash? :alert
+              #flash-error
+                = flash :alert
+            - else
+              #flash-error
+                = flash :notice
+
+            = content

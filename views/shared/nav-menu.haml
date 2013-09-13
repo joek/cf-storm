@@ -3,21 +3,20 @@
   $('#space-menu').menu();
   $('#current-space').click(function(){ $('#space-menu').toggle() }) });
 
-#nav-menu
-  .pure-menu-heading.custom-heading Storm the CF open source console
-  %ul.custom-menu
-    %li.menu-item
-      #current-space= @space.name
-      %ul#space-menu
-        - current_user.spaces.each do |space|
-          %li
-            %a{:href => space_path(space), :id => "space-#{space.guid}"}= space.name
+%ul#nav-menu.nav.nav-pills
+  %li
+    %a.avatar-button{:href => '#'}
+      %img#user-avatar{:src => user_avatar_path(current_user),
+        :title => "You are logged in as #{current_user.email}"}
+  %li
+    %a{:href => '/sessions/delete'} Logout
 
-    %li.menu-item
-      %a{:href => '#'} About
-    %li.menu-item
-      %a.avatar-button{:href => '#'}
-        %img#user-avatar{:src => user_avatar_path(current_user),
-          :title => "You are logged in as #{current_user.email}"}
-    %li.menu-item
-      %a{:href => '/sessions/delete'} Logout
+  %li.dropdown.pull-right
+    %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+      #current-space= @space.name
+      %strong.caret
+    %ul#space-manu.dropdown-menu
+      - current_user.spaces.each do |space|
+        %li
+          %a{:href => space_path(space), :id => "space-#{space}"}= space.name      
+
