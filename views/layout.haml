@@ -12,9 +12,7 @@
           .header.custom-header.minimal-width
             - if current_user
               = partial 'shared/nav-menu'
-            - else
-              .pure-menu-heading.custom-heading Login
-
+  
           .content.minimal-width
             - if flash? :alert
               #flash-error

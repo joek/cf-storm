@@ -2,18 +2,18 @@
   #flash-error
     = flash :alert
 
-%form.pure-form.pure-form-aligned{:name => 'session', :id => 'new-session',
-      :action => '/sessions', :method => 'post'}
+%br
+.well.span3.offset4
+  %h4 Login
+  %hr
+  %form.pure-form.pure-form-aligned{:name => 'session', :id => 'new-session',
+        :action => '/sessions', :method => 'post'}
 
-  %fieldset
-    .pure-control-group
-
+    %fieldset
       %label{:for => "email"} Email
-      %input{:type => "email", :name => "email", :placeholder => "Email"}
+      %input.span12{:type => "email", :name => "email", :placeholder => "Email"}
 
-    .pure-control-group    
       %label{:for => "password"} Password
-      %input{:type => "password", :name => "password", :placeholder => "Password"}
+      %input.span12{:type => "password", :name => "password", :placeholder => "Password"}
 
-    .pure-controls    
-      %input.pure-button.pure-button-primary{:type => "submit", :value => "Sign in", :class => "button"}
+      %input.btn{:type => "submit", :value => "Sign in"}
