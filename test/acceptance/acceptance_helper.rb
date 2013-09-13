@@ -15,7 +15,7 @@ def login_user!
 end
 
 def assert_app_details app
-  assert has_content? app.name
+  assert has_content? app.name.capitalize
   assert has_content? app.state
   assert has_content? app.memory
   assert has_content? app.instances.size

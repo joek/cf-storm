@@ -10,11 +10,10 @@
         %ul#space-manu.dropdown-menu
           - current_user.spaces.each do |space|
             %li
-              %a{:href => space_path(space), :id => "space-#{space}"}= space.name      
+              %a{:href => space_path(space), :id => "space-#{space.guid}"}= space.name
       %li
         %a.avatar-button{:href => '#'}
           %img#user-avatar{:src => user_avatar_path(current_user),
             :title => "You are logged in as #{current_user.email}"}
       %li
         %a{:href => '/sessions/delete'} Logout
-

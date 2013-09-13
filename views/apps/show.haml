@@ -8,17 +8,17 @@
 .row-fluid
   .span4
     .well
-      %h4 
+      %h4
         Info
         %span.label.label-success.pull-right
           = @app.state
-      %hr  
-    
+      %hr
+
       #app-memory
         #app-mem-form
           %form{:action => app_path(@space, @app), :method => 'post'}
             .input-append
-              .input-prepend.input-append  
+              .input-prepend.input-append
                 %span.add-on.span3 Memory
                 %select#appendedInputButton{:name => 'memory'}
                   - (7..14).each do |mem|
@@ -33,7 +33,7 @@
       #app-instances
         #instance-quota
           %form{:action => app_path(@space, @app), :method => 'post'}
-            .input-prepend.input-append  
+            .input-prepend.input-append
               %span.add-on.span3 Instances
               %select#appendedInputButton{:name => 'instances'}
                 - 20.times do |n|
@@ -55,17 +55,17 @@
         %hr
         %form{:action => app_path(@space, @app), :method => 'post'}
           %input{:type => 'hidden', :value => 'delete', :name => '_method'}
-          .input-prepend.input-append  
+          .input-prepend.input-append
             %span.add-on.span3 App name
             %input{:type => 'text', :name => 'app_name'}
-            %button.btn.btn-danger{:type => 'submit'} Delete
+            %button.btn.btn-danger{:type => 'submit'} Destroy
 
   .span8
     #app-stats.well
       %h4 Stats
       %hr
       %table.table
-        %tr 
+        %tr
           %th Instance Id
           %th Cpu Usage
           %th Memory

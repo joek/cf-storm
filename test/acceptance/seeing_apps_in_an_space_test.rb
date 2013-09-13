@@ -7,7 +7,7 @@ scope do
   test 'Given I logged in when there are some apps into the development space' do
     visit '/spaces/development/apps'
 
-    assert has_content? "Development's applications"
+    assert has_content? "Development"
 
     within('#apps-list') do
       assert has_content? "Windows 8"

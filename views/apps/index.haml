@@ -5,26 +5,24 @@
 
 
 
-#apps-list
-  %table#apps-list.table.table-striped
-    %tbody
-      - @space.apps.each do |app|
-        %tr
-          %td
-            %i{:class => app_state_icon_class(app)}
-            = app.name
-          %td
-            #app-actions
-              %form{:action => app_path(@space, app), :method => 'post', :class => 'simple-button'}
-                %input{:type => 'hidden', :value => 'put', :name => '_method'}
-                %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
-                .btn-group
-                  %button{:type => 'submit',
-                     :id => app_state_class(app),
-                     :class => 'btn btn-warning'}
-                    %i.icon-off
-                  %a{:href => "http://#{app.url}", :id => "app-url-#{app.name}", :target => '_blank', :class => 'btn'}
-                    %i.icon-share-alt
-                  %a{:href => app_path(@space, app), :id => "app-details-#{app.guid}", :class => 'btn'}
-                    %i.icon-cog
-
+%table#apps-list.table.table-striped
+  %tbody
+    - @space.apps.each do |app|
+      %tr
+        %td
+          %i{:class => app_state_icon_class(app)}
+          = app.name
+        %td
+          #app-actions
+            %form{:action => app_path(@space, app), :method => 'post', :class => 'simple-button'}
+              %input{:type => 'hidden', :value => 'put', :name => '_method'}
+              %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
+              .btn-group
+                %button{:type => 'submit',
+                   :id => app_state_class(app),
+                   :class => 'btn btn-warning'}
+                  %i.icon-off
+                %a{:href => "http://#{app.url}", :id => "app-url-#{app.name}", :target => '_blank', :class => 'btn'}
+                  %i.icon-share-alt
+                %a{:href => app_path(@space, app), :id => "app-details-#{app.guid}", :class => 'btn'}
+                  %i.icon-cog

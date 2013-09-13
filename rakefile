@@ -18,6 +18,7 @@ namespace 'test' do
 
     puts "==> Runing acceptance tests"
     Cutest.run Dir["test/acceptance/*_test.rb"]
+    puts '==> Finished!'
   end
 
   desc "Run model tests"
@@ -25,8 +26,9 @@ namespace 'test' do
     unit_files = Dir["test/models/*_test.rb"] +
                  Dir["test/helpers/*_test.rb"]
 
-     puts "==> Runing unit tests"
+    puts "==> Runing unit tests"
     Cutest.run unit_files
+    puts '==> Finished!'
   end
 
   desc "Run all tests acceptance + unit"

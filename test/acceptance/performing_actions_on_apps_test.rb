@@ -5,7 +5,7 @@ scope do
     load_default_space_and_app
   end
 
-  test 'Given Im seeing apps in development space then I ' + 
+  test 'Given Im seeing apps in development space then I ' +
        'should be able to stop an app' do
 
     click_on "stop-#{@app.name}"
@@ -80,6 +80,7 @@ scope do
     end
 
     assert has_content? "#{@app.name} destroyed"
+
     within '#apps-list' do
       assert has_no_content? @app.name
     end
