@@ -8,16 +8,16 @@ class User  < Ohm::Model
   attribute :refresh_token
 
   index :email
-  
+
   def initialize(*args)
     @@_clients ||= {}
-    super 
+    super
   end
 
   def self.clear_client_cache!
     @@_clients = {}
   end
-  
+
   def self.clients
     @@_clients
   end
@@ -37,7 +37,7 @@ class User  < Ohm::Model
   end
 
   def client
-    return @@_clients[self.email] unless  @@_clients[self.email].nil?    
+    return @@_clients[self.email] unless  @@_clients[self.email].nil?
     @@_clients[self.email] = User.default_client.get User.api_url, cftoken
   end
 
@@ -56,7 +56,7 @@ class User  < Ohm::Model
 
   def self.api_url
     'http://api.run.pivotal.io'
-    'http://api.nise.cloudfoundry.altoros.com'
+    # 'http://api.nise.cloudfoundry.altoros.com'
   end
 
   def self.default_client=(client)

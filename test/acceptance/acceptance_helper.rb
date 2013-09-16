@@ -23,8 +23,8 @@ def assert_app_details app
 end
 
 def load_default_space_and_app
-  @space = current_user.spaces.find{ |s| s.name == 'development'}
-  @app   = @space.apps.find{ |a| a.name == 'DOS' }
+  @space ||= current_user.spaces.find{ |s| s.name == 'development'}
+  @app   ||= @space.apps.find{ |a| a.name == 'DOS' } || @space.apps.first
 end
 
 def with_hidden_elements
