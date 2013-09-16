@@ -1,7 +1,9 @@
 module UserHelper
 
   def current_user
+    # @current_user ||= 
     User[session['current_user_id']]
+    #@spaces         = 
   end
 
   def session

@@ -15,6 +15,10 @@ module Helper
     "/organizations/#{org.name}"
   end
 
+  def root_path
+    '/spaces/development/apps'
+  end
+
   private
   def session_flash
     session[:flash] ||= {}

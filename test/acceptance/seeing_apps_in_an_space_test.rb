@@ -48,4 +48,11 @@ scope do
       assert find('#current-space').text == req.space_human_name(space)
     end
   end
+
+  test 'Given I logged in when I visit the root path I should be' +
+       'redirected to apps index' do 
+    
+    visit '/'
+    assert find('#apps-list') 
+  end
  end

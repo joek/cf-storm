@@ -14,9 +14,7 @@ class Sessions < Cuba
         @user = User.authenticate email, password
         if @user
           session['current_user_id'] = @user.id
-
-          # TODO Change this to fetch default space
-          res.redirect "/spaces/development/apps"
+          res.redirect root_path
         else
           set_flash! 'Invalid credentials', :alert
           res.redirect "/sessions/new"

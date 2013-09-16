@@ -59,6 +59,10 @@ Cuba.define do
     end
   end
 
+  on root do 
+     res.redirect root_path
+  end
+
   # Nothing matched the request address
   on default do
     res.write view('404')
