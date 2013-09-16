@@ -1,11 +1,13 @@
 module UserHelper
 
   def current_user
-    # @current_user ||= 
-    User[session['current_user_id']]
-    #@spaces         = 
+    @current_user ||= User[session['current_user_id']]
   end
-
+  
+  def current_user_spaces
+    @spaces ||= current_user.spaces if current_user
+  end
+  
   def session
     req.session
   end

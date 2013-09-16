@@ -16,7 +16,7 @@ module Helper
   end
 
   def root_path
-    '/spaces/development/apps'
+    space_path current_user_spaces.first
   end
 
   private

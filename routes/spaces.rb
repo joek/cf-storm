@@ -10,8 +10,8 @@ class Spaces < Cuba
     end
 
     on get, ':space_name/apps' do |space_name|
-      @spaces = current_user.spaces
-      @space  = @spaces.find{ |s| s.name  == space_name }
+      # @spaces = current_user.spaces
+      @space  = current_user_spaces.find{ |s| s.name  == space_name }
       res.write view('apps/index')
     end
   end

@@ -51,16 +51,12 @@ Cuba.define do
     end
   end
 
-  on "organizations" do
+  on root do 
     if current_user
-      run Organizations
+      res.redirect root_path 
     else
       res.redirect '/sessions/new'
-    end
-  end
-
-  on root do 
-     res.redirect root_path
+    end  
   end
 
   # Nothing matched the request address

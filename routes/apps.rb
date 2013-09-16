@@ -1,8 +1,8 @@
 class Apps < Cuba
 
   def load_app
-    @spaces = current_user.spaces
-    @space  = @spaces.find{ |s| s.name == vars[:space_name] }
+    # @spaces = current_user.spaces
+    @space  = current_user_spaces.find{ |s| s.name == vars[:space_name] }
     @app    = @space.apps.find{ |a| a.name == vars[:app_name] }
   end
   
