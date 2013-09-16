@@ -13,7 +13,15 @@ class User  < Ohm::Model
     @@_clients ||= {}
     super 
   end
+
+  def self.clear_client_cache!
+    @@_clients = {}
+  end
   
+  def self.clients
+    @@_clients
+  end
+
   def self.authenticate email, password
     user   = User.find(:email => email).first
     user ||= User.new :email => email
