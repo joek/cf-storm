@@ -1,0 +1,8 @@
+#app-uris.well
+  %h4 URL List
+  %hr
+  %table.table
+    - @app.uris.each do |uri|
+      %tr
+        %td
+          %a{:href => "http://#{uri}", :target => '_blank'}= "http://#{uri}"
