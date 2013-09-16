@@ -34,4 +34,8 @@ module AppsHelper
     return 'label'
   end
 
+  def app_map_url_path space, app
+    app_path(space, app) + '/map_url'
+  end
+
 end

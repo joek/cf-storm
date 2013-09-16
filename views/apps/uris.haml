@@ -6,3 +6,14 @@
       %tr
         %td
           %a{:href => "http://#{uri}", :target => '_blank'}= "http://#{uri}"
+
+  %form{:action => app_path(@space, @app), :method => 'post'}
+    .input-prepend.input-append
+      %span.add-on URL
+      %input{:type => 'text', :name => 'url'}
+      %select{:disabled => false}
+        // TODO remove client and delegate domains method
+        - current_user.client.domains.each do |domain|
+          %option{:value => domain.name}= domain.name
+
+      %button.btn{:type => 'submit'} Add URL

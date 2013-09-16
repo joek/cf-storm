@@ -88,9 +88,9 @@ scope do
     FakeClient.reset!
   end
 
-  test 'should show a flash error when I try to delete an' + 
+  test 'should show a flash error when I try to delete an' +
        'app and the name does not match' do
-    
+
     find("#app-details-#{@app.guid}").click
 
     within('#app-destroy-form') do
@@ -98,22 +98,31 @@ scope do
       click_button 'Destroy'
     end
 
-    assert has_content? "\"fruta\" and \"#{@app.name}\" " + 
+    assert has_content? "\"fruta\" and \"#{@app.name}\" " +
        "does not match, app was not destroyed"
   end
 
 
-  test 'should show a flash error when I try to delete an' + 
+  test 'should show a flash error when I try to delete an' +
        'app and no name is provided' do
-    
+
     find("#app-details-#{@app.guid}").click
 
     within('#app-destroy-form') do
       click_button 'Destroy'
     end
 
-    assert has_content? "No name provided for \"#{@app.name}\", " + 
+    assert has_content? "No name provided for \"#{@app.name}\", " +
                  "app was not destroyed"
+  end
+
+
+  test 'should be able to associate a valid url with the app' do
+    find("#app-details-#{@app.guid}").click
+
+    click_on 'Assign New URL'
+    assert has_content? 'URL Added to the app'
+    assert has_content? '#url-list'
   end
 
 
