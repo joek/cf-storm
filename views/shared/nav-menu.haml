@@ -11,7 +11,7 @@
           %ul#space-manu.dropdown-menu
             - current_user.spaces.each do |space|
               %li
-                %a{:href => space_path(space), :id => "space-#{space.guid}"}= space_human_name(@space)
+                %a{:href => space_path(space), :id => "space-#{space.guid}"}= space_human_name(space)
         %li
           %a.avatar-button{:href => '#'}
             %img#user-avatar{:src => user_avatar_path(current_user),
