@@ -1,8 +1,9 @@
 class Apps < Cuba
 
   def load_app
-    @space = current_user.spaces.find{ |s| s.name == vars[:space_name] }
-    @app   = @space.apps.find{ |a| a.name == vars[:app_name] }
+    @spaces = current_user.spaces
+    @space  = @spaces.find{ |s| s.name == vars[:space_name] }
+    @app    = @space.apps.find{ |a| a.name == vars[:app_name] }
   end
   
   def update_with_rescue(exception)

@@ -35,7 +35,7 @@ Ohm.connect(url: Settings::REDIS_URL)
 Cuba.use Rack::MethodOverride
 
 Cuba.define do
-
+  
   on 'favicon.ico' do
   end
 

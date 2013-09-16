@@ -9,7 +9,7 @@
               = space_human_name(@space)
               %strong.caret
           %ul#space-manu.dropdown-menu
-            - current_user.spaces.each do |space|
+            - @spaces.each do |space|
               %li
                 %a{:href => space_path(space), :id => "space-#{space.guid}"}= space_human_name(space)
         %li

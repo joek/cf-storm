@@ -8,9 +8,29 @@ class User  < Ohm::Model
   attribute :refresh_token
 
   index :email
+  
+  def initialize(*args)
+    @@_clients ||= {}
+    super 
+  end
+  
+  def self.authenticate email, password
+    user   = User.find(:email => email).first
+    user ||= User.new :email => email
+
+    begin
+      token = user.login(:username => email, :password => password)
+    rescue CFoundry::Denied
+      return nil
+    end
+
+    user.cftoken = token
+    user.save
+  end
 
   def client
-    @client ||= User.default_client.get User.api_url, cftoken
+    return @@_clients[self.email] unless  @@_clients[self.email].nil?    
+    @@_clients[self.email] = User.default_client.get User.api_url, cftoken
   end
 
   def cftoken
@@ -40,20 +60,6 @@ class User  < Ohm::Model
     User.default_client = client_class
     yield
     @default_client = prev_default_client
-  end
-
-  def self.authenticate email, password
-    user   = User.find(:email => email).first
-    user ||= User.new :email => email
-
-    begin
-      token = user.login(:username => email, :password => password)
-    rescue CFoundry::Denied
-      return nil
-    end
-
-    user.cftoken = token
-    user.save
   end
 
   require 'digest/md5'
