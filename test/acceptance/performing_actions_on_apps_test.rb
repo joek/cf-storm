@@ -84,5 +84,22 @@ scope do
     within '#apps-list' do
       assert has_no_content? @app.name
     end
+
+    FakeClient.reset!
   end
+
+  test 'should show a flash error when I try to delete an' + 
+       'app and the name does not match' do
+    
+    find("#app-details-#{@app.guid}").click
+
+    within('#app-destroy-form') do
+      fill_in 'app_name', :with => "fruta"
+      click_button 'Destroy'
+    end
+
+    assert has_content? "\"fruta\" and \"#{@app.name}\" " + 
+       "does not match, app was not destroyed"
+  end
+
 end

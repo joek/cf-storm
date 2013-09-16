@@ -53,7 +53,6 @@ class Apps < Cuba
       res.redirect "/spaces/#{@space.name}/apps/#{@app.name}"
     end
     
-  
     on post, param('app_name') do |app_name|
       load_app
 
@@ -61,7 +60,10 @@ class Apps < Cuba
         destroy_and_set_flash!
         res.redirect "/spaces/#{@space.name}/apps"
       else
-        res.write "/space/#{@space.name}/apps/#{@apps.name}"
+        set_flash! "\"#{app_name}\" and \"#{@app.name}\" does not match," + 
+                   " app was not destroyed", :alert
+        
+        res.redirect app_path @space, @app
       end
     end
   end
