@@ -34,7 +34,7 @@ class Apps < Cuba
       load_app
       @app.started? ? @app.stop! : @app.start!
 
-      res.redirect "/spaces/#{@space.name}/apps"
+      res.redirect space_path @space
     end
 
     on post, param('instances') do |instances|
@@ -42,7 +42,7 @@ class Apps < Cuba
       @app.total_instances = instances.to_i
       update_with_rescue CFoundry::InstancesError
 
-      res.redirect "/spaces/#{@space.name}/apps/#{@app.name}"
+      res.redirect app_path @space, @app
     end
 
     on post, param('memory') do |memory|
@@ -50,7 +50,7 @@ class Apps < Cuba
       @app.memory = memory.to_i
       update_with_rescue CFoundry::AppMemoryQuotaExceeded
  
-      res.redirect "/spaces/#{@space.name}/apps/#{@app.name}"
+      res.redirect app_path @space, @app
     end
     
     on post, param('app_name') do |app_name|
@@ -58,7 +58,7 @@ class Apps < Cuba
 
       if app_name == @app.name
         destroy_and_set_flash!
-        res.redirect "/spaces/#{@space.name}/apps"
+        res.redirect space_path @space
       else
         set_flash! "\"#{app_name}\" and \"#{@app.name}\" does not match," + 
                    " app was not destroyed", :alert
