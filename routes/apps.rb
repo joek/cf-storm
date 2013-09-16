@@ -22,6 +22,19 @@ class Apps < Cuba
     end  
   end
 
+  def destroy_failed_and_set_flash! app_name=nil
+    if app_name
+      set_flash! "\"#{app_name}\" and \"#{@app.name}\" does not match," + 
+                   " app was not destroyed", :alert
+
+    else  
+      set_flash! "No name provided for \"#{@app.name}\", " + 
+                 "app was not destroyed", :alert
+    end
+    
+    res.redirect app_path @space, @app
+  end
+
   define do
     on get do
       load_app
@@ -30,7 +43,7 @@ class Apps < Cuba
       res.write view('apps/show')
     end
 
-    on post, param('state') do |state|
+    on put, param('state') do |state|
       load_app
       @app.started? ? @app.stop! : @app.start!
 
@@ -53,18 +66,21 @@ class Apps < Cuba
       res.redirect app_path @space, @app
     end
     
-    on post, param('app_name') do |app_name|
+
+    on delete, param('app_name') do |app_name|
       load_app
 
       if app_name == @app.name
-        destroy_and_set_flash!
+        destroy_and_set_flash! 
         res.redirect space_path @space
       else
-        set_flash! "\"#{app_name}\" and \"#{@app.name}\" does not match," + 
-                   " app was not destroyed", :alert
-        
-        res.redirect app_path @space, @app
+        destroy_failed_and_set_flash! app_name
       end
+    end
+
+    on delete do 
+      load_app
+      destroy_failed_and_set_flash! 
     end
   end
 end
