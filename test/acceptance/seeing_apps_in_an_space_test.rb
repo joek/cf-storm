@@ -55,4 +55,11 @@ scope do
     visit '/'
     assert find('#apps-list') 
   end
+
+  test 'Should return render 404 view trying to access to ' + 
+       'a non-existing url in spaces route' do
+
+    visit '/spaces/non-existing'
+    assert has_content? "Error 404, Not found"
+  end
  end
