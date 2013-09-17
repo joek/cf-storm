@@ -38,16 +38,15 @@ class Apps < Cuba
   def map_url_and_set_flash! url, domain
     # TODO Delegate route method to client
     # TODO Review request ammounts here
-    route = current_user.client.route
+    route        = current_user.client.route
     route.domain = current_user.client.domains_by_name(domain).first
-    route.space = @space
-    route.host = url
+    route.space  = @space
+    route.host   = url
     begin
       route.create!
       @app.add_route route
       set_flash! 'URL Added to the app'
     rescue CFoundry::RouteHostTaken
-
       set_flash! 'Route is already taken', :alert
     rescue CFoundry::RouteInvalid
       set_flash! 'Invalid URL', :alert
@@ -73,7 +72,7 @@ class Apps < Cuba
                    "exists in '#{@space.name}' space", :alert
         res.write view('shared/not-found')
       else
-        @stats = @app.stats
+        @stats  = @app.stopped? ? [] : @app.stats
         @routes = @app.routes
         res.write view('apps/show')
       end

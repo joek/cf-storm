@@ -175,4 +175,11 @@ scope do
     assert has_content? "The app 'non-exist' does not exists in '#{@space.name}' space"
 
   end
+
+  test 'should not raise an error when the app is stopped' do
+    @app.stop!
+     
+    visit req.app_path(@space, @app)
+    assert page.status_code == 200
+  end
 end
