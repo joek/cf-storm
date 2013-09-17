@@ -117,13 +117,14 @@ scope do
   end
 
 
-  test 'should be able to associate a valid url with the app' do
-    find("#app-details-#{@app.guid}").click
+  # test 'should be able to associate a valid url with the app' do
+    
+  #   find("#app-details-#{@app.guid}").click
 
-    click_on 'Assign New URL'
-    assert has_content? 'URL Added to the app'
-    assert has_content? '#url-list'
-  end
+  #   click_on 'Assign New URL'
+  #   assert has_content? 'URL Added to the app'
+  #   assert has_content? '#url-list'
+  # end
 
 
 end

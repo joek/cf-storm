@@ -30,7 +30,7 @@ namespace 'test' do
     Cutest.run unit_files
     puts '==> Finished!'
   end
-
+  
   desc "Run all tests acceptance + unit"
   task :all => [:unit, :acceptance]
 end

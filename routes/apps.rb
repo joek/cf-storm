@@ -1,7 +1,6 @@
 class Apps < Cuba
 
   def load_app
-    # @spaces = current_user.spaces
     @space  = current_user_spaces.find{ |s| s.name == vars[:space_name] }
     @app    = @space.apps.find{ |a| a.name == vars[:app_name] }
   end
@@ -72,7 +71,6 @@ class Apps < Cuba
 
       res.redirect app_path @space, @app
     end
-
 
     on delete, param('app_name') do |app_name|
       load_app
