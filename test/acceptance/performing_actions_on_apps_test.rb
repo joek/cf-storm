@@ -126,5 +126,10 @@ scope do
   #   assert has_content? '#url-list'
   # end
 
-
+  test 'should not raise an error when I try to visit with a non-existing app' do
+    
+    visit "#{req.space_path(@space)}/non-exist"
+    assert has_content? "The app 'non-exist' does not exists in '#{@space.name}' space"
+  
+  end
 end

@@ -44,9 +44,15 @@ class Apps < Cuba
 
     on get do
       load_app
-      @stats = @app.stats
-
-      res.write view('apps/show')
+      
+      if @app.nil?
+        set_flash! "The app '#{vars[:app_name]}' does not " + 
+                   "exists in '#{@space.name}' space", :alert
+        res.write view('apps/not-found')
+      else
+        @stats = @app.stats
+        res.write view('apps/show')
+      end 
     end
 
     on put, param('state') do |state|
