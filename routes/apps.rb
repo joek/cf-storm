@@ -69,6 +69,7 @@ class Apps < Cuba
         res.write view('shared/not-found')
       else
         @stats = @app.stats
+        @routes = @app.routes
         res.write view('apps/show')
       end
     end
@@ -106,6 +107,11 @@ class Apps < Cuba
       else
         destroy_failed_and_set_flash! app_name
       end
+    end
+
+    on delete, param('route_name') do |route_name|
+      load_app
+      puts 'Deleting a route'
     end
 
     on delete do

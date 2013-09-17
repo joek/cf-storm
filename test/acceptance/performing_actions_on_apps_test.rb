@@ -158,6 +158,17 @@ scope do
   #   end
   # end
 
+  test 'should be able to unmap a url' do
+    find("#app-details-#{@app.guid}").click
+    route = @app.uris.first
+    within('#app-uris') do
+       find("#unmap-#{route}").click
+    end
+    assert has_content? 'Route unmapped successfully'
+    assert find('#app-uris')
+    assert has_no_content? route
+  end
+
   test 'should not raise an error when I try to visit with a non-existing app' do
 
     visit "#{req.space_path(@space)}/non-exist"
