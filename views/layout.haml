@@ -4,7 +4,7 @@
     = partial 'shared/header'
 
   %body.body-custom
-    - if current_user
+    - if current_user and @space
       = partial 'shared/nav-menu'
 
     .container-fluid

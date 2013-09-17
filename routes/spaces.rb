@@ -10,10 +10,22 @@ class Spaces < Cuba
     end
 
     on get, ':space_name/apps' do |space_name|
-      # @spaces = current_user.spaces
       @space  = current_user_spaces.find{ |s| s.name  == space_name }
-      res.write view('apps/index')
+      
+      if @space.nil?
+        set_flash! "The space '#{space_name}' does not exists"
+        res.write view('shared/not-found')
+      else
+        res.write view('apps/index')
+      end
     end
+
+    # Nothing matched the request address
+    on default do
+      res.write view('404')
+      res.status = 404
+    end
+
   end
 
 end

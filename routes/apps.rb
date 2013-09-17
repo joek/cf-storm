@@ -1,7 +1,6 @@
 class Apps < Cuba
 
   def load_app
-    # @spaces = current_user.spaces
     @space  = current_user_spaces.find{ |s| s.name == vars[:space_name] }
     @app    = @space.apps.find{ |a| a.name == vars[:app_name] }
   end
@@ -56,28 +55,31 @@ class Apps < Cuba
   end
 
   define do
+    
+    load_app
 
     on get, 'map_url' do
-      load_app
       res.write view('apps/map_url')
     end
 
     on get do
-      load_app
-      @stats = @app.stats
-
-      res.write view('apps/show')
+      if @app.nil?
+        set_flash! "The app '#{vars[:app_name]}' does not " + 
+                   "exists in '#{@space.name}' space", :alert
+        res.write view('shared/not-found')
+      else
+        @stats = @app.stats
+        res.write view('apps/show')
+      end 
     end
 
     on put, param('state') do |state|
-      load_app
       @app.started? ? @app.stop! : @app.start!
 
       res.redirect space_path @space
     end
 
     on post, param('instances') do |instances|
-      load_app
       @app.total_instances = instances.to_i
       update_with_rescue CFoundry::InstancesError
 
@@ -91,17 +93,13 @@ class Apps < Cuba
     end
 
     on post, param('memory') do |memory|
-      load_app
       @app.memory = memory.to_i
       update_with_rescue CFoundry::AppMemoryQuotaExceeded
 
       res.redirect app_path @space, @app
     end
 
-
     on delete, param('app_name') do |app_name|
-      load_app
-
       if app_name == @app.name
         destroy_and_set_flash!
         res.redirect space_path @space
@@ -111,7 +109,6 @@ class Apps < Cuba
     end
 
     on delete do
-      load_app
       destroy_failed_and_set_flash!
     end
   end

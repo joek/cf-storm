@@ -104,6 +104,10 @@ class FakeClient
     @@_apps
   end
 
+  def domains
+    []
+  end
+
   def self.reset!
     @@_apps = @@_spaces = nil
   end
