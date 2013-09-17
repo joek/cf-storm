@@ -1,6 +1,7 @@
 %ul.breadcrumb
   %li
     %a{:href => space_path(@space)}= space_human_name(@space)
+    = partial 'shared/apps_counter'
     %span.divider /
   %li
     %a{:href => app_path(@space, @app)}= @app.name.capitalize
@@ -9,7 +10,7 @@
   .span4
     .well
       = partial("apps/info")
-  
+
     %hr
     #app-destroy-form.well
       %h4 Danger Zone

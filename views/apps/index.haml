@@ -1,6 +1,7 @@
 %ul.breadcrumb
   %li
     %a{:href => space_path(@space)}= space_human_name(@space)
+    = partial 'shared/apps_counter'
 
 %table#apps-list.table.table-striped
   %tbody
