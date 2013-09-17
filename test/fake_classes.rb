@@ -52,7 +52,7 @@ class FakeClient
     end
 
     def add_route route
-
+      @@_domains << route
     end
   end
 
