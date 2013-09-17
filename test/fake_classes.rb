@@ -25,6 +25,10 @@ class FakeClient
     def started?
       self.state == 'STARTED'
     end
+    
+    def stopped?
+      self.state == 'STOPPED'
+    end
 
     def stop!
       self.state = 'STOPPED'
