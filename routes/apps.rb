@@ -39,7 +39,7 @@ class Apps < Cuba
     # TODO Delegate route method to client
     # TODO Review request ammounts here
     route = current_user.client.route
-    route.domain = current_user.client.domains_by_name domain
+    route.domain = current_user.client.domains_by_name(domain).first
     route.space = @space
     route.host = url
     begin
@@ -55,7 +55,7 @@ class Apps < Cuba
   end
 
   define do
-    
+
     load_app
 
     on get, 'map_url' do
@@ -64,13 +64,13 @@ class Apps < Cuba
 
     on get do
       if @app.nil?
-        set_flash! "The app '#{vars[:app_name]}' does not " + 
+        set_flash! "The app '#{vars[:app_name]}' does not " +
                    "exists in '#{@space.name}' space", :alert
         res.write view('shared/not-found')
       else
         @stats = @app.stats
         res.write view('apps/show')
-      end 
+      end
     end
 
     on put, param('state') do |state|

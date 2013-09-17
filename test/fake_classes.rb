@@ -6,7 +6,7 @@ class FakeClient
   Struct.new("Token", :auth_header, :refresh_token)
   Struct.new("Organization", :name, :spaces)
   Struct.new('Domain', :name)
-  Struct.new('Route', :domain, :space, :host)
+  Struct.new('Route', :domain, :space, :host, )
 
 
   class Struct::Route
@@ -52,7 +52,7 @@ class FakeClient
     end
 
     def add_route route
-
+      self.uris << [route.host, route.domain.name].join('.')
     end
   end
 
@@ -119,6 +119,6 @@ class FakeClient
   end
 
   def domains_by_name text
-    self.domains.find{ |d| d.name == text }
+    self.domains.select{ |d| d.name == text }
   end
 end
