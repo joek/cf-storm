@@ -47,7 +47,7 @@ class Apps < Cuba
       if @app.nil?
         set_flash! "The app '#{vars[:app_name]}' does not " + 
                    "exists in '#{@space.name}' space", :alert
-        res.write view('apps/not-found')
+        res.write view('shared/not-found')
       else
         @stats = @app.stats
         res.write view('apps/show')

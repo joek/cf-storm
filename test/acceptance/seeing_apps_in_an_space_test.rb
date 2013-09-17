@@ -62,4 +62,12 @@ scope do
     visit '/spaces/non-existing'
     assert has_content? "Error 404, Not found"
   end
+
+  test 'should not raise an error when I try to visit with a non-existing space app list' do
+    
+    visit "/spaces/non-existing/apps"
+    assert has_content? "The space 'non-existing' does not exists"
+  
+  end
+
  end
