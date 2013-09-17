@@ -43,14 +43,14 @@ class Apps < Cuba
     route.space = @space
     route.host = url
     begin
-      if route.create!
-         @app.add_route route
-        set_flash! 'URL Added to the app'
-      else
-        set_flash! 'Invalid URL', :alert
-      end
+      route.create!
+      @app.add_route route
+      set_flash! 'URL Added to the app'
     rescue CFoundry::RouteHostTaken
-      set_flash! 'Route is already takken'
+
+      set_flash! 'Route is already taken', :alert
+    rescue CFoundry::RouteInvalid
+      set_flash! 'Invalid URL', :alert
     end
   end
 

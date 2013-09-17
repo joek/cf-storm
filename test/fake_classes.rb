@@ -52,6 +52,9 @@ class FakeClient
     end
 
     def add_route route
+      if self.uris.include? [route.host, route.domain.name].join('.')
+        raise CFoundry::RouteHostTaken
+      end
       self.uris << [route.host, route.domain.name].join('.')
     end
   end
