@@ -54,6 +54,11 @@ class Apps < Cuba
     end
   end
 
+  def remove_route_and_set_flash! route_guid
+    @app.remove_route @app.routes.find{ |r| r.guid == route_guid }
+    set_flash! 'Route unmapped successfully'
+  end
+
   define do
 
     load_app
@@ -109,9 +114,11 @@ class Apps < Cuba
       end
     end
 
-    on delete, param('route_name') do |route_name|
+    on delete, param('route_guid') do |route_guid|
       load_app
-      puts 'Deleting a route'
+
+      remove_route_and_set_flash! route_guid
+      res.redirect app_path(@space, @app)
     end
 
     on delete do

@@ -2,14 +2,14 @@
   %h4 URL List
   %hr
   %table.table
-    - @routes.uris.each do |route|
+    - @routes.each do |route|
       %tr
         %td
           %a{:href => "http://#{route.name}", :target => '_blank'}= "http://#{route.name}"
         %td
           %form{:action => app_path(@space, @app), :method => 'post', :class => 'simple-button'}
             %input{:type => 'hidden', :value => 'delete', :name => '_method'}
-            %input{:type => 'hidden', :value => route, :name => 'route_name'}
+            %input{:type => 'hidden', :value => route.guid, :name => 'route_guid'}
             %button{:type => 'submit',
              :id => "unmap-#{route.guid}",
              :class => "btn btn-danger",

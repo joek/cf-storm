@@ -1,12 +1,12 @@
 class FakeClient
 
   Struct.new("Space", :name, :apps, :guid)
-  Struct.new("App", :name, :state, :memory, :instances, :uris, :url, :guid,
+  Struct.new("App", :name, :state, :memory, :instances, :url, :guid,
                     :total_instances)
   Struct.new("Token", :auth_header, :refresh_token)
   Struct.new("Organization", :name, :spaces)
   Struct.new('Domain', :name)
-  Struct.new('Route', :domain, :space, :host, )
+  Struct.new('Route', :domain, :space, :host, :guid)
 
 
   class Struct::Route
@@ -14,6 +14,10 @@ class FakeClient
       # TODO Check self.host is valid (regex o algo)
       # TODO Add check to throw takken exception
       true
+    end
+
+    def name
+      [self.host, self.domain.name].join('.')
     end
   end
 
@@ -55,7 +59,22 @@ class FakeClient
       if self.uris.include? [route.host, route.domain.name].join('.')
         raise CFoundry::RouteHostTaken
       end
-      self.uris << [route.host, route.domain.name].join('.')
+      @@_routes << route
+    end
+
+    def remove_route route
+      self.routes.delete_if{ |r| r.guid == route.guid}
+    end
+
+    def routes
+      @@_routes ||=
+        [Struct::Route.new(Struct::Domain.new('mswin.com'), nil, 'run.io', Digest::MD5.hexdigest('mswin'))]
+
+      @@_routes
+    end
+
+    def uris
+      self.routes.collect{ |r| [r.host, r.domain.name].join('.') }
     end
   end
 
@@ -98,7 +117,6 @@ class FakeClient
                       'STARTED', #state
                        128,      #memory
                        ['LOL INSTANACE', 'LOLOLOL'], #instances
-                       ['mswin.run.io'],  #uris
                        'mswin.run.io',    #url
                        Digest::MD5.hexdigest(a),  #guid
                        1 #total_instances
@@ -112,7 +130,7 @@ class FakeClient
   end
 
   def domains
-    @@_domains ||= [Struct::Domain.new('lolmaster.com'), Struct::Domain.new('mailinator.com')]
+    @@_domains ||= [Struct::Domain.new('lolmaster.com'), Struct::Domain.new('run.io')]
 
     @@_domains
   end

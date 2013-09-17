@@ -127,7 +127,7 @@ scope do
     assert has_content? 'URL Added to the app'
     assert find('#app-uris')
     within('#app-uris') do
-      assert has_content? 'new.url.lolmaster.com'
+      assert has_content? 'http://new.url.lolmaster.com'
     end
   end
 
@@ -160,13 +160,13 @@ scope do
 
   test 'should be able to unmap a url' do
     find("#app-details-#{@app.guid}").click
-    route = @app.uris.first
+    route = @app.routes.first
     within('#app-uris') do
-       find("#unmap-#{route}").click
+       find("#unmap-#{route.guid}").click
     end
     assert has_content? 'Route unmapped successfully'
     assert find('#app-uris')
-    assert has_no_content? route
+    assert has_no_content? route.name
   end
 
   test 'should not raise an error when I try to visit with a non-existing app' do
