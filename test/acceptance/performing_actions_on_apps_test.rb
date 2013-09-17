@@ -119,10 +119,15 @@ scope do
 
   test 'should be able to associate a valid url with the app' do
     find("#app-details-#{@app.guid}").click
-
-    click_on 'Assign New URL'
+    within('#app-uris') do
+      fill_in 'url', :with => 'new.url'
+    end
+    click_button 'Add URL'
     assert has_content? 'URL Added to the app'
-    assert has_content? '#url-list'
+    assert find('#app-uris')
+    within('#app-uris') do
+      assert has_content? 'new.url.lolmaster.com'
+    end
   end
 
 

@@ -1,9 +1,21 @@
 class FakeClient
-  
+
   Struct.new("Space", :name, :apps, :guid)
-  Struct.new("App", :name, :state, :memory, :instances, :uris, :url, :guid, :total_instances)
+  Struct.new("App", :name, :state, :memory, :instances, :uris, :url, :guid,
+                    :total_instances)
   Struct.new("Token", :auth_header, :refresh_token)
   Struct.new("Organization", :name, :spaces)
+  Struct.new('Domain', :name)
+  Struct.new('Route', :domain, :space, :host)
+
+
+  class Struct::Route
+    def create!
+      # TODO Check self.host is valid (regex o algo)
+      # TODO Add check to throw takken exception
+      true
+    end
+  end
 
   class Struct::App
     def started?
@@ -17,17 +29,17 @@ class FakeClient
     def start!
       self.state = 'STARTED'
     end
-    
+
     def delete
       FakeClient.apps.delete_if{|a| a.name == self.name}
-    end  
+    end
 
     def update!
       raise CFoundry::InstancesError if self.total_instances > 10
       raise CFoundry::AppMemoryQuotaExceeded if self.memory > 1024
       return true
     end
-    
+
     def stats
       {"0" => {:state => "RUNNING", :stats => {
             :uptime => 111,
@@ -39,6 +51,9 @@ class FakeClient
               :disk => 55828480}}}}
     end
 
+    def add_route route
+
+    end
   end
 
 
@@ -67,22 +82,43 @@ class FakeClient
 
     @@_spaces
   end
-  
+
   def self.apps
     @@_apps
   end
-  
+
+  # name, state, memory, instances, uris, url, guid, total_instances
   def apps
     @@_apps ||=
     ["Windows 8", "Win95", "DOS"].map do |a|
-      Struct::App.new a, 'STARTED', 128,
-       ['LOL INSTANACE', 'LOLOLOL'], ['mswin.run.io'], 'mswin.run.io', Digest::MD5.hexdigest(a), 1
+      Struct::App.new a,         #name
+                      'STARTED', #state
+                       128,      #memory
+                       ['LOL INSTANACE', 'LOLOLOL'], #instances
+                       ['mswin.run.io'],  #uris
+                       'mswin.run.io',    #url
+                       Digest::MD5.hexdigest(a),  #guid
+                       1 #total_instances
     end
 
     @@_apps
   end
-  
+
   def self.reset!
     @@_apps = @@_spaces = nil
-  end  
+  end
+
+  def domains
+    @@_domains ||= [Struct::Domain.new('lolmaster.com'), Struct::Domain.new('mailinator.com')]
+
+    @@_domains
+  end
+
+  def route
+    Struct::Route.new
+  end
+
+  def domains_by_name text
+    self.domains.find{ |d| d.name == text }
+  end
 end
