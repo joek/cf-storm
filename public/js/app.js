@@ -1,6 +1,6 @@
 $(function() {
-  $('.app-submit').click(function() {
-    $('.app-submit').attr('disabled', true);
+  $('.btn').click(function() {
     this.value = 'Sending...';
+    $('.btn').attr('disabled', true);
   });
 });

@@ -115,8 +115,6 @@ class Apps < Cuba
     end
 
     on delete, param('route_guid') do |route_guid|
-      load_app
-
       remove_route_and_set_flash! route_guid
       res.redirect app_path(@space, @app)
     end
