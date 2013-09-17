@@ -6,7 +6,7 @@
       %tr
         %td
           %a{:href => "http://#{route.name}", :target => '_blank'}= "http://#{route.name}"
-        %td
+        %td.span1
           %form{:action => app_path(@space, @app), :method => 'post', :class => 'simple-button'}
             %input{:type => 'hidden', :value => 'delete', :name => '_method'}
             %input{:type => 'hidden', :value => route.guid, :name => 'route_guid'}
