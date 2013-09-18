@@ -9,7 +9,7 @@
       - @space.apps.each do |app|
         %tr
           %td
-            = app_state_icon app
+            = app_state_icon app, "App is"
             = app.name
           %td.span2
             #app-actions
@@ -19,7 +19,7 @@
                 .btn-group
                   %button{:type => 'submit',
                      :id => app_state_class(app),
-                     :class => 'btn btn-warning',
+                     :class => app_power_control_button_class(app),
                      :title => 'Start/Stop Application'}
                     %i.icon-off
                   %a{:href => "http://#{app.url}", :id => "app-url-#{app.name}", :target => '_blank', :class => 'btn', :title => "Visit application's first url"}

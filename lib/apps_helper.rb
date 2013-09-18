@@ -4,11 +4,11 @@ module AppsHelper
                    'label label-inportant icon-remove app-state-stopped'
   end
 
-  def app_state_icon app
+  def app_state_icon app, title
     if app.started?
-      '<span class="badge badge-success app-state-started"><i class="icon-ok"></i></span>'
+      "<span title=\"#{title} running\" class=\"badge badge-success app-state-started\"><i class=\"icon-ok\"></i></span>"
     else
-      '<span class="badge badge-important app-state-stopped"><i class="icon-remove"></i></span>'
+      "<span title=\"#{title} stopped\" class=\"badge badge-important app-state-stopped\"><i class=\"icon-remove\"></i></span>"
     end
   end
 
@@ -52,6 +52,11 @@ module AppsHelper
 
   def app_health app
     "%.0f" % ((app.instances.select{ |i| i.state == 'RUNNING' }.size.to_f / app.total_instances) * 100)
+  end
+
+  def app_power_control_button_class app
+    return 'btn btn-danger' if app.started?
+    return 'btn btn-success'
   end
 
 end
