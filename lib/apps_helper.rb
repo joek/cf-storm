@@ -4,6 +4,14 @@ module AppsHelper
                    'label label-inportant icon-remove app-state-stopped'
   end
 
+  def app_state_icon app
+    if app.started?
+      '<span class="badge badge-success app-state-started"><i class="icon-ok"></i></span>'
+    else
+      '<span class="badge badge-important app-state-stopped"><i class="icon-remove"></i></span>'
+    end
+  end
+
   def app_label_state_class app
     app.started? ? 'label label-success' : 'label label-important'
   end

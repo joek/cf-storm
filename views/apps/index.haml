@@ -8,7 +8,7 @@
     - @space.apps.each do |app|
       %tr
         %td
-          %i{:class => app_state_icon_class(app)}
+          = app_state_icon app
           = app.name
         %td.span2
           #app-actions
