@@ -1,6 +1,5 @@
 require_relative '../helper'
 
-
 scope do
 
   test 'should format a number to percentage for cpu usage when is extremely small' do

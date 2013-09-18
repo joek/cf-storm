@@ -7,8 +7,21 @@ class FakeClient
   Struct.new("Organization", :name, :spaces)
   Struct.new('Domain', :name)
   Struct.new('Route', :domain, :space, :host, :guid)
-
-
+  
+  class Struct::Space
+    
+    def organization=(org)
+      org
+    end  
+  end  
+  
+  class Struct::Space
+    
+    def create!
+      true
+    end  
+  end
+  
   class Struct::Route
     def create!
       # TODO Check self.host is valid (regex o algo)
@@ -102,6 +115,18 @@ class FakeClient
 
   def self.get(target, token = nil)
     new
+  end
+  
+  def current_organization
+    nil
+  end
+  
+  def organizations
+    [Struct::Organization.new("Acme", [])]
+  end
+  
+  def space
+    Struct::Space.new '', ''
   end
 
   def spaces

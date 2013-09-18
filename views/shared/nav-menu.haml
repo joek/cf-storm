@@ -12,6 +12,9 @@
             - @spaces.each do |space|
               %li
                 %a{:href => space_path(space), :id => "space-#{space.guid}"}= space_human_name(space)
+            %li.divider
+            %li
+              %a{:tabindex => "-1", :href => new_path(:spaces) } Create Space  
         %li
           %a.avatar-button{:href => '#'}
             %img#user-avatar{:src => user_avatar_path(current_user),
