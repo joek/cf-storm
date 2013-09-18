@@ -28,4 +28,9 @@ scope do
 
   end
 
+  test 'Given I have an app I should be able to see its health as 100% when all instances are running' do
+    find("#app-details-#{@app.guid}").click
+    assert find('#health-monitor')['value'] == "100"
+  end
+
 end

@@ -11,3 +11,14 @@ $(function() {
     $('.unmap-confirmed').toggle();
   });
 });
+
+
+$(function() {
+  $('#health-monitor').knob({
+      'max': 100,
+      'min': 0,
+      'readOnly': true,
+      'fgColor': '#33ff44',
+      'bgColor': '#DDDDDD'
+  });
+});

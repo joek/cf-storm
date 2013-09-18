@@ -4,6 +4,9 @@
     = @app.state
 %hr
 
+#app-health
+  %input#health-monitor{:type => 'text', :value => '100', :disabled => true}
+
 #app-memory
   #app-mem-form
     %form{:action => app_path(@space, @app), :method => 'post'}
