@@ -18,7 +18,7 @@ $(function() {
       'max': 100,
       'min': 0,
       'readOnly': true,
-      'fgColor': '#33ff44',
-      'bgColor': '#DDDDDD'
+      'fgColor': '#33FF44',
+      'bgColor': '#FFBBBB'
   });
 });

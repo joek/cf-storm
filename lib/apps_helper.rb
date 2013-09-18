@@ -50,4 +50,8 @@ module AppsHelper
     app_path(space, app) + '/map_url'
   end
 
+  def app_health app
+    "%.0f" % ((app.instances.select{ |i| i.state == 'RUNNING' }.size.to_f / app.total_instances) * 100)
+  end
+
 end

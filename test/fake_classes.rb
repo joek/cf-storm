@@ -1,27 +1,27 @@
 class FakeClient
 
   Struct.new("Space", :name, :apps, :guid)
-  Struct.new("App", :name, :state, :memory, :instances, :url, :guid,
-                    :total_instances)
+  Struct.new("App", :name, :state, :memory, :instances, :url, :guid)
   Struct.new("Token", :auth_header, :refresh_token)
   Struct.new("Organization", :name, :spaces)
   Struct.new('Domain', :name)
   Struct.new('Route', :domain, :space, :host, :guid)
-  
+  Struct.new('Instance', :state)
+
   class Struct::Space
-    
+
     def organization=(org)
       org
-    end  
-  end  
-  
+    end
+  end
+
   class Struct::Space
-    
+
     def create!
       true
-    end  
+    end
   end
-  
+
   class Struct::Route
     def create!
       # TODO Check self.host is valid (regex o algo)
@@ -97,6 +97,38 @@ class FakeClient
     def reset_routes!
       @@_routes = nil
     end
+
+    def half_health_with_two_instances!
+      self.instances = [Struct::Instance.new('RUNNING'), Struct::Instance.new('DOWN')]
+    end
+
+    def half_health_with_four_instances!
+      self.instances = [Struct::Instance.new('RUNNING'),
+                        Struct::Instance.new('DOWN'),
+                        Struct::Instance.new('RUNNING'),
+                        Struct::Instance.new('DOWN'),]
+    end
+
+    def quarter_health!
+      self.instances = [Struct::Instance.new('RUNNING'),
+                        Struct::Instance.new('DOWN'),
+                        Struct::Instance.new('DOWN'),
+                        Struct::Instance.new('DOWN'),]
+    end
+
+    def zero_health!
+      self.instances = [Struct::Instance.new('DOWN')]
+    end
+
+    def one_out_of_three_instances_running!
+      self.instances = [Struct::Instance.new('RUNNING'),
+                        Struct::Instance.new('DOWN'),
+                        Struct::Instance.new('DOWN')]
+    end
+
+    def total_instances
+      self.instances.size
+    end
   end
 
 
@@ -116,15 +148,15 @@ class FakeClient
   def self.get(target, token = nil)
     new
   end
-  
+
   def current_organization
     nil
   end
-  
+
   def organizations
     [Struct::Organization.new("Acme", [])]
   end
-  
+
   def space
     Struct::Space.new '', ''
   end
@@ -149,10 +181,9 @@ class FakeClient
       Struct::App.new a,         #name
                       'STARTED', #state
                        128,      #memory
-                       ['LOL INSTANACE', 'LOLOLOL'], #instances
+                       [Struct::Instance.new('RUNNING'), Struct::Instance.new('RUNNING')], #instances
                        'mswin.run.io',    #url
-                       Digest::MD5.hexdigest(a),  #guid
-                       1 #total_instances
+                       Digest::MD5.hexdigest(a)  #guid
     end
 
     @@_apps
