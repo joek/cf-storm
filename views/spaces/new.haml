@@ -1,0 +1,10 @@
+.row-fluid
+  .span4
+    .well
+      %h4 Create space
+      %hr
+      %form#space-create-form{:action => '/spaces', :method => 'post'}
+        .input-prepend.input-append
+          %span.add-on.span3 App name
+          %input{:type => 'text', :name => 'space_name'}
+          %button.btn.btn-danger{:type => 'submit'} Create
