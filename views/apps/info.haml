@@ -5,7 +5,8 @@
 %hr
 
 #app-health{:title => 'Health: Instances running divided by total instances'}
-  %input#health-monitor{:type => 'text', :value => app_health(@app), :disabled => true}
+  #monitor-label Health
+  %input#health-monitor{:type => 'text', :value => app_health(@app), :disabled => true, 'data-width' => '100', 'data-height' => '100'}
 
 #app-memory
   #app-mem-form

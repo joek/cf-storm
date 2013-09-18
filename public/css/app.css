@@ -34,3 +34,35 @@
 .justified {
   text-align: justify
 }
+
+#monitor-label {
+    color: #87CEEB;
+    /*
+    left: -125px;
+    top: -125px;
+    */
+    position: relative;
+}
+
+.con {
+    position: relative;
+}
+.strip {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 10;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    width: 145px;
+    transform-origin:top left;
+    -ms-transform-origin:top left;
+    -moz-transform-origin:top left;
+    -webkit-transform-origin:top left;}
+.bottom-top {
+    margin-top: 1.2em;
+    transform:rotate(-45deg);
+    -ms-transform:rotate(-45deg);
+    -moz-transform:rotate(-45deg);
+    -webkit-transform:rotate(-45deg);
+}
