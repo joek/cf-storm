@@ -25,7 +25,7 @@ class FakeClient
     def started?
       self.state == 'STARTED'
     end
-    
+
     def stopped?
       self.state == 'STOPPED'
     end
@@ -79,6 +79,10 @@ class FakeClient
 
     def uris
       self.routes.collect{ |r| [r.host, r.domain.name].join('.') }
+    end
+
+    def reset_routes!
+      @@_routes = nil
     end
   end
 

@@ -6,15 +6,27 @@
       %tr
         %td
           %a{:href => "http://#{route.name}", :target => '_blank'}= "http://#{route.name}"
-        %td.span1
+        %td.span3
           %form{:action => app_path(@space, @app), :method => 'post', :class => 'simple-button'}
             %input{:type => 'hidden', :value => 'delete', :name => '_method'}
             %input{:type => 'hidden', :value => route.guid, :name => 'route_guid'}
-            %button{:type => 'submit',
-             :id => "unmap-#{route.guid}",
-             :class => "btn btn-danger",
-             :title => 'Remove route'}
-              %i.icon-trash
+            - if @routes.size == 1
+              %a{:id => "unmap-#{route.guid}",
+               :class => "btn btn-danger trigger-unmap-confirmation",
+               :title => 'Remove route',
+               :href => '#none'}
+                %i.icon-trash
+              %button{:type => 'submit',
+               :class => "btn btn-danger unmap-confirmed",
+               :style => 'display: none;',
+               :title => 'It is the last route, are you really really sure?' }
+                Really?
+            - else
+              %button{:type => 'submit',
+               :id => "unmap-#{route.guid}",
+               :class => "btn btn-danger",
+               :title => 'Remove route'}
+                %i.icon-trash
 
 
   %form{:action => app_path(@space, @app), :method => 'post'}

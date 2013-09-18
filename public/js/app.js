@@ -1,6 +1,13 @@
 $(function() {
   $('.btn').click(function() {
-    this.value = 'Sending...';
-    $('.btn').attr('disabled', true);
+    if(!$(this).attr('href')){
+        $('.btn').attr('disabled', true);
+    };
+  });
+});
+
+$(function() {
+  $('.trigger-unmap-confirmation').click(function() {
+    $('.unmap-confirmed').toggle();
   });
 });

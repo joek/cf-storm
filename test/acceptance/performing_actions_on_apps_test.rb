@@ -158,7 +158,7 @@ scope do
   #   end
   # end
 
-  test 'should be able to unmap a url' do
+  test 'should be able to unmap a url when there are multiples urls' do
     find("#app-details-#{@app.guid}").click
     route = @app.routes.first
     within('#app-uris') do
@@ -167,6 +167,23 @@ scope do
     assert has_content? 'Route unmapped successfully'
     assert find('#app-uris')
     assert has_no_content? route.name
+  end
+
+  test 'should be able to unmap a url when there is only one by confirming the removal' do
+    @app.reset_routes!
+    find("#app-details-#{@app.guid}").click
+    route = @app.routes.first
+    within('#app-uris') do
+      find("#unmap-#{route.guid}").click
+      with_hidden_elements do
+        find(".unmap-confirmed").click
+      end
+
+    end
+    assert has_content? 'Route unmapped successfully'
+    assert find('#app-uris')
+    assert has_no_content? route.name
+    @app.reset_routes!
   end
 
   test 'should not raise an error when I try to visit with a non-existing app' do
@@ -178,7 +195,7 @@ scope do
 
   test 'should not raise an error when the app is stopped' do
     @app.stop!
-     
+
     visit req.app_path(@space, @app)
     assert page.status_code == 200
   end
