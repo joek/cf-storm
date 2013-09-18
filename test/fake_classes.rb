@@ -56,7 +56,7 @@ class FakeClient
     end
 
     def update!
-      raise CFoundry::InstancesError if self.total_instances > 10
+      raise CFoundry::InstancesError if @instances_count > 10
       raise CFoundry::AppMemoryQuotaExceeded if self.memory > 1024
       return true
     end
@@ -127,7 +127,11 @@ class FakeClient
     end
 
     def total_instances
-      self.instances.size
+      @instances_count = self.instances.size
+    end
+
+    def total_instances= value
+      @instances_count = value
     end
   end
 
