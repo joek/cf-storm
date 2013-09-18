@@ -24,7 +24,7 @@ class Apps < Cuba
 
   def destroy_failed_and_set_flash! app_name=nil
     if app_name
-      set_flash! "\"#{app_name}\" and \"#{@app.name}\"" + 
+      set_flash! "\"#{app_name}\" and \"#{@app.name}\"" +
        " does not match, app was not destroyed", :alert
 
     else
@@ -33,7 +33,7 @@ class Apps < Cuba
     end
     res.redirect app_path @space, @app
   end
-  
+
   def build_route(url, domain)
     # TODO Review request ammounts here
     route        = current_user.route
@@ -76,8 +76,9 @@ class Apps < Cuba
                    "exists in '#{@space.name}' space", :alert
         res.write view('shared/not-found')
       else
-        @stats  = @app.stopped? ? [] : @app.stats
-        @routes = @app.routes
+        @stats     = @app.stopped? ? [] : @app.stats
+        @instances = @app.stopped? ? [] : @app.instances
+        @routes    = @app.routes
         res.write view('apps/show')
       end
     end

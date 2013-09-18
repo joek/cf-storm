@@ -2,7 +2,20 @@
   Info
   %span.pull-right{:class => app_label_state_class(@app)}
     = @app.state
+
+
 %hr
+
+.app-show-stop.span6.pull-right.centered
+  %form{:action => app_path(@space, @app), :method => 'post', :class => 'simple-button'}
+    %input{:type => 'hidden', :value => 'put', :name => '_method'}
+    %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
+    %button{:type => 'submit',
+            :id => app_state_class(@app),
+            :class => (app_power_control_button_class(@app) + ' btn-large'),
+            :title => 'Start/Stop Application'}
+      %i.icon-off
+
 
 #app-health{:title => 'Health: Instances running divided by total instances'}
   #monitor-label Health

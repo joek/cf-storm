@@ -51,7 +51,12 @@ module AppsHelper
   end
 
   def app_health app
-    "%.0f" % ((app.instances.select{ |i| i.state == 'RUNNING' }.size.to_f / app.total_instances) * 100)
+    if @instances
+      "%.0f" % ((@instances.select{ |i| i.state == 'RUNNING' }.size.to_f / app.total_instances) * 100)
+    else
+      '0'
+    end
+
   end
 
   def app_power_control_button_class app

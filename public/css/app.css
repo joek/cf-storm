@@ -66,3 +66,12 @@
     -moz-transform:rotate(-45deg);
     -webkit-transform:rotate(-45deg);
 }
+
+.app-show-stop {
+  margin-top: 40px;
+
+}
+
+.app-show-stop form {
+  margin: 0;
+}
