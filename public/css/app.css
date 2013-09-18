@@ -26,3 +26,11 @@
 #app-health input {
   box-shadow: none;
 }
+
+.centered {
+  text-align: center;
+}
+
+.justified {
+  text-align: justify
+}
