@@ -24,14 +24,13 @@ class Apps < Cuba
 
   def destroy_failed_and_set_flash! app_name=nil
     if app_name
-      set_flash! "\"#{app_name}\" and \"#{@app.name}\" does not match," +
-                   " app was not destroyed", :alert
+      set_flash! "\"#{app_name}\" and \"#{@app.name}\"" + 
+       " does not match, app was not destroyed", :alert
 
     else
       set_flash! "No name provided for \"#{@app.name}\", " +
-                 "app was not destroyed", :alert
+       "app was not destroyed", :alert
     end
-
     res.redirect app_path @space, @app
   end
   
@@ -85,7 +84,6 @@ class Apps < Cuba
 
     on put, param('state') do |state|
       @app.started? ? @app.stop! : @app.start!
-
       res.redirect space_path @space
     end
 
@@ -105,7 +103,6 @@ class Apps < Cuba
     on post, param('memory') do |memory|
       @app.memory = memory.to_i
       update_with_rescue CFoundry::AppMemoryQuotaExceeded
-
       res.redirect app_path @space, @app
     end
 
