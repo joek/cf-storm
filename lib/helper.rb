@@ -18,7 +18,11 @@ module Helper
   def root_path
     space_path current_user_spaces.first
   end
-
+  
+  def new_path(resource)
+    "/#{resource}/new"
+  end 
+ 
   private
   def session_flash
     session[:flash] ||= {}

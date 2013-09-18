@@ -3,6 +3,21 @@ class Spaces < Cuba
 
   define do
 
+    on get, 'new' do
+      res.write view('spaces/new')
+    end
+    
+    on post, param(:space_name)  do |space_name| 
+      begin
+        current_user.create_space! space_name
+        set_flash! 'Space created successful'
+        res.redirect root_path
+      rescue CFoundry::SpaceNameTaken
+        set_flash! "Space name '#{space_name}' is already taken"
+        res.redirect new_path(:spaces)
+      end  
+    end
+
     on ':space_name/apps/:app_name' do |space_name, app_name|
       with :space_name => space_name, :app_name => app_name do
         run Apps

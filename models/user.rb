@@ -22,6 +22,17 @@ class User  < Ohm::Model
   def self.clients
     @@_clients
   end
+  
+  def current_organization
+    client.current_organization || client.organizations.first
+  end
+  
+  def create_space!(name) 
+    space = client.space
+    space.organization = current_organization
+    space.name         = name
+    space.create!
+  end  
 
   def self.authenticate email, password
     user   = User.find(:email => email).first
