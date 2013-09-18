@@ -35,18 +35,17 @@ class Apps < Cuba
     res.redirect app_path @space, @app
   end
   
-  def create_route(url, domain)
-    # TODO Delegate route method to client
+  def build_route(url, domain)
     # TODO Review request ammounts here
-    route        = current_user.client.route
-    route.domain = current_user.client.domains_by_name(domain).first
+    route        = current_user.route
+    route.domain = current_user.domains_by_name(domain).first
     route.space  = @space
     route.host   = url
     route
   end
 
   def map_url_and_set_flash! url, domain
-    route = create_route url, domain
+    route = build_route url, domain
 
     begin
       route.create!
