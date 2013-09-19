@@ -1,12 +1,5 @@
 class Apps < Cuba
 
-  def load_app
-    space_name = URI.unescape(vars[:space_name])
-    app_name = URI.unescape(vars[:app_name])
-    @space  = current_user_spaces.find{ |s| s.name == space_name }
-    @app    = @space.apps.find{ |a| a.name == app_name }
-  end
-
   def update_with_rescue(exception)
     begin
       @app.update!
@@ -27,11 +20,11 @@ class Apps < Cuba
   def destroy_failed_and_set_flash! app_name=nil
     if app_name
       set_flash! "\"#{app_name}\" and \"#{@app.name}\"" +
-       " does not match, app was not destroyed", :alert
+        " does not match, app was not destroyed", :alert
 
     else
       set_flash! "No name provided for \"#{@app.name}\", " +
-       "app was not destroyed", :alert
+        "app was not destroyed", :alert
     end
     res.redirect app_path @space, @app
   end
@@ -66,7 +59,7 @@ class Apps < Cuba
 
   define do
 
-    load_app
+    load_app vars[:space_name], vars[:app_name]
 
     on get, 'map_url' do
       res.write view('apps/map_url')
@@ -98,7 +91,6 @@ class Apps < Cuba
     end
 
     on post, param('url'), param('domain') do |url, domain|
-      load_app
       map_url_and_set_flash! url, domain
       res.redirect app_path(@space, @app)
     end

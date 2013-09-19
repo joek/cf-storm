@@ -24,11 +24,10 @@ class Spaces < Cuba
         run Apps
       end
     end
-
+    
     on get, ':space_name/apps' do |space_name|
-      @space  = current_user_spaces.find do |s|
-        s.name  == URI.unescape(space_name)
-      end
+      load_space space_name
+
       if @space.nil?
         set_flash! "The space '#{space_name}' does not exists"
         res.write view('shared/not-found')
