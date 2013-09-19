@@ -1,7 +1,6 @@
 class Spaces < Cuba
   Cuba.plugin Cuba::With
 
-
   define do
 
     on get, 'new' do

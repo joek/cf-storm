@@ -50,15 +50,19 @@ module AppHelpers
     app_path(space, app) + '/map_url'
   end
 
-  def app_health app, instances=nil
-    if instances
-      "%.0f" % ((instances.select{ |i| i.state == 'RUNNING' }.size.to_f / app.total_instances) * 100)
+  def app_health app, stats
+    if stats
+      "%.0f" % ((running_instances(stats) / app.total_instances.to_f) * 100)
     else
       '0'
     end
 
   end
-
+  
+  def running_instances(stats)
+    stats.map{|k,v| v}.select{|s| s[:state] == "RUNNING"}.size
+  end  
+    
   def app_power_control_button_class app
     return 'btn btn-danger' if app.started?
     return 'btn btn-success'

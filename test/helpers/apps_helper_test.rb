@@ -25,30 +25,31 @@ scope do
   end
 
   test 'should return 100 health percentage of app' do
-    assert req.app_health(@app, @app.instances) == '100'
+    @app.full_health!
+    assert req.app_health(@app, @app.stats) == '100'
   end
 
   test 'should return 50 health percentage of app when half of its instances are running' do
     @app.half_health_with_two_instances!
-    assert req.app_health(@app, @app.instances) == '50'
+    assert req.app_health(@app, @app.stats) == '50'
 
     @app.half_health_with_four_instances!
-    assert req.app_health(@app, @app.instances)
+    assert req.app_health(@app, @app.stats)
   end
 
   test 'should return 25 health percentage of app when one out of four instances is running' do
     @app.quarter_health!
-    assert req.app_health(@app, @app.instances) == '25'
+    assert req.app_health(@app, @app.stats) == '25'
   end
 
   test 'should return 0 health when no instances are running' do
     @app.zero_health!
-    assert req.app_health(@app, @app.instances) == '0'
+    assert req.app_health(@app, @app.stats) == '0'
   end
 
   test 'should return integer number of health' do
     @app.one_out_of_three_instances_running!
-    assert req.app_health(@app, @app.instances) == '33'
+    assert req.app_health(@app, @app.stats) == '33'
   end
 
 end

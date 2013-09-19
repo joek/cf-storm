@@ -1,7 +1,7 @@
 class FakeClient
 
   Struct.new("Space", :name, :apps, :guid)
-  Struct.new("App", :name, :state, :memory, :instances, :url, :guid)
+  Struct.new("App", :name, :state, :memory, :stats, :url, :guid)
   Struct.new("Token", :auth_header, :refresh_token)
   Struct.new("Organization", :name, :spaces)
   Struct.new('Domain', :name)
@@ -58,15 +58,15 @@ class FakeClient
       return true
     end
 
-    def stats
-      {"0" => {:state => "RUNNING", :stats => {
-            :uptime => 111,
-            :mem_quota => 134217728,
-            :disk_quota => 1073741824,
-            :usage => {:time => "2013-09-12 14:58:33 +0000",
-              :cpu => 2.2491581771068845e-05,
-              :mem => 19628032,
-              :disk => 55828480}}}}
+    def custom_stat state = 'RUNNING'
+      {:state =>  state, :stats => {
+          :uptime => 111,
+          :mem_quota => 134217728,
+          :disk_quota => 1073741824,
+          :usage => {:time => "2013-09-12 14:58:33 +0000",
+            :cpu => 2.2491581771068845e-05,
+            :mem => 19628032,
+            :disk => 55828480}}}
     end
 
     def add_route route
@@ -95,36 +95,47 @@ class FakeClient
       @@_routes = nil
     end
 
-    def half_health_with_two_instances!
-      self.instances = [Struct::Instance.new('RUNNING'), Struct::Instance.new('DOWN')]
+    def half_health_with_two_instances! 
+      self.stats = {}      
+      self.stats["0"] = custom_stat('RUNNING')
+      self.stats["1"] = custom_stat('DOWN')
     end
 
     def half_health_with_four_instances!
-      self.instances = [Struct::Instance.new('RUNNING'),
-                        Struct::Instance.new('DOWN'),
-                        Struct::Instance.new('RUNNING'),
-                        Struct::Instance.new('DOWN'),]
+      self.stats = {}      
+      self.stats["0"] = custom_stat('RUNNING')
+      self.stats["1"] = custom_stat('RUNNING')
+      self.stats["2"] = custom_stat('DOWN')
+      self.stats["3"] = custom_stat('DOWN')
     end
 
     def quarter_health!
-      self.instances = [Struct::Instance.new('RUNNING'),
-                        Struct::Instance.new('DOWN'),
-                        Struct::Instance.new('DOWN'),
-                        Struct::Instance.new('DOWN'),]
+      self.stats = {}
+      self.stats["0"] = custom_stat('RUNNING')
+      self.stats["1"] = custom_stat('DOWN')
+      self.stats["2"] = custom_stat('DOWN')
+      self.stats["3"] = custom_stat('DOWN')
     end
 
     def zero_health!
-      self.instances = [Struct::Instance.new('DOWN')]
+      self.stats = {}
+      self.stats["0"] = custom_stat('DOWN')
     end
 
     def one_out_of_three_instances_running!
-      self.instances = [Struct::Instance.new('RUNNING'),
-                        Struct::Instance.new('DOWN'),
-                        Struct::Instance.new('DOWN')]
+      self.stats = {}
+      self.stats["0"] = custom_stat('RUNNING')
+      self.stats["1"] = custom_stat('DOWN')
+      self.stats["2"] = custom_stat('DOWN')
     end
-
+    
+    def full_health!
+      self.stats = {}
+      self.stats["0"] = custom_stat('RUNNING')
+    end
+  
     def total_instances
-      @instances_count = self.instances.size
+      @instances_count = self.stats.size
     end
 
     def total_instances= value
@@ -182,7 +193,7 @@ class FakeClient
       Struct::App.new a,         #name
                       'STARTED', #state
                        128,      #memory
-                       [Struct::Instance.new('RUNNING'), Struct::Instance.new('RUNNING')], #instances
+                       {}, #stats
                        'mswin.run.io',    #url
                        Digest::MD5.hexdigest(a)  #guid
     end

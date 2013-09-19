@@ -72,7 +72,6 @@ class Apps < Cuba
         res.write view('shared/not-found')
       else
         @stats     = @app.stopped? ? [] : @app.stats
-        @instances = @app.stopped? ? [] : @app.instances
         @routes    = @app.routes
         res.write view('apps/show')
       end
