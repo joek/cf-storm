@@ -1,4 +1,4 @@
-include UserHelper
+include UsersHelper
 
 prepare do
   Capybara.reset!

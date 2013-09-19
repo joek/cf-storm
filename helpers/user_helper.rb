@@ -1,4 +1,4 @@
-module UserHelper
+module UsersHelper
 
   def current_user
     @current_user ||= User[session['current_user_id']]
@@ -14,10 +14,6 @@ module UserHelper
 
   def user_avatar_path(user, size=30)
     "http://www.gravatar.com/avatar/#{user.avatar_file}?s=#{size}"
-  end
-
-  def space_path(space)
-    URI.escape("/spaces/#{space.name}/apps")
   end
 
 end
