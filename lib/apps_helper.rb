@@ -36,7 +36,7 @@ module AppsHelper
   end
 
   def app_path space, app
-    "/spaces/#{space.name}/apps/#{app.name}"
+    URI.escape("/spaces/#{space.name}/apps/#{app.name}")
   end
 
   def instance_status_class instance

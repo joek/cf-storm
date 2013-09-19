@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 scope do
 
   setup do
@@ -73,7 +75,13 @@ scope do
 
   test 'should not rise an error when visiting a space with weird characters' do
     @space.name = 'lol master & weee'
-    visit "/spaces/#{URI.escape(@space.name)}/apps"
+    visit req.space_path(@space)
+    assert page.status_code == 200
+  end
+
+  test 'should not rise an error when visiting an app with weird characters' do
+    @app.name = 'app & master sup'
+    visit req.app_path(@space, @app)
     assert page.status_code == 200
   end
 

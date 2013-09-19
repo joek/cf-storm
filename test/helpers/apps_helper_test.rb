@@ -21,7 +21,7 @@ scope do
   test 'should return app path' do
     @space = FakeClient.new.spaces.first
     @app = @space.apps.first
-    assert req.app_path(@space, @app) == "/spaces/#{@space.name}/apps/#{@app.name}"
+    assert req.app_path(@space, @app) == URI.encode("/spaces/#{@space.name}/apps/#{@app.name}")
   end
 
   test 'should return 100 health percentage of app' do
