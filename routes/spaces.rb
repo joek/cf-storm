@@ -1,13 +1,14 @@
 class Spaces < Cuba
   Cuba.plugin Cuba::With
 
+
   define do
 
     on get, 'new' do
       res.write view('spaces/new')
     end
-    
-    on post, param(:space_name)  do |space_name| 
+
+    on post, param(:space_name)  do |space_name|
       begin
         current_user.create_space! space_name
         set_flash! 'Space created successful'
@@ -15,7 +16,7 @@ class Spaces < Cuba
       rescue CFoundry::SpaceNameTaken
         set_flash! "Space name '#{space_name}' is already taken"
         res.redirect new_path(:spaces)
-      end  
+      end
     end
 
     on ':space_name/apps/:app_name' do |space_name, app_name|
@@ -25,8 +26,8 @@ class Spaces < Cuba
     end
 
     on get, ':space_name/apps' do |space_name|
-      @space  = current_user_spaces.find{ |s| s.name  == space_name }
-      
+      @space  = current_user_spaces.find{ |s| s.name  == URI.unescape(space_name) }
+
       if @space.nil?
         set_flash! "The space '#{space_name}' does not exists"
         res.write view('shared/not-found')

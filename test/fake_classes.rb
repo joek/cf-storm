@@ -13,9 +13,6 @@ class FakeClient
     def organization=(org)
       org
     end
-  end
-
-  class Struct::Space
 
     def create!
       true

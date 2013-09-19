@@ -3,6 +3,8 @@ require File.expand_path("settings", File.dirname(__FILE__))
 
 require 'cuba/render'
 
+require 'uri'
+
 Cuba.plugin Cuba::Mote
 Cuba.plugin Cuba::Render
 Cuba.settings[:render][:template_engine] = 'haml'
@@ -35,7 +37,7 @@ Ohm.connect(url: Settings::REDIS_URL)
 Cuba.use Rack::MethodOverride
 
 Cuba.define do
-  
+
   on 'favicon.ico' do
   end
 
@@ -51,12 +53,12 @@ Cuba.define do
     end
   end
 
-  on root do 
+  on root do
     if current_user
-      res.redirect root_path 
+      res.redirect root_path
     else
       res.redirect '/sessions/new'
-    end  
+    end
   end
 
   # Nothing matched the request address
