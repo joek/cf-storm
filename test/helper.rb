@@ -6,10 +6,10 @@ prepare do
 end
 
 class FakeReq
-  include UsersHelper
-  include AppsHelper
-  include SpacesHelper
-  include MainHelper
+  include UserHelpers
+  include AppHelpers
+  include SpaceHelpers
+  include MainHelpers
 
   def session
     { 'current_user_id' => 1}

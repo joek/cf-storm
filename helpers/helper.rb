@@ -1,4 +1,4 @@
-module MainHelper
+module MainHelpers
   def flash kind=:notice
     session_flash.delete kind
   end

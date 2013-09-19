@@ -1,4 +1,4 @@
-module UsersHelper
+module UserHelpers
 
   def current_user
     @current_user ||= User[session['current_user_id']]

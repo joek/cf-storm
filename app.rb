@@ -28,10 +28,10 @@ Cuba.use Rack::Static,
 
 Cuba.use Rack::Protection
 Cuba.use Rack::Protection::RemoteReferrer
-Cuba.plugin UsersHelper
-Cuba.plugin MainHelper
-Cuba.plugin AppsHelper
-Cuba.plugin SpacesHelper
+Cuba.plugin UserHelpers
+Cuba.plugin MainHelpers
+Cuba.plugin AppHelpers
+Cuba.plugin SpaceHelpers
 
 Ohm.connect(url: Settings::REDIS_URL)
 

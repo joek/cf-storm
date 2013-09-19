@@ -1,4 +1,4 @@
-module AppsHelper
+module AppHelpers
   def app_state_icon_class app
     app.started? ? 'label label-success icon-ok app-state-started' :
                    'label label-inportant icon-remove app-state-stopped'
