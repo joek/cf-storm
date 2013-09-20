@@ -1,52 +1,105 @@
+module MetalFoundrySources
+  def raw_spaces
+    url = "/v2/users/#{@cf_client.current_user.guid}/spaces"
+    client.request('GET', url)
+  end
+
+  def raw_apps space_guid
+    url = "/v2/spaces/#{space_guid}/apps"
+    client.request('GET', url)
+  end
+
+  def raw_routes app_guid
+    url = "/v2/apps/#{app_guid}/routes"
+    client.request('GET', url)
+  end
+
+  def raw_stats app_guid
+    url = "/v2/apps/#{app_guid}/stats"
+    client.request('GET', url)
+  end
+
+  def raw_instances app_guid
+    url = "/v2/apps/#{app_guid}/instances"
+    client.request('GET', url)
+  end
+
+end
+
 class MetalFoundry
   require 'json'
+  include MetalFoundrySources
 
   def initialize(cf_client)
     @cf_client = cf_client
   end
-  
+
+  def self.client
+    @client
+  end
+
   def client
     @client ||= CFoundry::RestClient.new User.api_url, @cf_client.token
   end
-  
-  class Space < Struct.new(:name, :guid, :client)
-    
-    def apps
-      @apps ||= fetch_apps(self.guid)
-    end
-
-    def fetch_apps(space_guid)
-      url = "/v2/spaces/#{space_guid}/apps"
-      _apps = JSON.parse client.request('GET', url)[1][:body]
-
-      _apps["resources"].map do |a| 
-        App.new a["entity"]["name"], a["entity"]["state"], 
-        "google.com", a["metadata"]["guid"] 
-      end  
-    end  
-
-  end  
 
   def spaces
     return @spaces unless @spaces.nil?
-
-    url = "/v2/users/#{@cf_client.current_user.guid}/spaces"
-    _spaces = JSON.parse client.request('GET', url)[1][:body]
-
-    @spaces ||= _spaces["resources"].map do |s| 
-      Space.new s["entity"]["name"], s["metadata"]["guid"], client 
-    end  
-  end  
-  
-  class App < Struct.new(:name, :state, :url, :guid)
-    
-    def started?
-      self.state == "STARTED"
-    end  
-  end  
-
-
+    _spaces = JSON.parse raw_spaces[1][:body]
+    @spaces ||= _spaces["resources"].map do |s|
+      Space.new s["entity"]["name"], s["metadata"]["guid"], client
+    end
+  end
 end
+
+
+class Space
+  include MetalFoundrySources
+  attr_accessor :name, :guid, :client
+
+  def initialize name, guid, client
+    self.name   = name
+    self.guid   = guid
+    self.client = client
+  end
+
+  def apps
+    @apps ||= fetch_apps(self.guid)
+  end
+
+  def fetch_apps(space_guid)
+    _apps = JSON.parse raw_apps(space_guid)[1][:body]
+
+    _apps["resources"].map do |a|
+      App.new a["entity"]["name"], a["entity"]["state"],
+      "google.com", a["metadata"]["guid"], client
+    end
+  end
+end
+
+
+class App
+  include MetalFoundrySources
+  attr_accessor :name, :state, :url, :guid, :client
+
+  def initialize name, state, url, guid, client
+    self.name  = name
+    self.state = state
+    self.url   = url
+    self.guid  = guid
+    self.client = client
+  end
+
+  def started?
+    self.state == "STARTED"
+  end
+
+  def routes
+    _routes = JSON.parse raw_routes(self.guid)[1][:body]
+
+    _routes
+  end
+end
+
 
 class User  < Ohm::Model
   extend Forwardable
@@ -59,7 +112,7 @@ class User  < Ohm::Model
   attribute :refresh_token
 
   index :email
-  
+
   def spaces
     # return client.spaces
     @mf ||= MetalFoundry.new(self.client)
@@ -78,17 +131,17 @@ class User  < Ohm::Model
   def self.clients
     @@_clients
   end
-  
+
   def current_organization
     client.current_organization || client.organizations.first
   end
-  
-  def create_space!(name) 
+
+  def create_space!(name)
     space = client.space
     space.organization = current_organization
     space.name         = name
     space.create!
-  end  
+  end
 
   def self.authenticate email, password
     user   = User.find(:email => email).first
