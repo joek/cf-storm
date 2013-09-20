@@ -1,24 +1,27 @@
 $(function() {
-  $('.btn').click(function() {
-    if(!$(this).attr('href')){
-        $('.btn').attr('disabled', true);
-    };
-  });
+    $('.btn').click(function() {
+        $('.btn').each(function(index,value){
+            if($(this).attr('href') == null){
+                $(this).attr('disabled', true);
+                $(this).parents().find('form').submit();
+            };
+        });
+    });
 });
 
 $(function() {
-  $('.trigger-unmap-confirmation').click(function() {
-    $('.unmap-confirmed').toggle();
-  });
+    $('.trigger-unmap-confirmation').click(function() {
+        $('.unmap-confirmed').toggle();
+    });
 });
 
 
 $(function() {
-  $('#health-monitor').knob({
-      'max': 100,
-      'min': 0,
-      'readOnly': true,
-      'fgColor': '#33FF44',
-      'bgColor': '#FFBBBB'
-  });
+    $('#health-monitor').knob({
+        'max': 100,
+        'min': 0,
+        'readOnly': true,
+        'fgColor': '#33FF44',
+        'bgColor': '#FFBBBB'
+    });
 });
