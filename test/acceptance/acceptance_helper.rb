@@ -1,4 +1,4 @@
-include UserHelper
+include UserHelpers
 
 prepare do
   Capybara.reset!
@@ -15,16 +15,16 @@ def login_user!
 end
 
 def assert_app_details app
-  assert has_content? app.name
+  assert has_content? app.name.capitalize
   assert has_content? app.state
   assert has_content? app.memory
-  assert has_content? app.instances.size
+  assert has_content? app.total_instances.size
   app.uris.each {|u| assert has_content? u}
 end
 
 def load_default_space_and_app
-  @space = current_user.spaces.find{ |s| s.name == 'development'}
-  @app   = @space.apps.find{ |a| a.name == 'DOS' }
+  @space ||= current_user.spaces.find{ |s| s.name == 'development'}
+  @app   ||= @space.apps.find{ |a| a.name == 'DOS' } || @space.apps.first
 end
 
 def with_hidden_elements

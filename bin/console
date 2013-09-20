@@ -2,14 +2,17 @@
 require 'irb'
 # require_relative '../shotgun'
 require_relative '../app'
+require 'debugger'; debugger
 
 @client = CFoundry::Client.get User.api_url
 puts 'Loaded client on @client'
+require 'debugger'; debugger
+
 @client.login :username => 'manuel.garcia@altoros.com', :password => '12345678'
 puts 'Authenticated with manuel.garcia@altoros.com'
 @space = @client.spaces.first
 puts 'Fetched first space on @space'
-@app = @space.apps
+@app = @space.apps.first
 puts "Fetched first app from #{@space.name} on @app"
 
 

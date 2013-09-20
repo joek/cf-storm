@@ -1,0 +1,6 @@
+- if flash? :alert
+  .alert.alert-error
+    = flash :alert
+- else
+  .alert.alert-info
+    = flash :notice

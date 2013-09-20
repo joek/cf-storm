@@ -1,19 +1,17 @@
 %ul.breadcrumb
   %li
-    %a{:href => "#"}= @space.name.capitalize
-    /%span.divider /
+    %a{:href => space_path(@space)}= space_human_name(@space)
+    = partial 'shared/apps_counter'
 
-
-
-#apps-list
-  %table#apps-list.table.table-striped
-    %tbody
+%table#apps-list.table.table-striped
+  %tbody
+    - if @space.apps.any?
       - @space.apps.each do |app|
         %tr
           %td
-            %i{:class => app_state_icon_class(app)}
+            = app_state_icon app, "App is"
             = app.name
-          %td
+          %td.span2
             #app-actions
               %form{:action => app_path(@space, app), :method => 'post', :class => 'simple-button'}
                 %input{:type => 'hidden', :value => 'put', :name => '_method'}
@@ -21,10 +19,14 @@
                 .btn-group
                   %button{:type => 'submit',
                      :id => app_state_class(app),
-                     :class => 'btn btn-warning'}
+                     :class => app_power_control_button_class(app),
+                     :title => 'Start/Stop Application'}
                     %i.icon-off
-                  %a{:href => "http://#{app.url}", :id => "app-url-#{app.name}", :target => '_blank', :class => 'btn'}
+                  %a{:href => "http://#{app.url}", :id => "app-url-#{app.name}", :target => '_blank', :class => 'btn', :title => "Visit application's first url"}
                     %i.icon-share-alt
-                  %a{:href => app_path(@space, app), :id => "app-details-#{app.guid}", :class => 'btn'}
+                  %a{:href => app_path(@space, app), :id => "app-details-#{app.guid}", :class => 'btn', :title => 'View application details'}
                     %i.icon-cog
-
+    - else
+      %tr
+        %td
+          %h6.centered No Apps to show

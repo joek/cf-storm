@@ -3,6 +3,8 @@ require File.expand_path("settings", File.dirname(__FILE__))
 
 require 'cuba/render'
 
+require 'uri'
+
 Cuba.plugin Cuba::Mote
 Cuba.plugin Cuba::Render
 Cuba.settings[:render][:template_engine] = 'haml'
@@ -17,6 +19,7 @@ Cuba.use Rack::Static,
 
 Dir["./models/**/*.rb"].each { |rb| require rb }
 Dir["./lib/**/*.rb"].each { |rb| require rb }
+Dir["./helpers/**/*.rb"].each { |rb| require rb }
 Dir["./routes/**/*.rb"].each { |rb| require rb }
 
 Cuba.use Rack::Static,
@@ -25,11 +28,14 @@ Cuba.use Rack::Static,
 
 Cuba.use Rack::Protection
 Cuba.use Rack::Protection::RemoteReferrer
-Cuba.plugin UserHelper
-Cuba.plugin Helper
-Cuba.plugin AppsHelper
+Cuba.plugin UserHelpers
+Cuba.plugin MainHelpers
+Cuba.plugin AppHelpers
+Cuba.plugin SpaceHelpers
 
 Ohm.connect(url: Settings::REDIS_URL)
+
+Cuba.use Rack::MethodOverride
 
 Cuba.define do
 
@@ -48,9 +54,9 @@ Cuba.define do
     end
   end
 
-  on "organizations" do
+  on root do
     if current_user
-      run Organizations
+      res.redirect root_path
     else
       res.redirect '/sessions/new'
     end

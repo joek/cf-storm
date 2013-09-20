@@ -1,0 +1,2 @@
+%span.badge.badge-success{:title => 'Apps running'}= @space.apps.select{|a| a.state == 'STARTED'}.size
+%span.badge.badge-important{:title => 'Number of Apps not running'}= @space.apps.select{|a| a.state != 'STARTED'}.size

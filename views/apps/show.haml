@@ -1,82 +1,34 @@
 %ul.breadcrumb
   %li
-    %a{:href => "#"}= @space.name.capitalize
+    %a{:href => space_path(@space)}= space_human_name(@space)
+    = partial 'shared/apps_counter'
     %span.divider /
   %li
-    %a{:href => '#'}= @app.name.capitalize
+    %a{:href => app_path(@space, @app)}= @app.name.capitalize
 
 .row-fluid
   .span4
     .well
-      %h4 
-        Info
-        %span.label.label-success.pull-right
-          = @app.state
-      %hr  
-    
-      #app-memory
-        #app-mem-form
-          %form{:action => app_path(@space, @app), :method => 'post'}
-            .input-append
-              .input-prepend.input-append  
-                %span.add-on.span3 Memory
-                %select#appendedInputButton{:name => 'memory'}
-                  - (7..14).each do |mem|
-                    - if 2**mem == @app.memory
-                      %option.current-app-mem{:value => 2**mem, :selected => true}= 2**mem
-                    - else
-                      %option{:value => 2**mem}= 2**mem
-                %button.btn{:type => 'submit'} Update
-
-
-
-      #app-instances
-        #instance-quota
-          %form{:action => app_path(@space, @app), :method => 'post'}
-            .input-prepend.input-append  
-              %span.add-on.span3 Instances
-              %select#appendedInputButton{:name => 'instances'}
-                - 20.times do |n|
-                  - if n == @app.total_instances
-                    %option.current-instances{:value => n, :selected => true}= n
-                  - else
-                    %option{:value => n}= n
-              %button.btn{:type => 'submit'} Update
-
-        #app-uris
-          %strong Uris:
-          - @app.uris.each do |uri|
-            = uri
+      = partial("apps/info")
 
     %hr
-
-      #app-destroy-form.well
-        %h4 Danger Zone
-        %hr
-        %form{:action => app_path(@space, @app), :method => 'post'}
-          %input{:type => 'hidden', :value => 'delete', :name => '_method'}
-          .input-prepend.input-append  
-            %span.add-on.span3 App name
-            %input{:type => 'text', :name => 'app_name'}
-            %button.btn.btn-danger{:type => 'submit'} Delete
+    #app-destroy-form.well
+      %h4 Danger Zone
+      %hr
+      %p.justified
+        In order to destroy an app, you should input its name on the
+        following box. Only if the name is correct, the application will be
+        destroyed from the space.
+        %b This change can't be undone.
+      %form{:action => app_path(@space, @app), :method => 'post'}
+        %input{:type => 'hidden', :value => 'delete', :name => '_method'}
+        .input-prepend.input-append
+          %span.add-on.span3 App name
+          %input{:type => 'text', :name => 'app_name'}
+          %button.btn.btn-danger{:type => 'submit'} Destroy
 
   .span8
-    #app-stats.well
-      %h4 Stats
-      %hr
-      %table.table
-        %tr 
-          %th Instance Id
-          %th Cpu Usage
-          %th Memory
-          %th Disk Usage
-          %th Uptime
-          %th State
-        - @stats.each do |instance_id, app_stat|
-          %tr
-            %td= instance_id
-            %td.cpu-usage= cpu_usage(app_stat[:stats][:usage][:cpu])
-            %td.mem-usage= to_megabytes(app_stat[:stats][:usage][:mem])
-            %td.disk-usage= to_megabytes(app_stat[:stats][:usage][:disk])
-            %td.uptime= human_time(app_stat[:stats][:uptime])
-            %td.instance-state= app_stat[:state]
+    = partial("apps/stats")
+
+    %hr
+    = partial("apps/uris")

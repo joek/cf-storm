@@ -6,15 +6,72 @@
   background-color: red;
 }
 
-.pure-button-success {
-  background: rgb(28, 184, 65); /* this is a green */
-}
-
-
 #user-avatar {
   border-radius: 15px;
 }
 
 .avatar-button {
   padding: 4px 7px 0 7px !important;
+}
+
+.body-custom {
+  padding-top: 56px
+}
+
+#app-health {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+#app-health input {
+  box-shadow: none;
+}
+
+.centered {
+  text-align: center;
+}
+
+.justified {
+  text-align: justify
+}
+
+#monitor-label {
+    color: #87CEEB;
+    /*
+    left: -125px;
+    top: -125px;
+    */
+    position: relative;
+}
+
+.con {
+    position: relative;
+}
+.strip {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 10;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    width: 145px;
+    transform-origin:top left;
+    -ms-transform-origin:top left;
+    -moz-transform-origin:top left;
+    -webkit-transform-origin:top left;}
+.bottom-top {
+    margin-top: 1.2em;
+    transform:rotate(-45deg);
+    -ms-transform:rotate(-45deg);
+    -moz-transform:rotate(-45deg);
+    -webkit-transform:rotate(-45deg);
+}
+
+.app-show-stop {
+  margin-top: 40px;
+
+}
+
+.app-show-stop form {
+  margin: 0;
 }

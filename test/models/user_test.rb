@@ -46,4 +46,15 @@ scope do
     assert user.avatar_file == "a7d174ed732e7799e762a184d5213193.png"
   end
 
+  test 'should cache the CFoundry client after first called to avoid extra requests'do 
+    User.clear_client_cache!
+    
+    assert User.clients.empty? 
+
+    user = User.new :email => 'manuel.garcia@altoros'
+    user.client
+
+    assert User.clients.size == 1
+  end
+
 end

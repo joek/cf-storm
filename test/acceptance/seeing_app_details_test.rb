@@ -3,6 +3,7 @@ scope do
   setup do
     login_user!
     load_default_space_and_app
+    @app.full_health!
   end
 
   test 'Given I have a space called development and I have an app called lolmaster' +
@@ -26,6 +27,11 @@ scope do
       assert find('.instance-state').text == @app.stats['0'][:state]
     end
 
+  end
+
+  test 'Given I have an app I should be able to see its health as 100% when all instances are running' do
+    find("#app-details-#{@app.guid}").click
+    assert find('#health-monitor')['value'] == "100"
   end
 
 end

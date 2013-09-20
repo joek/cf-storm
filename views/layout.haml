@@ -3,22 +3,14 @@
   %head
     = partial 'shared/header'
 
-  %body
+  %body.body-custom
+    - if current_user 
+      = partial 'shared/nav-menu'
+
     .container-fluid
       .row-fluid
         .span12
 
-
-          .header.custom-header.minimal-width
-            - if current_user
-              = partial 'shared/nav-menu'
-  
-          .content.minimal-width
-            - if flash? :alert
-              #flash-error
-                = flash :alert
-            - else
-              #flash-error
-                = flash :notice
-
-            = content
+          - if flash?
+            = partial 'shared/flash'
+          = content

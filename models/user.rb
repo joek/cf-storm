@@ -1,7 +1,8 @@
 class User  < Ohm::Model
   extend Forwardable
 
-  def_delegators :client, :login, :spaces
+  def_delegators :client, :login, :spaces, :domains, :route,
+                 :domains_by_name
 
   attribute :email
   attribute :token
@@ -9,8 +10,47 @@ class User  < Ohm::Model
 
   index :email
 
+  def initialize(*args)
+    @@_clients ||= {}
+    super
+  end
+
+  def self.clear_client_cache!
+    @@_clients = {}
+  end
+
+  def self.clients
+    @@_clients
+  end
+  
+  def current_organization
+    client.current_organization || client.organizations.first
+  end
+  
+  def create_space!(name) 
+    space = client.space
+    space.organization = current_organization
+    space.name         = name
+    space.create!
+  end  
+
+  def self.authenticate email, password
+    user   = User.find(:email => email).first
+    user ||= User.new :email => email
+
+    begin
+      token = user.login(:username => email, :password => password)
+    rescue CFoundry::Denied
+      return nil
+    end
+
+    user.cftoken = token
+    user.save
+  end
+
   def client
-    @client ||= User.default_client.get User.api_url, cftoken
+    return @@_clients[self.email] unless  @@_clients[self.email].nil?
+    @@_clients[self.email] = User.default_client.get User.api_url, cftoken
   end
 
   def cftoken
@@ -28,6 +68,7 @@ class User  < Ohm::Model
 
   def self.api_url
     'http://api.run.pivotal.io'
+    # 'http://api.nise.cloudfoundry.altoros.com'
   end
 
   def self.default_client=(client)
@@ -40,20 +81,6 @@ class User  < Ohm::Model
     User.default_client = client_class
     yield
     @default_client = prev_default_client
-  end
-
-  def self.authenticate email, password
-    user   = User.find(:email => email).first
-    user ||= User.new :email => email
-
-    begin
-      token = user.login(:username => email, :password => password)
-    rescue CFoundry::Denied
-      return nil
-    end
-
-    user.cftoken = token
-    user.save
   end
 
   require 'digest/md5'
