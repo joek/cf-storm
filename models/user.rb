@@ -1,7 +1,57 @@
+class MetalFoundry
+  require 'json'
+
+  def initialize(cf_client)
+    @cf_client = cf_client
+  end
+  
+  def client
+    @client ||= CFoundry::RestClient.new User.api_url, @cf_client.token
+  end
+  
+  class Space < Struct.new(:name, :guid, :client)
+    
+    def apps
+      @apps ||= fetch_apps(self.guid)
+    end
+
+    def fetch_apps(space_guid)
+      url = "/v2/spaces/#{space_guid}/apps"
+      _apps = JSON.parse client.request('GET', url)[1][:body]
+
+      _apps["resources"].map do |a| 
+        App.new a["entity"]["name"], a["entity"]["state"], 
+        "google.com", a["metadata"]["guid"] 
+      end  
+    end  
+
+  end  
+
+  def spaces
+    return @spaces unless @spaces.nil?
+
+    url = "/v2/users/#{@cf_client.current_user.guid}/spaces"
+    _spaces = JSON.parse client.request('GET', url)[1][:body]
+
+    @spaces ||= _spaces["resources"].map do |s| 
+      Space.new s["entity"]["name"], s["metadata"]["guid"], client 
+    end  
+  end  
+  
+  class App < Struct.new(:name, :state, :url, :guid)
+    
+    def started?
+      self.state == "STARTED"
+    end  
+  end  
+
+
+end
+
 class User  < Ohm::Model
   extend Forwardable
 
-  def_delegators :client, :login, :spaces, :domains, :route,
+  def_delegators :client, :login, :domains, :route,
                  :domains_by_name
 
   attribute :email
@@ -9,6 +59,12 @@ class User  < Ohm::Model
   attribute :refresh_token
 
   index :email
+  
+  def spaces
+    # return client.spaces
+    @mf ||= MetalFoundry.new(self.client)
+    @mf.spaces
+  end
 
   def initialize(*args)
     @@_clients ||= {}
