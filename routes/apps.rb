@@ -73,7 +73,7 @@ class Apps < Cuba
                    "exists in '#{@space.name}' space", :alert
         res.write view('shared/not-found')
       else
-        @stats     = @app.stopped? ? [] : @app.stats
+        @stats     = @app.stopped? ? [] : @app.stats.sort
         @routes    = @app.routes
         res.write view('apps/show')
       end
