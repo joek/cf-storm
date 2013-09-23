@@ -28,6 +28,10 @@ class FakeClient
     new
   end
 
+  def token
+    Struct::Token.new "my-auth-token", "my-refresh-token"
+  end
+
   def current_organization
     nil
   end

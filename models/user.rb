@@ -22,17 +22,17 @@ class User  < Ohm::Model
   def self.clients
     @@_clients
   end
-  
+
   def current_organization
     client.current_organization || client.organizations.first
   end
-  
-  def create_space!(name) 
+
+  def create_space!(name)
     space = client.space
     space.organization = current_organization
     space.name         = name
     space.create!
-  end  
+  end
 
   def self.authenticate email, password
     user   = User.find(:email => email).first
@@ -49,8 +49,20 @@ class User  < Ohm::Model
   end
 
   def client
-    return @@_clients[self.email] unless  @@_clients[self.email].nil?
+    if @@_clients[self.email]
+      refresh_tokens @@_clients[self.email].token
+      return @@_clients[self.email] unless  @@_clients[self.email].nil?
+    end
     @@_clients[self.email] = User.default_client.get User.api_url, cftoken
+    refresh_tokens @@_clients[self.email].token
+    return @@_clients[self.email]
+  end
+
+  def refresh_tokens new_token
+    unless new_token.auth_header == self.token
+      self.cftoken = new_token
+      self.save
+    end
   end
 
   def cftoken
