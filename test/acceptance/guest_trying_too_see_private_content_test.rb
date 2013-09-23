@@ -25,7 +25,6 @@ scope do
   
   test 'when a guest does not fill the username and pass' do
     visit '/sessions/new'
-    #require 'debugger' ; debugger
     click_button 'Sign in'
     
     assert has_content? 'Invalid credentials'
