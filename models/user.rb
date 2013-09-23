@@ -67,8 +67,7 @@ class User  < Ohm::Model
   end
 
   def self.api_url
-    'http://api.run.pivotal.io'
-    # 'http://api.nise.cloudfoundry.altoros.com'
+    Settings::API_URL
   end
 
   def self.default_client=(client)

@@ -6,4 +6,5 @@ module Settings
   REDIS_URL = ENV["REDIS_URL"]
   HOST = ENV["APP_HOST"]
   NAME = ENV["APP_NAME"]
+  API_URL = ENV['API_URL']
 end
