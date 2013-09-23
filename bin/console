@@ -11,8 +11,8 @@ puts 'Authenticated with manuel.garcia@altoros.com'
 puts 'Fetched first space on @space'
 @app = @space.apps.first
 puts "Fetched first app from #{@space.name} on @app"
-
-
+@metal = MetalFoundry.new(@client)
+puts "Loaded MetalFoundry on @metal"
 
 ARGV.clear
 IRB.start

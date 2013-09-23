@@ -1,11 +1,14 @@
+require 'ostruct'
+
 module MetalFoundrySources
   def raw_spaces
     url = "/v2/users/#{@cf_client.current_user.guid}/spaces"
     client.request('GET', url)
   end
 
-  def raw_apps space_guid
-    url = "/v2/spaces/#{space_guid}/apps"
+  def raw_apps space_guid, depth = nil
+    url = "/v2/spaces/#{space_guid}/apps" 
+    url += "?inline-relations-depth=#{depth}" unless depth.nil?
     client.request('GET', url)
   end
 
@@ -44,13 +47,13 @@ class MetalFoundry
 
   def spaces
     return @spaces unless @spaces.nil?
+
     _spaces = JSON.parse raw_spaces[1][:body]
     @spaces ||= _spaces["resources"].map do |s|
       Space.new s["entity"]["name"], s["metadata"]["guid"], client
     end
   end
 end
-
 
 class Space
   include MetalFoundrySources
@@ -68,44 +71,55 @@ class Space
 
   def fetch_apps(space_guid)
     _apps = JSON.parse raw_apps(space_guid)[1][:body]
-
+    
     _apps["resources"].map do |a|
-      App.new a["entity"]["name"], a["entity"]["state"],
-      "google.com", a["metadata"]["guid"], client
+      
+      a['entity']['client']      = client
+      a['entity']['guid']        = a['metadata']['guid']
+      a['entity']['orig_routes'] = a['entity'].delete('routes')
+      App.new a['entity']
     end
   end
 end
 
-
-class App
+class App < OpenStruct
   include MetalFoundrySources
-  attr_accessor :name, :state, :url, :guid, :client
-
-  def initialize name, state, url, guid, client
-    self.name  = name
-    self.state = state
-    self.url   = url
-    self.guid  = guid
-    self.client = client
-  end
 
   def started?
     self.state == "STARTED"
   end
 
-  def routes
-    _routes = JSON.parse raw_routes(self.guid)[1][:body]
-
-    _routes
+  def stopped?
+    self.state == "STOPPED"
   end
+
+  def routes
+    return @routes unless @routes.nil?
+    @routes = orig_routes.map{|r| Route.new r['entity']}
+  end
+  
+  def stats
+    @stats ||=JSON.parse raw_stats(self.guid)[1][:body]
+  end  
+
+  def total_instances
+    stats.size
+  end  
 end
 
+require 'ostruct'
+
+class Route < OpenStruct
+  def name
+    "#{self.host}.#{self.domain['entity']['name']}"
+  end  
+end
 
 class User  < Ohm::Model
   extend Forwardable
 
   def_delegators :client, :login, :domains, :route,
-                 :domains_by_name
+                 :domains_by_name#, :spaces
 
   attribute :email
   attribute :token
@@ -114,7 +128,6 @@ class User  < Ohm::Model
   index :email
 
   def spaces
-    # return client.spaces
     @mf ||= MetalFoundry.new(self.client)
     @mf.spaces
   end
