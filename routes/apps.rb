@@ -1,11 +1,13 @@
 class Apps < Cuba
 
-  def update_with_rescue(exception)
+  def update_with_rescue
     begin
       @app.update!
       set_flash! 'Update successful'
-    rescue exception
+    rescue  CFoundry::InstancesError
       set_flash! 'Update failed', :alert
+    rescue CFoundry::AppMemoryQuotaExceeded
+      set_flash! "Update failed: You have exceeded your organization's memory limit", :alert
     end
   end
 
@@ -84,7 +86,7 @@ class Apps < Cuba
 
     on post, param('instances') do |instances|
       @app.total_instances = instances.to_i
-      update_with_rescue CFoundry::InstancesError
+      update_with_rescue
 
       res.redirect app_path @space, @app
     end
@@ -96,7 +98,7 @@ class Apps < Cuba
 
     on post, param('memory') do |memory|
       @app.memory = memory.to_i
-      update_with_rescue CFoundry::AppMemoryQuotaExceeded
+      update_with_rescue
       res.redirect app_path @space, @app
     end
 
