@@ -49,22 +49,25 @@ class User  < Ohm::Model
   end
 
   def client
-    if @@_clients[self.email]
-      refresh_tokens @@_clients[self.email].token
-      return @@_clients[self.email] unless  @@_clients[self.email].nil?
-    end
-    @@_clients[self.email] = User.default_client.get User.api_url, cftoken
-    refresh_tokens @@_clients[self.email].token
+    @@_clients[self.email] = client_get! unless @@_clients[self.email]
+     
+    refresh_tokens! if token_expired? 
     return @@_clients[self.email]
   end
-
-  def refresh_tokens new_token
-    unless new_token.auth_header == self.token
-      self.cftoken = new_token
-      self.save
-    end
+  
+  def client_get!
+    User.default_client.get User.api_url, cftoken
   end
-
+  
+  def refresh_tokens!
+    self.cftoken = @@_clients[self.email].token
+    self.save
+  end
+ 
+  def token_expired?
+    @@_clients[self.email].token.auth_header != self.token
+  end  
+  
   def cftoken
     CFoundry::AuthToken.new token, refresh_token
   end
