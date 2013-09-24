@@ -1,16 +1,6 @@
-$(function() {
-    $('.btn').click(function() {
-	if(!$(this).attr('href')){
-	    loadingMessage();	    
-	};
-        $('.btn').each(function(index,value){
-            if($(this).attr('href') == null){
-                $(this).attr('disabled', true);
-                $(this).parents().find('form').submit();
-            };
-	});
-    });
-});
+$(function(){
+    $('.wait-trigger').click(loadingMessage)
+})
 
 function loadingMessage() {
     $.blockUI({ css: { 

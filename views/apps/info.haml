@@ -12,7 +12,7 @@
     %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
     %button{:type => 'submit',
             :id => app_state_class(@app),
-            :class => (app_power_control_button_class(@app) + ' btn-large'),
+            :class => (app_power_control_button_class(@app) + ' btn-large wait-trigger'),
             :title => 'Start/Stop Application'}
       %i.icon-off
 
@@ -34,7 +34,7 @@
                 %option.current-app-mem{:value => 2**mem, :selected => true}= 2**mem
               - else
                 %option{:value => 2**mem}= 2**mem
-          %button.btn{:type => 'submit'} Update
+          %button.btn.wait-trigger{:type => 'submit'} Update
 
 #app-instances
   #instance-quota
@@ -47,4 +47,4 @@
               %option.current-instances{:value => n, :selected => true}= n
             - else
               %option{:value => n}= n
-        %button.btn{:type => 'submit'} Update
+        %button.btn.wait-trigger{:type => 'submit'} Update
