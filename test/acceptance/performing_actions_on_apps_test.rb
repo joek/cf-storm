@@ -70,10 +70,13 @@ scope do
       click_on 'Update'
     end
     assert has_content? 'Update failed'
+    #
+
     @app.memory = 128
   end
 
   test 'should be able to destroy app' do
+
     find("#app-details-#{@app.guid}").click
     within('#app-destroy-form') do
       fill_in 'app_name', :with => @app.name
@@ -83,6 +86,7 @@ scope do
     assert has_content? "#{@app.name} destroyed"
 
     within '#apps-list' do
+
       assert has_no_content? @app.name
     end
 

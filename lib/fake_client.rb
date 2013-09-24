@@ -41,39 +41,26 @@ class FakeClient
   end
 
   def space
-    Struct::Space.new '', ''
+    Space.new '', ''
   end
 
   def spaces
-    @@_spaces ||=
-    %w(development test production).map do |s|
-      Struct::Space.new s, apps, Digest::MD5.hexdigest(s)
-    end
+    @@_spaces ||= Space.spaces_for_test
 
     @@_spaces
   end
 
   def self.apps
-    @@_apps
+    @@_apps ||= App.apps_for_test
   end
 
-  # name, state, memory, instances, uris, url, guid, total_instances
   def apps
-    @@_apps ||=
-    ["Windows 8", "Win95", "DOS"].map do |a|
-      Struct::App.new a,         #name
-                      'STARTED', #state
-                       128,      #memory
-                       {}, #stats
-                       'mswin.run.io',    #url
-                       Digest::MD5.hexdigest(a)  #guid
-    end
-
-    @@_apps
+    FakeClient.apps
   end
 
   def self.reset!
     @@_apps = @@_spaces = nil
+    Space.reset!
   end
 
   def domains
@@ -83,7 +70,7 @@ class FakeClient
   end
 
   def route
-    Struct::Route.new
+    Route.new
   end
 
   def domains_by_name text

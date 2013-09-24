@@ -1,6 +1,16 @@
-Struct.new("App", :name, :state, :memory, :stats, :url, :guid)
+class App < Struct.new(:name, :state, :memory, :stats, :url, :guid)
+  def self.apps_for_test
+    ["Windows 8", "Win95", "DOS"].map do |a|
+      self.new a, #name
+      'STARTED',         #state
+      128,               #memory
+      {},                #stats
+      'mswin.run.io',    #url
+      Digest::MD5.hexdigest(a)  #guid
+    end
 
-class Struct::App
+  end
+
   def started?
     self.state == 'STARTED'
   end
@@ -51,7 +61,7 @@ class Struct::App
 
   def routes
     @@_routes ||=
-      [Struct::Route.new(Struct::Domain.new('mswin.com'), nil, 'run.io', Digest::MD5.hexdigest('mswin'))]
+      [Route.new(Struct::Domain.new('mswin.com'), nil, 'run.io', Digest::MD5.hexdigest('mswin'))]
 
     @@_routes
   end
