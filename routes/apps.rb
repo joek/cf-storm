@@ -12,7 +12,10 @@ class Apps < Cuba
   end
 
   def destroy_and_set_flash!
+    routes = @app.routes
+
     if @app.delete
+      routes.each{|r| r.delete}
       set_flash! "#{@app.name} destroyed"
     else
       set_flash! "#{@app.name} was not destroyed, a problem occured"

@@ -4,6 +4,10 @@ class Route < Struct.new(:domain, :space, :host, :guid)
     # TODO Add check to throw takken exception
     true
   end
+  
+  def delete 
+    true
+  end  
 
   def name
     [self.host, self.domain.name].join('.')
