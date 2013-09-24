@@ -22,6 +22,8 @@ $(function() {
         'min': 0,
         'readOnly': true,
         'fgColor': '#33FF44',
-        'bgColor': '#FFBBBB'
+        'bgColor': '#FFBBBB',
+        'angleOffset':-125,
+        'angleArc': 250
     });
 });
