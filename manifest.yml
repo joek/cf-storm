@@ -1,0 +1,14 @@
+---
+applications:
+- name: storm
+  memory: 256M
+  instances: 2
+  host: storm
+  domain: cfapps.io
+  path: .
+  services:
+    redis-cf-storm:
+      label: rediscloud
+      provider: garantiadata
+      version: n/a
+      plan: 20mb
