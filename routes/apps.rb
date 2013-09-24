@@ -55,7 +55,9 @@ class Apps < Cuba
   end
 
   def remove_route_and_set_flash! route_guid
-    @app.remove_route @app.routes.find{ |r| r.guid == route_guid }
+    route = @app.routes.find{ |r| r.guid == route_guid }
+    @app.remove_route route
+    route.delete
     set_flash! 'Route unmapped successfully'
   end
 
