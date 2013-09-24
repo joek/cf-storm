@@ -11,8 +11,11 @@ function loadingMessage() {
 	'-moz-border-radius': '10px', 
 	opacity: .5, 
 	color: '#fff',
-	'z-index': 1000
-    }}); 
+	'font-size': '30px',
+	'z-index': 1000 },
+        message: '<i class="icon-spinner icon-spin icon-large"></i> Loading...'
+		
+	      }); 
 };
 
 $(function() {
