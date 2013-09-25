@@ -21,8 +21,6 @@
                    :class => app_power_control_button_class(app),
                    :title => 'Start/Stop Application'}
                   %i.icon-off
-                %a{:href => "http://#{app.url}", :id => "app-url-#{app.name}", :target => '_blank', :class => 'btn', :title => "Visit application's first url"}
-                  %i.icon-share-alt
                 %a.wait-trigger{:href => app_path(@space, app), :id => "app-details-#{app.guid}", :class => 'btn', :title => 'View application details'}
                   %i.icon-cog
     - if @apps.empty?

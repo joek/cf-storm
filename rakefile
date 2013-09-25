@@ -12,6 +12,16 @@ task :default => 'test:all'
 
 namespace 'test' do
   desc "Run tests in test/ folder"
+  task :benchmark  do
+    require 'cuba/capybara'
+    require_relative "test/acceptance/acceptance_helper"
+
+    puts "==> Runing Benchmark tests"
+    Cutest.run Dir["test/benchmarks/*_test.rb"]
+    puts '==> Finished!'
+  end
+
+  desc "Run tests in test/ folder"
   task :acceptance  do
     require 'cuba/capybara'
     require_relative "test/acceptance/acceptance_helper"

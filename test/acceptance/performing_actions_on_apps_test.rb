@@ -13,11 +13,6 @@ scope do
     assert find("#start-#{@app.name}")
   end
 
-  test 'should be able to visit the app url' do
-    app_url_href = find("#app-url-#{@app.name}")['href']
-    assert app_url_href == "http://#{@app.url}"
-  end
-
   test 'should be able to change number of instances' do
     find("#app-details-#{@app.guid}").click
     within '#instance-quota' do
