@@ -204,10 +204,14 @@ you can specify a kind of tests to run by doing:
 rake test:acceptance
 ```
 
-And finally (do this at your own risk, you were warned) you can run the integration
-tests by adding a flag:
+Finally, there are benchmark tests to measure the speeds, this is usefull
+to verify the response speeds of the overall console. If you contribute,
+we encourage you to run these tests and verify that there are not significant
+increase in response times:
 
 ```
-rake INTEGRATION=true
+rake test:benchmark
 ```
-
+These kind of tests are tied to the overall performance of the computer
+they are running on, so before you start creating your awesome feature,
+run these tests once and keep track of changes.
