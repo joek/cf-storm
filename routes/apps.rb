@@ -124,5 +124,11 @@ class Apps < Cuba
     on delete do
       destroy_failed_and_set_flash!
     end
+    # Nothing matched the request address
+    on default do
+      res.write view('404')
+      res.status = 404
+    end
+
   end
 end
