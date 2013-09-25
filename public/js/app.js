@@ -47,6 +47,5 @@ $(function() {
 function updateKnob(value){
     window.setTimeout(function(){
         $('#health-monitor').val(value).trigger('change');
-        console.info(value);
     }, (300+(value*20)));
 };
