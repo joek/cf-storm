@@ -6,7 +6,11 @@ class Space < Struct.new("Space", :name, :apps, :guid)
       new s, apps, Digest::MD5.hexdigest(s)
     end
   end
-
+  
+  def apps(args = nil)
+    @@_apps
+  end
+  
   def organization=(org)
     org
   end
