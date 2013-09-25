@@ -10,10 +10,13 @@ module SpaceHelpers
   
   def load_space(space_name)
     unescaped_space_name = URI.unescape space_name
-
-    @space = current_user_spaces.find do |s|
+    
+    @space ||= current_user_spaces.find do |s|
       s.name  == URI.unescape(unescaped_space_name)
     end
+
+    @apps ||= @space.apps(:depth => 2) unless @space.nil?
+    @space
   end
 
 end

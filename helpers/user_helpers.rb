@@ -5,7 +5,7 @@ module UserHelpers
   end
 
   def current_user_spaces
-    @spaces ||= current_user.spaces if current_user
+    @spaces ||= current_user.spaces(:depth => 0) if current_user
   end
 
   def session
