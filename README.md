@@ -79,7 +79,6 @@ and you're ready to go.
 How to Contribute
 =================
 
-
 The Basics
 ----------
 
@@ -163,4 +162,52 @@ Some cuba example apps
 
 - https://github.com/citrusbyte/cuba-app/
 - https://github.com/punchgirls/job_board/
+
+Tests
+=====
+
+In CF-Storm we use TDD for the development cycle, writing a test and
+then coding the feature that passes the test. In the folder 'test' you wil
+find the acceptance and unit tests for this application. However, we were
+not fanatized to the extreme with TDD, simply because adding more tests
+slows down the overall process.
+
+If you decide to contribute to CF-Storm, make sure you write any necesary
+test for any new feature you add and make them pass properly.
+
+The console uses a cfoundry client gem which makes the requests needed
+for everything implemented on CF-Storm, from getting spaces to scale applications
+deployed on the server, validating all data along the way. Since there are
+requests going on while using the console, there's a small delay on each
+request. Writing tests and making all these requests slows down the running
+speed of tests. We don't want that, so we should use the mocks.
+
+BUT, we don't use mocks for the testing, and this is because mocks aren't that
+easy to maintain and reduces the clarity of tests, instead, we fake the client 
+with several classes to speed up the running. These classes are located on the 
+'lib' folder. Add any necesary methods to the fake classes if you need them 
+for your awesome features.
+
+There are also integration tests available that runs agains a real API, be
+aware that doing this will dramatically slow down the running.
+
+The commands to run these tests are these:
+
+```
+rake
+```
+
+This will run the tests using the fake classes doing a fast run over all tests,
+you can specify a kind of tests to run by doing:
+
+```
+rake test:acceptance
+```
+
+And finally (do this at your own risk, you were warned) you can run the integration
+tests by adding a flag:
+
+```
+rake INTEGRATION=true
+```
 

@@ -7,3 +7,6 @@
 # rvmc for rvm users
 .rvmrc
 .idea
+
+# Ignore CFoundry manifests saved by deploy
+manifest*
