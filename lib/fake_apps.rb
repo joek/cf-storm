@@ -74,43 +74,16 @@ class App < Struct.new(:name, :state, :memory, :stats, :url, :guid)
     @@_routes = nil
   end
 
-  def half_health_with_two_instances!
+  def health_with(up, down)
     self.stats = {}
-    self.stats["0"] = custom_stat('RUNNING')
-    self.stats["1"] = custom_stat('DOWN')
-  end
+     
+    up.times do |t|
+      self.stats[t.to_s] = custom_stat 'RUNNING'
+    end 
 
-  def half_health_with_four_instances!
-    self.stats = {}
-    self.stats["0"] = custom_stat('RUNNING')
-    self.stats["1"] = custom_stat('RUNNING')
-    self.stats["2"] = custom_stat('DOWN')
-    self.stats["3"] = custom_stat('DOWN')
-  end
-
-  def quarter_health!
-    self.stats = {}
-    self.stats["0"] = custom_stat('RUNNING')
-    self.stats["1"] = custom_stat('DOWN')
-    self.stats["2"] = custom_stat('DOWN')
-    self.stats["3"] = custom_stat('DOWN')
-  end
-
-  def zero_health!
-    self.stats = {}
-    self.stats["0"] = custom_stat('DOWN')
-  end
-
-  def one_out_of_three_instances_running!
-    self.stats = {}
-    self.stats["0"] = custom_stat('RUNNING')
-    self.stats["1"] = custom_stat('DOWN')
-    self.stats["2"] = custom_stat('DOWN')
-  end
-
-  def full_health!
-    self.stats = {}
-    self.stats["0"] = custom_stat('RUNNING')
+    down.times do |t|
+      self.stats[(up + t).to_s] = custom_stat 'DOWN'
+    end  
   end
 
   def total_instances

@@ -3,7 +3,7 @@ scope do
   setup do
     login_user!
     load_default_space_and_app
-    @app.full_health!
+    @app.health_with(1, 0)
   end
 
   test 'Given I have a space called development and I have an app called lolmaster' +
@@ -18,7 +18,6 @@ scope do
     expected_mem_usage  = req.to_megabytes(@app.stats['0'][:stats][:usage][:mem])
     expected_disk_usage = req.to_megabytes(@app.stats['0'][:stats][:usage][:disk])
     expected_uptime     = req.human_time(@app.stats['0'][:stats][:uptime])
-
     within('#app-stats') do
       assert find('.cpu-usage').text == expected_cpu_usage
       assert find('.mem-usage').text == expected_mem_usage
