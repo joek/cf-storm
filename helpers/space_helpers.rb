@@ -14,6 +14,8 @@ module SpaceHelpers
     @space = current_user_spaces.find do |s|
       s.name  == URI.unescape(unescaped_space_name)
     end
+
+    @apps = @space.apps
   end
 
 end

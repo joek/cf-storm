@@ -5,28 +5,27 @@
 
 %table#apps-list.table.table-striped
   %tbody
-    - if @space.apps.any?
-      - @space.apps.each do |app|
-        %tr
-          %td
-            = app_state_icon app, "App is"
-            = app.name
-          %td.span2
-            #app-actions
-              %form{:action => app_path(@space, app), :method => 'post', :class => 'simple-button'}
-                %input{:type => 'hidden', :value => 'put', :name => '_method'}
-                %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
-                .btn-group
-                  %button.wait-trigger{:type => 'submit',
-                     :id => app_state_class(app),
-                     :class => app_power_control_button_class(app),
-                     :title => 'Start/Stop Application'}
-                    %i.icon-off
-                  %a{:href => "http://#{app.url}", :id => "app-url-#{app.name}", :target => '_blank', :class => 'btn', :title => "Visit application's first url"}
-                    %i.icon-share-alt
-                  %a.wait-trigger{:href => app_path(@space, app), :id => "app-details-#{app.guid}", :class => 'btn', :title => 'View application details'}
-                    %i.icon-cog
-    - else
+    - @space.apps.each do |app|
+      %tr
+        %td
+          = app_state_icon app, "App is"
+          = app.name
+        %td.span2
+          #app-actions
+            %form{:action => app_path(@space, app), :method => 'post', :class => 'simple-button'}
+              %input{:type => 'hidden', :value => 'put', :name => '_method'}
+              %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
+              .btn-group
+                %button.wait-trigger{:type => 'submit',
+                   :id => app_state_class(app),
+                   :class => app_power_control_button_class(app),
+                   :title => 'Start/Stop Application'}
+                  %i.icon-off
+                %a{:href => "http://#{app.url}", :id => "app-url-#{app.name}", :target => '_blank', :class => 'btn', :title => "Visit application's first url"}
+                  %i.icon-share-alt
+                %a.wait-trigger{:href => app_path(@space, app), :id => "app-details-#{app.guid}", :class => 'btn', :title => 'View application details'}
+                  %i.icon-cog
+    - if @apps.empty?
       %tr
         %td
           %h6.centered No Apps to show
