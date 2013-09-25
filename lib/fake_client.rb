@@ -1,10 +1,5 @@
 class FakeClient
 
-  # Complex Structs
-  require_relative './fake_spaces'
-  require_relative './fake_routes'
-  require_relative './fake_apps'
-
   # Generic Structs
   Struct.new("Token", :auth_header, :refresh_token)
   Struct.new("Organization", :name, :spaces)
@@ -12,7 +7,7 @@ class FakeClient
   Struct.new('Instance', :state)
 
   def login(credentials)
-    valid_usernames = ['manuel.garcia@altoros.com']
+    valid_usernames = [Settings::API_TEST_USERNAME]
     if valid_usernames.include? credentials[:username]
       Struct::Token.new "my-auth-token", "my-refresh-token"
     else

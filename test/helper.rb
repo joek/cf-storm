@@ -2,7 +2,7 @@ User.default_client = ENV['INTEGRATION'] ? nil : FakeClient
 
 prepare do
   Ohm.flush
-  User.create :email => 'manuel.garcia@altoros.com'
+  User.create :email => Settings::API_TEST_USERNAME
 end
 
 class FakeReq
@@ -16,7 +16,6 @@ class FakeReq
   end
 end
 
-
 class Cutest::Scope
   def session
     Capybara.current_session.driver.request.env["rack.session"]
@@ -25,5 +24,4 @@ class Cutest::Scope
   def req
     @req ||=FakeReq.new
   end
-
 end

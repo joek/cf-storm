@@ -1,10 +1,8 @@
-require_relative '../helper'
-
 scope do
   setup do
-    @email          = "manuel.garcia@altoros.com"
+    @email          = Settings::API_TEST_USERNAME
     @user           = User.new
-    @password       = "12345678"
+    @password       = Settings::API_TEST_PASSWORD
     @cf_description = "Cloud Foundry sponsored by Pivotal"
   end
 
@@ -23,10 +21,10 @@ scope do
   end
 
   test "should create local user when succesfully logged in" do
-    User.find(:email => "manuel.garcia@altoros.com").first.delete
+    User.find(:email => @email).first.delete
     users_count_before_login = User.all.size
 
-    User.authenticate "manuel.garcia@altoros.com", '12345678'
+    User.authenticate @email, @password
     assert User.all.size == users_count_before_login + 1
   end
 
@@ -35,8 +33,8 @@ scope do
   end
 
   test "should store the token and use it to get a client and avoid re-login" do
-    User.authenticate "manuel.garcia@altoros.com", '12345678'
-    user = User.find(:email => "manuel.garcia@altoros.com").first
+    User.authenticate @email, @password
+    user = User.find(:email => @email).first
 
     assert user.client.spaces
   end
@@ -51,7 +49,7 @@ scope do
     
     assert User.clients.empty? 
 
-    user = User.new :email => 'manuel.garcia@altoros'
+    user = User.new :email => @email
     user.client
 
     assert User.clients.size == 1

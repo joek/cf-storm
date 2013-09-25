@@ -7,8 +7,8 @@ end
 def login_user!
   visit '/sessions/new'
   within('#new-session') do
-    fill_in 'email', with: 'manuel.garcia@altoros.com'
-    fill_in 'password', with: '12345678'
+    fill_in 'email', with: Settings::API_TEST_USERNAME
+    fill_in 'password', with: Settings::API_TEST_PASSWORD
   end
 
   click_button 'Sign in'

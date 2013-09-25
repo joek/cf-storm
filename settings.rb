@@ -3,8 +3,10 @@ module Settings
     ENV[key] ||= value
   end
 
-  REDIS_URL = ENV["REDIS_URL"]
+  REDIS_URL = ENV["REDIS_URL"] 
   HOST = ENV["APP_HOST"]
   NAME = ENV["APP_NAME"]
   API_URL = ENV['API_URL']
+  API_TEST_USERNAME = ENV['API_TEST_USERNAME']
+  API_TEST_PASSWORD = ENV['API_TEST_PASSWORD']
 end

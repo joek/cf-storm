@@ -1,13 +1,12 @@
 #!/usr/bin/env ruby
 require 'irb'
-# require_relative '../shotgun'
 require_relative '../app'
 
 @client = CFoundry::Client.get User.api_url
 puts 'Loaded client on @client'
 
-@client.login :username => 'manuel.garcia@altoros.com', :password => '12345678'
-puts 'Authenticated with manuel.garcia@altoros.com'
+@client.login :username => Settings::API_TEST_USERNAME, :password => Settings::API_TEST_PASSWORD
+puts "Authenticated with #{Settings::API_TEST_USERNAME}"
 
 @space = @client.spaces(:depth => 0).first
 puts 'Fetched first space on @space'
