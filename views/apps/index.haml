@@ -5,7 +5,7 @@
 
 %table#apps-list.table.table-striped
   %tbody
-    - @space.apps.each do |app|
+    - @apps.each do |app|
       %tr
         %td
           = app_state_icon app, "App is"
