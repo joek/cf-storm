@@ -36,3 +36,11 @@ $(function() {
         'angleArc': 250
     });
 });
+
+$(function() {
+    var current = parseInt($('#health-current').attr('value'));
+    for(var i=0; i <= current; i++) {
+	setTimeout("console.info(i)", 1);
+    }
+});
+
