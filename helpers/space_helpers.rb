@@ -15,7 +15,8 @@ module SpaceHelpers
       s.name  == URI.unescape(unescaped_space_name)
     end
 
-    @apps = @space.apps
+    @apps = @space.apps unless @space.nil?
+    @space
   end
 
 end
