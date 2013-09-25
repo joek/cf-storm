@@ -19,12 +19,12 @@ Cutest abd Capybara for testing.
 Why Cuba?
 ---------
 The first answer that come to our minds is Why not?
-Is simple, small and we think that it fits perfectly for this project,
+**Is simple, small and we think that it fits perfectly for this project**,
 which is basically a GUI for an API. 
 You can extend a Cuba app extremely easy, and not only that, 
 it's very fast due to its small size.
 
-We like to keep things simple and as small as posible to easily maintain
+**We like to keep things simple and as small as posible** to easily maintain
 and improve our code, so that's why Cuba.
 
 Install
@@ -168,9 +168,9 @@ Tests
 
 In CF-Storm we use TDD for the development cycle, writing a test and
 then coding the feature that passes the test. In the folder 'test' you wil
-find the acceptance and unit tests for this application. However, we were
+find the acceptance and unit tests for this application. However, **we were
 not fanatized to the extreme with TDD, simply because adding more tests
-slows down the overall process.
+slows down the overall process**.
 
 If you decide to contribute to CF-Storm, make sure you write any necesary
 test for any new feature you add and make them pass properly.
@@ -182,8 +182,8 @@ requests going on while using the console, there's a small delay on each
 request. Writing tests and making all these requests slows down the running
 speed of tests. We don't want that, so we should use the mocks.
 
-BUT, we don't use mocks for the testing, and this is because mocks aren't that
-easy to maintain and reduces the clarity of tests, instead, we fake the client 
+BUT, **we don't use mocks for the testing, and this is because mocks aren't that
+easy to maintain and reduces the clarity of tests**, instead, we fake the client 
 with several classes to speed up the running. These classes are located on the 
 'lib' folder. Add any necesary methods to the fake classes if you need them 
 for your awesome features.
