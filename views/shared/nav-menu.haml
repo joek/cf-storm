@@ -18,14 +18,13 @@
               %a{:tabindex => "-1", :href => new_path(:spaces) } Create Space
       %ul.nav.pull-right
         %li
-          %img#user-avatar{:src => user_avatar_path(current_user)}
+          %img#user-avatar{:src => user_avatar_path(current_user),
+              :title => "You are logged in as #{current_user.email}"}
+
         %li.dropdown
           %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
             #{current_user.email}
             %strong.caret
           %ul.dropdown-menu
-            %li
-              %a{:href => "#"} Profile
-            %li.divider
             %li
               %a{:href => '/sessions/delete'} Logout
