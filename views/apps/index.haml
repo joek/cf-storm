@@ -17,14 +17,14 @@
                 %input{:type => 'hidden', :value => 'put', :name => '_method'}
                 %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
                 .btn-group
-                  %button{:type => 'submit',
+                  %button.wait-trigger{:type => 'submit',
                      :id => app_state_class(app),
                      :class => app_power_control_button_class(app),
                      :title => 'Start/Stop Application'}
                     %i.icon-off
                   %a{:href => "http://#{app.url}", :id => "app-url-#{app.name}", :target => '_blank', :class => 'btn', :title => "Visit application's first url"}
                     %i.icon-share-alt
-                  %a{:href => app_path(@space, app), :id => "app-details-#{app.guid}", :class => 'btn', :title => 'View application details'}
+                  %a.wait-trigger{:href => app_path(@space, app), :id => "app-details-#{app.guid}", :class => 'btn', :title => 'View application details'}
                     %i.icon-cog
     - else
       %tr

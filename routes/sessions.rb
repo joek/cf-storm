@@ -20,7 +20,13 @@ class Sessions < Cuba
           res.redirect "/sessions/new"
         end
       end
+    
+      on default do 
+        set_flash! 'Invalid credentials', :alert
+        res.redirect "/sessions/new"
+       end  
     end
-
+    
+    
   end
 end

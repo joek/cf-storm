@@ -9,6 +9,16 @@
       %th Disk Usage
       %th Uptime
       %th State
+    - if @stats.empty?
+      %tr
+        %td - 
+        %td.cpu-usage -
+        %td.mem-usage - 
+        %td.disk-usage -
+        %td.uptime -
+        %td.instane-state - 
+        
+        
     - @stats.each do |instance_id, app_stat|
       %tr
         %td= instance_id

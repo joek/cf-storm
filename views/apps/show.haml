@@ -1,10 +1,10 @@
 %ul.breadcrumb
   %li
-    %a{:href => space_path(@space)}= space_human_name(@space)
+    %a.wait-trigger{:href => space_path(@space)}= space_human_name(@space)
     = partial 'shared/apps_counter'
     %span.divider /
   %li
-    %a{:href => app_path(@space, @app)}= @app.name.capitalize
+    %a.wait-trigger{:href => app_path(@space, @app)}= @app.name.capitalize
 
 .row-fluid
   .span4
@@ -25,7 +25,7 @@
         .input-prepend.input-append
           %span.add-on.span3 App name
           %input{:type => 'text', :name => 'app_name'}
-          %button.btn.btn-danger{:type => 'submit'} Destroy
+          %button.btn.btn-danger.wait-trigger{:type => 'submit'} Destroy
 
   .span8
     = partial("apps/stats")

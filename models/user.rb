@@ -22,17 +22,17 @@ class User  < Ohm::Model
   def self.clients
     @@_clients
   end
-  
+
   def current_organization
     client.current_organization || client.organizations.first
   end
-  
-  def create_space!(name) 
+
+  def create_space!(name)
     space = client.space
     space.organization = current_organization
     space.name         = name
     space.create!
-  end  
+  end
 
   def self.authenticate email, password
     user   = User.find(:email => email).first
@@ -49,10 +49,25 @@ class User  < Ohm::Model
   end
 
   def client
-    return @@_clients[self.email] unless  @@_clients[self.email].nil?
-    @@_clients[self.email] = User.default_client.get User.api_url, cftoken
+    @@_clients[self.email] = client_get! unless @@_clients[self.email]
+     
+    refresh_tokens! if token_expired? 
+    return @@_clients[self.email]
   end
-
+  
+  def client_get!
+    User.default_client.get User.api_url, cftoken
+  end
+  
+  def refresh_tokens!
+    self.cftoken = @@_clients[self.email].token
+    self.save
+  end
+ 
+  def token_expired?
+    @@_clients[self.email].token.auth_header != self.token
+  end  
+  
   def cftoken
     CFoundry::AuthToken.new token, refresh_token
   end
@@ -67,8 +82,7 @@ class User  < Ohm::Model
   end
 
   def self.api_url
-    'http://api.run.pivotal.io'
-    # 'http://api.nise.cloudfoundry.altoros.com'
+    Settings::API_URL
   end
 
   def self.default_client=(client)

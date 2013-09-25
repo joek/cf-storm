@@ -1,13 +1,22 @@
-$(function() {
-    $('.btn').click(function() {
-        $('.btn').each(function(index,value){
-            if($(this).attr('href') == null){
-                $(this).attr('disabled', true);
-                $(this).parents().find('form').submit();
-            };
-        });
-    });
-});
+$(function(){
+    $('.wait-trigger').click(loadingMessage)
+})
+
+function loadingMessage() {
+    $.blockUI({ css: { 
+	border: 'none', 
+	padding: '15px', 
+	backgroundColor: '#000', 
+	'-webkit-border-radius': '10px', 
+	'-moz-border-radius': '10px', 
+	opacity: .5, 
+	color: '#fff',
+	'font-size': '30px',
+	'z-index': 1000 },
+        message: '<i class="icon-spinner icon-spin icon-large"></i> Loading...'
+		
+	      }); 
+};
 
 $(function() {
     $('.trigger-unmap-confirmation').click(function() {
@@ -22,6 +31,8 @@ $(function() {
         'min': 0,
         'readOnly': true,
         'fgColor': '#33FF44',
-        'bgColor': '#FFBBBB'
+        'bgColor': '#FFBBBB',
+        'angleOffset':-125,
+        'angleArc': 250
     });
 });

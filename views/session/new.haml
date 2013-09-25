@@ -1,7 +1,3 @@
-- if flash? :alert
-  #flash-error
-    = flash :alert
-
 %br
 .well.span3.offset4
   %h5
@@ -14,7 +10,7 @@
 
     %fieldset
       %label{:for => "email"} Email
-      %input.span12{:type => "email", :name => "email", :placeholder => "Email"}
+      %input.span12{:type => "text", :name => "email", :placeholder => "Email"}
 
       %label{:for => "password"} Password
       %input.span12{:type => "password", :name => "password", :placeholder => "Password"}

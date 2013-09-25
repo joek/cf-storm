@@ -1,0 +1,14 @@
+---
+applications:
+- name: storm
+  memory: 128M
+  instances: 1
+  host: devstorm
+  domain: cfapps.io
+  path: .
+  services:
+    redis-dev-storm:
+      label: rediscloud
+      provider: garantiadata
+      version: n/a
+      plan: 20mb

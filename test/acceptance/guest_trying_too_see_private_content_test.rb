@@ -22,5 +22,11 @@ scope do
 
     assert has_content? 'Invalid credentials'
   end
-
+  
+  test 'when a guest does not fill the username and pass' do
+    visit '/sessions/new'
+    click_button 'Sign in'
+    
+    assert has_content? 'Invalid credentials'
+  end  
 end

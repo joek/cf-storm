@@ -1,16 +1,21 @@
 class Apps < Cuba
 
-  def update_with_rescue(exception)
+  def update_with_rescue
     begin
       @app.update!
       set_flash! 'Update successful'
-    rescue exception
+    rescue  CFoundry::InstancesError
       set_flash! 'Update failed', :alert
+    rescue CFoundry::AppMemoryQuotaExceeded
+      set_flash! "Update failed: You have exceeded your organization's memory limit", :alert
     end
   end
 
   def destroy_and_set_flash!
+    routes = @app.routes
+
     if @app.delete
+      routes.each{|r| r.delete}
       set_flash! "#{@app.name} destroyed"
     else
       set_flash! "#{@app.name} was not destroyed, a problem occured"
@@ -53,7 +58,9 @@ class Apps < Cuba
   end
 
   def remove_route_and_set_flash! route_guid
-    @app.remove_route @app.routes.find{ |r| r.guid == route_guid }
+    route = @app.routes.find{ |r| r.guid == route_guid }
+    @app.remove_route route
+    route.delete
     set_flash! 'Route unmapped successfully'
   end
 
@@ -71,7 +78,7 @@ class Apps < Cuba
                    "exists in '#{@space.name}' space", :alert
         res.write view('shared/not-found')
       else
-        @stats     = @app.stopped? ? [] : @app.stats
+        @stats     = @app.stopped? ? [] : @app.stats.sort
         @routes    = @app.routes
         res.write view('apps/show')
       end
@@ -84,7 +91,7 @@ class Apps < Cuba
 
     on post, param('instances') do |instances|
       @app.total_instances = instances.to_i
-      update_with_rescue CFoundry::InstancesError
+      update_with_rescue
 
       res.redirect app_path @space, @app
     end
@@ -96,7 +103,7 @@ class Apps < Cuba
 
     on post, param('memory') do |memory|
       @app.memory = memory.to_i
-      update_with_rescue CFoundry::AppMemoryQuotaExceeded
+      update_with_rescue
       res.redirect app_path @space, @app
     end
 
