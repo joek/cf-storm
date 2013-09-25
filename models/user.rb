@@ -1,8 +1,10 @@
 class User  < Ohm::Model
+  require 'benchmark'
+
   extend Forwardable
 
-  def_delegators :client, :login, :spaces, :domains, :route,
-                 :domains_by_name
+  def_delegators :client, :login, :domains, :route,
+                 :domains_by_name, :spaces, :space_by_name
 
   attribute :email
   attribute :token
@@ -14,7 +16,7 @@ class User  < Ohm::Model
     @@_clients ||= {}
     super
   end
-
+  
   def self.clear_client_cache!
     @@_clients = {}
   end

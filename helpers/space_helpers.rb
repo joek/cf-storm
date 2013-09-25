@@ -8,12 +8,4 @@ module SpaceHelpers
     URI.escape("/spaces/#{space.name}/apps")
   end
   
-  def load_space(space_name)
-    unescaped_space_name = URI.unescape space_name
-
-    @space = current_user_spaces.find do |s|
-      s.name  == URI.unescape(unescaped_space_name)
-    end
-  end
-
 end

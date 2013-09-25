@@ -44,7 +44,7 @@ class FakeClient
     Space.new '', ''
   end
 
-  def spaces
+  def spaces(args = nil)
     @@_spaces ||= Space.spaces_for_test
 
     @@_spaces

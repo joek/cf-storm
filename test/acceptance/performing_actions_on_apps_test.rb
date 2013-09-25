@@ -13,11 +13,6 @@ scope do
     assert find("#start-#{@app.name}")
   end
 
-  test 'should be able to visit the app url' do
-    app_url_href = find("#app-url-#{@app.name}")['href']
-    assert app_url_href == "http://#{@app.url}"
-  end
-
   test 'should be able to change number of instances' do
     find("#app-details-#{@app.guid}").click
     within '#instance-quota' do
@@ -147,20 +142,6 @@ scope do
     assert has_content? 'Route is already taken'
     assert find('#app-uris')
   end
-
-  # A validator is missing for this test to validate url
-  # test 'should reject an attempt to add an invalid url to the app' do
-  #   find("#app-details-#{@app.guid}").click
-  #   within('#app-uris') do
-  #     fill_in 'url', :with => '$D()"/·&=!("=(!")%/=·&$"$/?%$¿?/>>><,:,.4853'
-  #   end
-  #   click_button 'Add URL'
-  #   assert has_content? 'Invalid URL'
-  #   assert find('#app-uris')
-  #   within('#app-uris') do
-  #     assert has_no_content? '$D()"/·&=!("=(!")%/=·&$"$/?%$¿?/>>><,:,.4853'
-  #   end
-  # end
 
   test 'should be able to unmap a url when there are multiples urls' do
     find("#app-details-#{@app.guid}").click

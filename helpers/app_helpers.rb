@@ -68,10 +68,4 @@ module AppHelpers
     return 'btn btn-success'
   end
 
-  def load_app(space_name, app_name) 
-    unescaped_app_name = URI.unescape(app_name)
-    load_space space_name
-    @app = @space.apps.find{ |a| a.name == unescaped_app_name }
-  end
-
 end
