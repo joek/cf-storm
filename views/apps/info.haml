@@ -20,7 +20,7 @@
 #app-health{:title => 'Health: Instances running divided by total instances'}
   #monitor-label Health
   %form{:action => '#', :autocomplete => 'off'}
-    %input#health-current{:type => 'hidden', :value => app_health(@app, @stats)}
+    %input#current-health{:type => 'hidden', :value => app_health(@app, @stats)}
     %input#health-monitor{:type => 'text', :value => 0, :disabled => true, 'data-width' => '100', 'data-height' => '100'}
 
 #app-memory
