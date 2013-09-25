@@ -8,8 +8,10 @@ puts 'Loaded client on @client'
 
 @client.login :username => 'manuel.garcia@altoros.com', :password => '12345678'
 puts 'Authenticated with manuel.garcia@altoros.com'
+
 @space = @client.spaces(:depth => 0).first
 puts 'Fetched first space on @space'
+
 @app = @space.apps.first
 puts "Fetched first app from #{@space.name} on @app"
 

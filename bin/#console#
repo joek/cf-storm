@@ -1,9 +1,0 @@
-#!/usr/bin/ruby
-require 'irb'
-require_relative '../app'
-
-@client = CFoundry::Client.get User.api_url
-
-ARGV.clear
-IRB.start
-
