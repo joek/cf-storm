@@ -7,21 +7,22 @@ Cf Storm is the open source web console for Cloud Foundry.
 It allows to connect to any Cloud Foundry API endpoint,
 for easy administration.
 At the moment only it alllows to manage spaces and apps
-but we are planning to add users, organizations and services
+but we are planning to add users, organizations, services
 and more in the near future.
 
 Tech details
 ------------
 
-The web console is made using Cuba microframework, Redis, Ohm (Object-hash mapping library for Redis.)
+The web console was created using Cuba microframework, Redis, Ohm (Object-hash mapping library for Redis.)
 Cutest abd Capybara for testing.
 
 Why Cuba?
 ---------
 The first answer that come to our minds is Why not?
-Is simple, small and we think that it fits perfectly for this project
-which is basically a GUI for an API. You can extend a Cuba app extremelly
-easy, and not only that, it's very fast due to its small size.
+Is simple, small and we think that it fits perfectly for this project,
+which is basically a GUI for an API. 
+You can extend a Cuba app extremely easy, and not only that, 
+it's very fast due to its small size.
 
 We like to keep things simple and as small as posible to easily maintain
 and improve our code, so that's why Cuba.
@@ -147,32 +148,19 @@ class MySection < Cuba
   end
 end
 ```
-
 All HTTP verbs works, and if you use them, you'll follow more properly the
 protocol definition, and of course you'll make it easier for other people
 to understand your code.
 
-Parameters
-----------
+Cuba docs
+=========
 
-In the 'on' statement you can also use parameters, which can come via a post
-action or get action. You can match each combination of params you like
+- http://cuba.is/
+- https://github.com/soveran/cuba
 
-```
-on delete, params('some_name'), param('something_else') do |some_name, something_else|
-```
+Some cuba example apps
+----------------------
 
-Note that if one parameters is missing, the route above won't match a call, so
-be careful to define these routes properly.
+- https://github.com/citrusbyte/cuba-app/
+- https://github.com/punchgirls/job_board/
 
-Variables on Path
------------------
-
-You can use variables on the path to be matched like so:
-
-```
-on get, 'somepath/:variable/show' do |variable|
-```
-
-This route will match paths like 'somepath/lol/show', 'somepath/foo/show' and
-so on. The contect of the variable will be passed to the block below.
