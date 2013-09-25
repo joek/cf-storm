@@ -148,20 +148,6 @@ scope do
     assert find('#app-uris')
   end
 
-  # A validator is missing for this test to validate url
-  # test 'should reject an attempt to add an invalid url to the app' do
-  #   find("#app-details-#{@app.guid}").click
-  #   within('#app-uris') do
-  #     fill_in 'url', :with => '$D()"/·&=!("=(!")%/=·&$"$/?%$¿?/>>><,:,.4853'
-  #   end
-  #   click_button 'Add URL'
-  #   assert has_content? 'Invalid URL'
-  #   assert find('#app-uris')
-  #   within('#app-uris') do
-  #     assert has_no_content? '$D()"/·&=!("=(!")%/=·&$"$/?%$¿?/>>><,:,.4853'
-  #   end
-  # end
-
   test 'should be able to unmap a url when there are multiples urls' do
     find("#app-details-#{@app.guid}").click
     route = @app.routes.first
