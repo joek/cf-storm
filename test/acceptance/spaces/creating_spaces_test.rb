@@ -5,7 +5,8 @@ scope do
     login_user!
   end
 
-  test 'Given Im in the root path, I should be able to create a new space' do
+  # Context: Visiting root path
+  test 'I create a valid space' do
     visit req.new_path(:spaces)
     
     within('#space-create-form') do 
