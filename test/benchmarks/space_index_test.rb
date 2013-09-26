@@ -12,7 +12,11 @@ scope do
     puts Benchmark.measure {
       10.times do 
         puts "\n\n==> #{url}"
-        puts Benchmark.measure { visit url }
+        puts Benchmark.measure { 
+          visit url
+          assert find('#apps-list')
+          assert page.status_code == 200
+        }
       end  
     }
   end  
