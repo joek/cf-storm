@@ -37,10 +37,8 @@
 
 #monitor-label {
     color: #87CEEB;
-    /*
-    left: -125px;
-    top: -125px;
-    */
+    //left: -125px;
+    top: 90px;
     position: relative;
 }
 
