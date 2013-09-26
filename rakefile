@@ -32,7 +32,7 @@ namespace 'test' do
     require_relative "test/acceptance/acceptance_helper"
 
     puts "==> Runing acceptance tests"
-    Cutest.run Dir["test/acceptance/*_test.rb"]
+    Cutest.run Dir["test/acceptance/**/*_test.rb"]
     puts '==> Finished!'
   end
 
