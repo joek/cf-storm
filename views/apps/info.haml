@@ -11,9 +11,9 @@
     %input{:type => 'hidden', :value => 'put', :name => '_method'}
     %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
     %input{:type => 'hidden', :value => 'show', :name => 'back_to'}
-    %button{:type => 'submit',
+    %button.wait-trigger{:type => 'submit',
             :id => app_state_class(@app),
-            :class => (app_power_control_button_class(@app) + ' btn-large wait-trigger'),
+            :class => (app_power_control_button_class(@app) + ' btn-large'),
             :title => 'Start/Stop Application'}
       %i.icon-off
 

@@ -32,6 +32,7 @@ Cuba.plugin UserHelpers
 Cuba.plugin MainHelpers
 Cuba.plugin AppHelpers
 Cuba.plugin SpaceHelpers
+Cuba.plugin BootstrapHelpers
 
 Ohm.connect(url: Settings::REDIS_URL)
 

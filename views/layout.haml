@@ -3,13 +3,13 @@
   %head
     = partial 'shared/header'
 
-  %body.body-custom
+  %body
     - if current_user
       = partial 'shared/nav-menu'
 
-    .container-fluid
-      .row-fluid
-        .span12
+    %div{:class => container_class}
+      %div{:class => row_class}
+        %div{:class => width_class(12)}
 
           - if flash?
             = partial 'shared/flash'
