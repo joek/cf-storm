@@ -5,7 +5,9 @@ scope do
     login_user!
     load_default_space_and_app
   end
-
+  
+  
+  
   test 'Given Im seeing apps in development space then I ' +
        'should be able to stop an app' do
 
@@ -13,7 +15,10 @@ scope do
     assert find("#start-#{@app.name}")
   end
 
-  test 'should be able to change number of instances' do
+  # ------------------------------------------------------------------------
+  # Context: Seeing app page 
+
+  test 'I change app instances' do
     find("#app-details-#{@app.guid}").click
     within '#instance-quota' do
       assert find('.current-instances').value.to_i == @app.total_instances
@@ -25,12 +30,13 @@ scope do
     assert has_content? 'Update successful'
   end
 
-  # instance limit is 10
-  test 'should not update instances if exedes instance limit' do
+
+  test 'I change app instances beyond the quota so I get an error msg' do
     find("#app-details-#{@app.guid}").click
     within '#instance-quota' do
       assert find('.current-instances').value.to_i == @app.total_instances
-
+      
+      # instance limit is 10
       select '11', :from => 'instances'
       click_on 'Update'
     end
@@ -44,7 +50,7 @@ scope do
     @app.total_instances = 8
   end
 
-  test 'should be able to change ammount of memory of an app' do
+  test 'I change app memory' do
     find("#app-details-#{@app.guid}").click
     within('#app-mem-form') do
       assert find('.current-app-mem').value.to_i == @app.memory
@@ -55,22 +61,21 @@ scope do
     assert has_content? 'Update successful'
   end
 
-  # Mem limit is 2048
-  test 'should not update memory if excedes limit' do
+  
+  test 'I change memory beyond the quota so I get an error msg' do
     find("#app-details-#{@app.guid}").click
     within('#app-mem-form') do
       assert find('.current-app-mem').value.to_i == @app.memory
-
+      
+      # Mem limit is 2048
       select '4096', :from => 'memory'
       click_on 'Update'
     end
     assert has_content? 'Update failed'
-    #
-
     @app.memory = 128
   end
 
-  test 'should be able to destroy app' do
+  test 'I destroy the app' do
 
     find("#app-details-#{@app.guid}").click
     within('#app-destroy-form') do
@@ -88,8 +93,7 @@ scope do
     FakeClient.reset!
   end
 
-  test 'should show a flash error when I try to delete an' +
-       'app and the name does not match' do
+  test 'I try to destroy an app filling with a different name so I get an error msg' do
 
     find("#app-details-#{@app.guid}").click
 
@@ -103,8 +107,7 @@ scope do
   end
 
 
-  test 'should show a flash error when I try to delete an' +
-       'app and no name is provided' do
+  test 'I try to destoy an app without filling the name so I get an error msg' do
 
     find("#app-details-#{@app.guid}").click
 
@@ -117,7 +120,7 @@ scope do
   end
 
 
-  test 'should be able to associate a valid url with the app' do
+  test 'I add a URL to the app' do
     find("#app-details-#{@app.guid}").click
     within('#app-uris') do
       fill_in 'url', :with => 'new.url'
@@ -130,7 +133,7 @@ scope do
     end
   end
 
-  test 'should reject an attempt to add an existent url to the app' do
+  test 'I try to re-add an existing URL so I get an error msg' do
     find("#app-details-#{@app.guid}").click
     within('#app-uris') do
       assert has_content? 'new.url.lolmaster.com'
@@ -143,7 +146,7 @@ scope do
     assert find('#app-uris')
   end
 
-  test 'should be able to unmap a url when there are multiples urls' do
+  test 'I remove one of the URLs from the app' do
     find("#app-details-#{@app.guid}").click
     route = @app.routes.first
     within('#app-uris') do
@@ -154,7 +157,8 @@ scope do
     assert has_no_content? route.name
   end
 
-  test 'should be able to unmap a url when there is only one by confirming the removal' do
+  
+  test 'I remove the last URL from the app' do
     @app.reset_routes!
     find("#app-details-#{@app.guid}").click
     route = @app.routes.first
@@ -171,14 +175,12 @@ scope do
     @app.reset_routes!
   end
 
-  test 'should not raise an error when I try to visit with a non-existing app' do
-
+  test 'I visit a non-existent page so I get an error msg but not an exception' do
     visit "#{req.space_path(@space)}/non-exist"
     assert has_content? "The app 'non-exist' does not exists in '#{@space.name}' space"
-
   end
 
-  test 'should not raise an error when the app is stopped' do
+  test 'I visit an app page when it\'s stopped so I dont\'t get an exception' do
     @app.stop!
 
     visit req.app_path(@space, @app)
