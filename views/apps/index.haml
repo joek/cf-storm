@@ -3,10 +3,10 @@
     %a{:href => space_path(@space)}= space_human_name(@space)
     = partial 'shared/apps_counter'
 
-%table#apps-list.table.table-striped
+%table#apps-list.table.table-striped.table-hover
   %tbody
     - @apps.each do |app|
-      %tr
+      %tr.row-link{:'data-path' => app_path(@space, app)}
         %td
           = app_state_icon app, "App is"
           = app.name

@@ -73,3 +73,11 @@
 .app-show-stop form {
   margin: 0;
 }
+
+.row-link {
+}
+
+.row-link:hover {
+    background-color: red !important;
+    cursor: pointer;
+}

@@ -49,3 +49,9 @@ function updateKnob(value){
         $('#health-monitor').val(value).trigger('change');
     }, (300+(value*20)));
 };
+
+$(function(){
+    $('.row-link').click(function(){
+	window.open($(this).attr('data-path'), '_self');
+    });
+});
