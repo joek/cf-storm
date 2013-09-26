@@ -6,17 +6,17 @@ scope do
     load_default_space_and_app
   end
   
-  
-  
-  test 'Given Im seeing apps in development space then I ' +
-       'should be able to stop an app' do
+  # ------------------------------------------------------------------------
+  # Context: Seeing app index page
+
+  test 'I stop an app' do
 
     click_on "stop-#{@app.name}"
     assert find("#start-#{@app.name}")
   end
 
   # ------------------------------------------------------------------------
-  # Context: Seeing app page 
+  # Context: Seeing app show page 
 
   test 'I change app instances' do
     find("#app-details-#{@app.guid}").click
@@ -29,7 +29,6 @@ scope do
 
     assert has_content? 'Update successful'
   end
-
 
   test 'I change app instances beyond the quota so I get an error msg' do
     find("#app-details-#{@app.guid}").click
@@ -61,7 +60,6 @@ scope do
     assert has_content? 'Update successful'
   end
 
-  
   test 'I change memory beyond the quota so I get an error msg' do
     find("#app-details-#{@app.guid}").click
     within('#app-mem-form') do
@@ -76,7 +74,6 @@ scope do
   end
 
   test 'I destroy the app' do
-
     find("#app-details-#{@app.guid}").click
     within('#app-destroy-form') do
       fill_in 'app_name', :with => @app.name
@@ -86,7 +83,6 @@ scope do
     assert has_content? "#{@app.name} destroyed"
 
     within '#apps-list' do
-
       assert has_no_content? @app.name
     end
 
@@ -94,7 +90,6 @@ scope do
   end
 
   test 'I try to destroy an app filling with a different name so I get an error msg' do
-
     find("#app-details-#{@app.guid}").click
 
     within('#app-destroy-form') do
@@ -108,7 +103,6 @@ scope do
 
 
   test 'I try to destoy an app without filling the name so I get an error msg' do
-
     find("#app-details-#{@app.guid}").click
 
     within('#app-destroy-form') do
@@ -126,6 +120,7 @@ scope do
       fill_in 'url', :with => 'new.url'
     end
     click_button 'Add URL'
+
     assert has_content? 'URL Added to the app'
     assert find('#app-uris')
     within('#app-uris') do
@@ -135,13 +130,16 @@ scope do
 
   test 'I try to re-add an existing URL so I get an error msg' do
     find("#app-details-#{@app.guid}").click
+
     within('#app-uris') do
       assert has_content? 'new.url.lolmaster.com'
     end
+
     within('#app-uris') do
       fill_in 'url', :with => 'new.url'
     end
     click_button 'Add URL'
+
     assert has_content? 'Route is already taken'
     assert find('#app-uris')
   end
@@ -152,6 +150,7 @@ scope do
     within('#app-uris') do
        find("#unmap-#{route.guid}").click
     end
+
     assert has_content? 'Route unmapped successfully'
     assert find('#app-uris')
     assert has_no_content? route.name
@@ -169,6 +168,7 @@ scope do
       end
 
     end
+
     assert has_content? 'Route unmapped successfully'
     assert find('#app-uris')
     assert has_no_content? route.name
@@ -177,13 +177,14 @@ scope do
 
   test 'I visit a non-existent page so I get an error msg but not an exception' do
     visit "#{req.space_path(@space)}/non-exist"
+
     assert has_content? "The app 'non-exist' does not exists in '#{@space.name}' space"
   end
 
   test 'I visit an app page when it\'s stopped so I dont\'t get an exception' do
     @app.stop!
-
     visit req.app_path(@space, @app)
+
     assert page.status_code == 200
   end
 end
