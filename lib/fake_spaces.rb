@@ -1,5 +1,3 @@
-require_relative './fake_client'
-
 class Space < Struct.new("Space", :name, :apps, :guid)
   def self.spaces_for_test
     %w(development test production).map do |s|

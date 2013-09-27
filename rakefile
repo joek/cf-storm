@@ -22,9 +22,10 @@ namespace 'test' do
     require 'cuba/capybara'
     require_relative "test/acceptance/acceptance_helper"
   end
-
+  
   desc "Run tests in test/ folder"
   task :benchmark => :require_acceptance_files do
+    require 'benchmark'
     puts "==> Runing Benchmark tests"
     Cutest.run Dir["test/benchmarks/*_test.rb"]
     puts '==> Finished!'
