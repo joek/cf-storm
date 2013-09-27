@@ -1,7 +1,6 @@
 %ul.breadcrumb
+  = partial("shared/breadcrumb")
   %li
-    %a.wait-trigger{:href => space_path(@space)}= space_human_name(@space)
-    = partial 'shared/apps_counter'
     %span.divider /
   %li
     %a.wait-trigger{:href => app_path(@space, @app)}= @app.name.capitalize
