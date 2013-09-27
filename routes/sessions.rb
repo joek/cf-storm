@@ -1,5 +1,5 @@
 class Sessions < Cuba
-  
+
   def create! email, password, endpoint=nil
     begin
       @user = User.authenticate email, password, endpoint
@@ -31,19 +31,18 @@ class Sessions < Cuba
       res.redirect '/sessions/new'
     end
 
-    on post, param("email"), param("password"), 
-             param("endpoint") do |email, password, endpoint|
+    on post, param("email"), param("password"), param("endpoint") do |email, password, endpoint|
       create! email, password, endpoint
     end
 
     on post, param("email"), param("password") do |email, password|
       create! email, password
     end
-    
-    on default do 
+
+    on default do
       set_flash! 'Invalid credentials', :alert
       res.redirect "/sessions/new"
-    end  
-    
+    end
+
   end
 end

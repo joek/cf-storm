@@ -17,20 +17,19 @@ class FakeClient < OpenStruct
     end
     token
   end
-  
+
   def self.check_valid_endpoint! endpoint
     valid_endpoints = [Settings::API_URL, 'custom_api.cf.com']
-    unless valid_endpoints.include? endpoint 
-      raise CFoundry::InvalidTarget 
-    end  
+    unless valid_endpoints.include? endpoint
+      raise CFoundry::InvalidTarget.new(endpoint)
+    end
   end
-  
+
   def info
     {:description => "Cloud Foundry sponsored by Pivotal"}
   end
 
   def self.get(target, token = nil)
-    require 'debugger' ; debugger
     check_valid_endpoint! target
     new :target => target
   end
