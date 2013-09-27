@@ -6,21 +6,23 @@ scope do
     @cf_description = "Cloud Foundry sponsored by Pivotal"
   end
 
-  test "Should be able to login against CF api" do
+  # User
+  test "It logs in with valid data and valid endpoint" do
     assert @user.login :username => @email,
     :password => @password
   end
 
-  test "Should be able to get info from cloudfoundry" do
+  test "It gets info from cloudfoundry" do
     assert @user.client.info[:description] == @cf_description
   end
 
-  test "authenticates should login to CF api and return a User obj" do
+  # User#authenticate
+  test "It authenticates with valid data and returns an object" do
     user = User.authenticate @email, @password
     assert user.email == @email
   end
 
-  test "should create local user when succesfully logged in" do
+  test "Creates a DB record when logs in for first time" do
     User.find(:email => @email).first.delete
     users_count_before_login = User.all.size
 
@@ -28,38 +30,38 @@ scope do
     assert User.all.size == users_count_before_login + 1
   end
 
-  test "should store the token and use it to get a client and avoid re-login" do
+  test "Stores client tokens" do
     User.authenticate @email, @password
     user = User.find(:email => @email).first
 
     assert user.client.spaces
   end
 
-  test 'should return avatar url'do
+  test 'Creates a hash to fetch a gravatar' do
     user = User.new :email => 'lolmaster@example.com'
     assert user.avatar_file == "a7d174ed732e7799e762a184d5213193.png"
   end
 
-  test 'should cache the CFoundry client after first called to avoid extra requests'do 
+  test 'Caches the authenticated CFoundry client object' do
     User.clear_client_cache!
-    
-    assert User.clients.empty? 
+
+    assert User.clients.empty?
 
     user = User.new :email => @email
     user.client
 
     assert User.clients.size == 1
   end
-  
-  test 'authenticates against a different api' do 
+
+  test 'Authenticates against a different api' do
     User.find(:email => @email).first.delete
     user = User.new :email => @email, :api_url => 'custom_api.cf.com'
     assert User.authenticate(user.email, @password)
-  end  
+  end
 
-  test 'user client should use custom api provided by the user when data is valid' do 
+  test 'After login with custom api CF client uses custom api' do
     user = User.new :email => @email, :api_url => 'custom_api.cf.com'
-    
+
     assert user.client.target == user.endpoint
   end
 
