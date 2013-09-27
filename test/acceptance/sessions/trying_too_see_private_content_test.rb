@@ -47,10 +47,22 @@ scope do
     within('#new-session') do
       fill_in 'email', with: Settings::API_TEST_USERNAME
       fill_in 'password', with: Settings::API_TEST_PASSWORD
-      fill_in 'endpoint', with: 'myown.cf.com'
+      fill_in 'endpoint', with: 'custom_api.cf.com'
     end
     click_button 'Sign in'
 
-    assert has_content? 'myown.cf.com'
+    assert has_content? 'custom_api.cf.com'
   end
+
+  test 'I login against an invalid api' do 
+    visit '/sessions/new'
+    within('#new-session') do
+      fill_in 'email', with: Settings::API_TEST_USERNAME
+      fill_in 'password', with: Settings::API_TEST_PASSWORD
+      fill_in 'endpoint', with: 'el_choto'
+    end
+    click_button 'Sign in'
+    assert has_content? 'Invalid endpoint'
+  end
+
 end

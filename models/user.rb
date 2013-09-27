@@ -40,12 +40,7 @@ class User  < Ohm::Model
     user   = User.find(:email => email, :api_url => endpoint).first
     user ||= User.new :email => email, :api_url => endpoint
 
-    begin
-      token = user.login(:username => email, :password => password)
-    rescue CFoundry::Denied
-      return nil
-    end
-
+    token = user.login(:username => email, :password => password)
     user.cftoken = token
     user.save
   end

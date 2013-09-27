@@ -11,17 +11,27 @@ class FakeClient < OpenStruct
   def login(credentials)
     valid_usernames = [Settings::API_TEST_USERNAME]
     if valid_usernames.include? credentials[:username]
-      Struct::Token.new "my-auth-token", "my-refresh-token"
+      token = Struct::Token.new "my-auth-token", "my-refresh-token"
     else
       raise CFoundry::Denied
     end
+    token
   end
-
+  
+  def self.check_valid_endpoint! endpoint
+    valid_endpoints = [Settings::API_URL, 'custom_api.cf.com']
+    unless valid_endpoints.include? endpoint 
+      raise CFoundry::InvalidTarget 
+    end  
+  end
+  
   def info
     {:description => "Cloud Foundry sponsored by Pivotal"}
   end
 
   def self.get(target, token = nil)
+    require 'debugger' ; debugger
+    check_valid_endpoint! target
     new :target => target
   end
 

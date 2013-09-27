@@ -28,10 +28,6 @@ scope do
     assert User.all.size == users_count_before_login + 1
   end
 
-  test 'should reject invalid user' do
-    assert User.authenticate('invalid@mail.com', 'asd') == nil
-  end
-
   test "should store the token and use it to get a client and avoid re-login" do
     User.authenticate @email, @password
     user = User.find(:email => @email).first
@@ -61,10 +57,10 @@ scope do
     assert User.authenticate(user.email, @password)
   end  
 
-  test 'user client should use custom api provided by the user' do 
-    #require 'debugger' ; debugger    
+  test 'user client should use custom api provided by the user when data is valid' do 
     user = User.new :email => @email, :api_url => 'custom_api.cf.com'
     
     assert user.client.target == user.endpoint
   end
-end
+
+ end

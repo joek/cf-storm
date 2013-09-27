@@ -1,12 +1,22 @@
 class Sessions < Cuba
-
+  
   def create! email, password, endpoint=nil
-    @user = User.authenticate email, password, endpoint
+    begin
+      @user = User.authenticate email, password, endpoint
+    rescue CFoundry::InvalidTarget
+      set_flash! 'Invalid endpoint', :alert
+    rescue CFoundry::Denied
+      set_flash! 'Invalid credentials', :alert
+    end
+
+    set_cookie_and_redirect!
+  end
+
+  def set_cookie_and_redirect!
     if @user
       session['current_user_id'] = @user.id
       res.redirect root_path
     else
-      set_flash! 'Invalid credentials', :alert
       res.redirect "/sessions/new"
     end
   end
