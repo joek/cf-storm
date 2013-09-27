@@ -1,6 +1,4 @@
 class User  < Ohm::Model
-  require 'benchmark'
-
   extend Forwardable
 
   def_delegators :client, :login, :domains, :route,
@@ -9,8 +7,10 @@ class User  < Ohm::Model
   attribute :email
   attribute :token
   attribute :refresh_token
+  attribute :api_url
 
   index :email
+  index :api_url
 
   def initialize(*args)
     @@_clients ||= {}
@@ -36,9 +36,9 @@ class User  < Ohm::Model
     space.create!
   end
 
-  def self.authenticate email, password
-    user   = User.find(:email => email).first
-    user ||= User.new :email => email
+  def self.authenticate email, password, endpoint = nil
+    user   = User.find(:email => email, :api_url => endpoint).first
+    user ||= User.new :email => email, :api_url => endpoint
 
     begin
       token = user.login(:username => email, :password => password)
@@ -49,25 +49,33 @@ class User  < Ohm::Model
     user.cftoken = token
     user.save
   end
+  
+  def client_key
+    self.endpoint + self.email 
+  end  
 
   def client
-    @@_clients[self.email] = client_get! unless @@_clients[self.email]
+    @@_clients[self.client_key] = client_get! unless @@_clients[self.client_key]
      
     refresh_tokens! if token_expired? 
-    return @@_clients[self.email]
+    return @@_clients[self.client_key]
   end
   
   def client_get!
-    User.default_client.get User.api_url, cftoken
+    User.default_client.get self.endpoint, cftoken
+  end
+  
+  def endpoint 
+    self.api_url || User.api_url
   end
   
   def refresh_tokens!
-    self.cftoken = @@_clients[self.email].token
+    self.cftoken = @@_clients[self.client_key].token
     self.save
   end
  
   def token_expired?
-    @@_clients[self.email].token.auth_header != self.token
+    @@_clients[self.client_key].token.auth_header != self.token
   end  
   
   def cftoken

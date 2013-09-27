@@ -1,7 +1,7 @@
 scope do
   setup do
     @email          = Settings::API_TEST_USERNAME
-    @user           = User.new
+    @user           = User.new :email => @email
     @password       = Settings::API_TEST_PASSWORD
     @cf_description = "Cloud Foundry sponsored by Pivotal"
   end
@@ -54,5 +54,17 @@ scope do
 
     assert User.clients.size == 1
   end
+  
+  test 'authenticates against a different api' do 
+    User.find(:email => @email).first.delete
+    user = User.new :email => @email, :api_url => 'custom_api.cf.com'
+    assert User.authenticate(user.email, @password)
+  end  
 
+  test 'user client should use custom api provided by the user' do 
+    #require 'debugger' ; debugger    
+    user = User.new :email => @email, :api_url => 'custom_api.cf.com'
+    
+    assert user.client.target == user.endpoint
+  end
 end

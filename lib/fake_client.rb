@@ -1,4 +1,6 @@
-class FakeClient
+require 'ostruct'
+
+class FakeClient < OpenStruct
 
   # Generic Structs
   Struct.new("Token", :auth_header, :refresh_token)
@@ -20,7 +22,7 @@ class FakeClient
   end
 
   def self.get(target, token = nil)
-    new
+    new :target => target
   end
 
   def token
