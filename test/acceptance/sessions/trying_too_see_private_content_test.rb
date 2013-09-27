@@ -42,6 +42,12 @@ scope do
     assert avatar[:title] == "You are logged in as #{Settings::API_TEST_USERNAME}"
   end
 
+  test 'I logout ' do
+    click_link 'Logout'
+    assert page.find '#new-session'
+  end
+
+
   test 'I login against other CF api besides pivotal' do
     visit '/sessions/new'
     within('#new-session') do
