@@ -6,13 +6,14 @@ scope do
     @app.health_with(1, 0)
   end
 
-  test 'Given I have a space called development and I have an app called lolmaster' +
-       'there I should be able to see its details' do
+
+  # Context: Seeing an app from developemnt space
+  test 'I visit the lolmaster app details' do
     find("#app-details-#{@app.guid}").click
     assert_app_details @app
   end
 
-  test 'Given I have an app I should be able to see its stats' do
+  test 'I see the stats of an app' do
     find("#app-details-#{@app.guid}").click
     expected_cpu_usage  = req.cpu_usage(@app.stats['0'][:stats][:usage][:cpu])
     expected_mem_usage  = req.to_megabytes(@app.stats['0'][:stats][:usage][:mem])
@@ -28,7 +29,7 @@ scope do
 
   end
 
-  test 'Given I have an app I should be able to see its health as 100% when all instances are running' do
+  test 'I see the health of an app as 100 when all instances are up' do
     find("#app-details-#{@app.guid}").click
     assert find('#current-health')['value'] == "100"
   end
