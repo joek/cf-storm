@@ -7,6 +7,8 @@ class Sessions < Cuba
       set_flash! 'Invalid endpoint', :alert
     rescue CFoundry::Denied
       set_flash! 'Invalid credentials', :alert
+    rescue CFoundry::TargetRefused
+      set_flash! 'Endpoint is not a Cloud Foundry API', :alert
     end
 
     set_cookie_and_redirect!

@@ -25,13 +25,13 @@ scope do
 
     assert has_content? 'Invalid credentials'
   end
-  
+
   test 'I try to log in with no credentials so I get an error msg' do
     visit '/sessions/new'
     click_button 'Sign in'
-    
+
     assert has_content? 'Invalid credentials'
-  end  
+  end
 
 
   # ----------------------------------------------------------------------------
@@ -42,7 +42,7 @@ scope do
     assert avatar[:title] == "You are logged in as #{Settings::API_TEST_USERNAME}"
   end
 
-  test 'I login against other CF api besides pivotal' do 
+  test 'I login against other CF api besides pivotal' do
     visit '/sessions/new'
     within('#new-session') do
       fill_in 'email', with: Settings::API_TEST_USERNAME
@@ -54,7 +54,7 @@ scope do
     assert has_content? 'custom_api.cf.com'
   end
 
-  test 'I login against an invalid api' do 
+  test 'I login against an invalid api url' do
     visit '/sessions/new'
     within('#new-session') do
       fill_in 'email', with: Settings::API_TEST_USERNAME
@@ -63,6 +63,17 @@ scope do
     end
     click_button 'Sign in'
     assert has_content? 'Invalid endpoint'
+  end
+
+  test 'I login against a valid api url that is not a CF api' do
+    visit '/sessions/new'
+    within('#new-session') do
+      fill_in 'email', with: Settings::API_TEST_USERNAME
+      fill_in 'password', with: Settings::API_TEST_PASSWORD
+      fill_in 'endpoint', with: 'not_a_cf'
+    end
+    click_button 'Sign in'
+    assert has_content? 'Endpoint is not a Cloud Foundry API'
   end
 
 end

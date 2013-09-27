@@ -19,9 +19,12 @@ class FakeClient < OpenStruct
   end
 
   def self.check_valid_endpoint! endpoint
-    valid_endpoints = [Settings::API_URL, 'custom_api.cf.com']
+    valid_endpoints = [Settings::API_URL, 'custom_api.cf.com', 'not_a_cf']
     unless valid_endpoints.include? endpoint
       raise CFoundry::InvalidTarget.new(endpoint)
+    end
+    if endpoint == 'not_a_cf'
+      raise CFoundry::TargetRefused.new(endpoint)
     end
   end
 
