@@ -1,0 +1,13 @@
+/*Custom css*/
+
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
+    border-color: #0971b2;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #cce0ec;
+    outline: 0 none;}
+.btn {color:#fff;font-size:20px;background:#0971b2;border-color:#0971b2;border-bottom-color:#1d4766;}
+
+
+.well {background:#fafafa;border: 1px solid #FAFAFA;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;} 
+
+/*Footer*/
+.nav-footer {height:54px;background:#1d1d1d;border-bottom:5px solid #000;}
