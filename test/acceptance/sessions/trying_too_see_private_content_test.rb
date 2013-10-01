@@ -48,7 +48,6 @@ scope do
     assert page.find '#new-session'
   end
 
-
   test 'I login against other CF api besides pivotal' do
     visit '/sessions/new'
     within('#new-session') do
