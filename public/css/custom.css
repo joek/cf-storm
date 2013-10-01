@@ -1,5 +1,5 @@
 /*Custom css*/
-
+body {font-size:16px;}
 textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
     background-color: #FFFFFF;
     border: 1px solid #dcdcdc;
@@ -21,11 +21,15 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     border-color: #0971b2;
     box-shadow: 0 0 8px #cce0ec;
     outline: 0 none;}
-.btn {color:#fff;font-size:20px;background:#0971b2;border-color:#0971b2;border-bottom-color:#1d4766;}
-.well {background:#fafafa;border: 1px solid #FAFAFA;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;} 
+.btn {height:32px;line-height:32px;color:#fff;font-size:20px;background:#0971b2;border-color:#0971b2;border-bottom-color:#1d4766;}
+.well {padding:19px 24px;background:#fafafa;border: 1px solid #FAFAFA;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;} 
 
 /*Login*/
-.login label {color:#969696;}
+.login h5 {margin:10px 0 21px;padding:0 0 8px;font-size:30px;font-weight:bold;border-bottom:1px solid #e1e1e1;}
+.login h5 label {color:#969696;font-size:12px;}
+.login label {float:left;padding:20px 0 0;color:#969696;font-size:1em;}
+.login .btnWrap {padding:35px 0 0;text-align:right;}
 
 /*Footer*/
 .nav-footer {height:54px;background:#1d1d1d;border-bottom:5px solid #000;}
+.nav-footer.navbar-inverse .brand, .navbar-inverse .nav > li > a {color:#0971b2;font-size:1em;}
