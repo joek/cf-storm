@@ -16,7 +16,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     color: #1d1d1d;
     display: inline-block;
     font-size: 14px;
-    height: 32px;
+    height: 39px;
     line-height: 32px;
     margin-bottom: 10px;
     padding: 4px 11px;
@@ -26,15 +26,16 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     border-color: #0971b2;
     box-shadow: 0 0 8px #cce0ec;
     outline: 0 none;}
-.btn {height:32px;line-height:32px;color:#fff;font-size:20px;background:#0971b2;border-color:#0971b2;border-bottom-color:#1d4766;}
+.btn {line-height:32px;color:#fff;font-size:20px;background:#0971b2;border-color:#0971b2;border-bottom-color:#1d4766;}
 .well {padding:19px 24px;background:#fafafa;border: 1px solid #FAFAFA;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;} 
 
 /*Login*/
 .login h5 {margin:10px 0 21px;padding:0 0 8px;font-size:30px;font-weight:bold;border-bottom:1px solid #e1e1e1;}
 .login h5 label {color:#969696;font-size:12px;}
-.login label {float:left;padding:20px 0 0;color:#969696;font-size:1em;}
+.login label {padding:20px 0 0;color:#969696;font-size:1em;}
 .login .btnWrap {padding:35px 0 0;text-align:right;}
 
 /*Footer*/
 .nav-footer {height:54px;background:#1d1d1d;border-bottom:5px solid #000;}
+.nav-footer .navbar-inner {background:none;border:none;}
 .nav-footer.navbar-inverse .brand, .navbar-inverse .nav > li > a {color:#0971b2;font-size:1em;}
