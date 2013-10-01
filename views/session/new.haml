@@ -1,24 +1,24 @@
 .loginLogo
 .well.span3.offset4.login
   %h5 
-   Login
-   %label
+    Login
+  %label
     Cloud Foundry Storm Login
-   %span.label.pull-right.label-info
-      beta
+  %span.label.pull-right.label-info
+    beta
   %form{:name => 'session', :id => 'new-session',
         :action => '/sessions', :method => 'post'}
 
     %fieldset
-	  .item
-	    %label{:for => "email"} Email
-	    %input.span12{:type => "text", :name => "email", :placeholder => "Email"}
-	  .item  
-	    %label{:for => "password"} Password
-	    %input.span12{:type => "password", :name => "password", :placeholder => "Password"}
-	  .item1
+      .item
+        %label{:for => "email"} Email
+        %input.span12{:type => "text", :name => "email", :placeholder => "Email"}
+      .item
+        %label{:for => "password"} Password
+        %input.span12{:type => "password", :name => "password", :placeholder => "Password"}
+      .item1
         %label{:for => "endpoint"} Endpoint
         %input.span12{:type => "text", :name => "endpoint", :placeholder => "http://api.run.pivotal.io"}
 
       .btnWrap 
-       %button.btn{:type => "submit"} Sign in
+        %button.btn{:type => "submit"} Sign in
