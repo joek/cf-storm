@@ -1,0 +1,14 @@
+%ul.breadcrumb
+  %li
+    %a{:href => users_path}= Users
+
+
+%table#users-list.table.table-hober
+  %tbody
+    %tr
+      %th e-Mail
+      %th Full Name
+    - @users.each do |user|
+      %tr
+        %td= user.email
+        %td= user.full_name

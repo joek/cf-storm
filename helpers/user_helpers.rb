@@ -7,13 +7,13 @@ module UserHelpers
   def current_user_spaces
     @spaces ||= current_user.spaces(:depth => 0) if current_user
   end
-  
-  def load_app(space_name, app_name) 
+
+  def load_app(space_name, app_name)
     unescaped_app_name = URI.unescape(app_name)
     load_space space_name
     @app = @apps.find{ |a| a.name == unescaped_app_name }
   end
-  
+
   def load_space(space_name)
     unescaped_space_name = URI.unescape space_name
 
@@ -32,5 +32,9 @@ module UserHelpers
   def user_avatar_path(user, size=30)
     "http://www.gravatar.com/avatar/#{user.avatar_file}?s=#{size}"
   end
-  
+
+  def users_path
+    '/users'
+  end
+
 end

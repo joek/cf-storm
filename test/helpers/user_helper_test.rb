@@ -15,4 +15,8 @@ scope do
     assert req.user_avatar_path(user) == "http://www.gravatar.com/avatar/#{user.avatar_file}?s=30"
   end
 
+  test 'should return the user path' do
+    assert req.users_path == '/users'
+  end
+
 end

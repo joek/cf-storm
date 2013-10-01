@@ -54,6 +54,14 @@ Cuba.define do
     end
   end
 
+  on 'users' do
+    if current_user
+      run Users
+    else
+      res.redirect'/sessions/new'
+    end
+  end
+
   on root do
     if current_user
       res.redirect root_path
