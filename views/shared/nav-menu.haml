@@ -10,8 +10,6 @@
               %strong.caret
 
 
-        %li
-          %a{:href => users_path} Users
 
           %ul#space-menu.dropdown-menu
             - @spaces.each do |space|
@@ -20,6 +18,10 @@
             %li.divider
             %li
               %a{:tabindex => "-1", :href => new_path(:spaces) } Create Space
+
+        %li
+          %a{:href => users_path} Users
+
       %ul.nav.pull-right
         %li
           %img#user-avatar{:src => user_avatar_path(current_user),
