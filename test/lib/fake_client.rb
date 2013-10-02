@@ -72,7 +72,7 @@ class FakeClient < OpenStruct
     Space.reset!
   end
 
-  def domains
+  def domains depth=0
     @@_domains ||= [Struct::Domain.new('lolmaster.com'), Struct::Domain.new('run.io')]
 
     @@_domains
