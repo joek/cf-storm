@@ -8,8 +8,9 @@ scope do
     click_link 'Users'
     within('#new-user-form') do
       fill_in 'email', :with => 'lol.master@example.com'
-      fill_in 'name', :with => 'Lol Master'
       fill_in 'password', :with => '123456789'
+
+      click_button 'Register'
     end
     assert has_content? 'lol.master@example.com'
   end

@@ -2,7 +2,7 @@ class User  < Ohm::Model
   extend Forwardable
 
   def_delegators :client, :login, :domains, :route,
-                 :domains_by_name, :spaces, :space_by_name
+                 :domains_by_name, :spaces, :space_by_name, :organizations
 
   attribute :email
   attribute :token
@@ -16,7 +16,7 @@ class User  < Ohm::Model
     @@_clients ||= {}
     super
   end
-  
+
   def self.clear_client_cache!
     @@_clients = {}
   end
@@ -44,35 +44,35 @@ class User  < Ohm::Model
     user.cftoken = token
     user.save
   end
-  
+
   def client_key
-    self.endpoint + self.email 
-  end  
+    self.endpoint + self.email
+  end
 
   def client
     @@_clients[self.client_key] = client_get! unless @@_clients[self.client_key]
-     
-    refresh_tokens! if token_expired? 
+
+    refresh_tokens! if token_expired?
     return @@_clients[self.client_key]
   end
-  
+
   def client_get!
     User.default_client.get self.endpoint, cftoken
   end
-  
-  def endpoint 
+
+  def endpoint
     self.api_url || User.api_url
   end
-  
+
   def refresh_tokens!
     self.cftoken = @@_clients[self.client_key].token
     self.save
   end
- 
+
   def token_expired?
     @@_clients[self.client_key].token.auth_header != self.token
-  end  
-  
+  end
+
   def cftoken
     CFoundry::AuthToken.new token, refresh_token
   end

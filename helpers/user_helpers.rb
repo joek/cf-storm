@@ -36,5 +36,4 @@ module UserHelpers
   def users_path
     '/users'
   end
-
 end

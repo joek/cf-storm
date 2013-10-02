@@ -28,6 +28,10 @@ class FakeClient < OpenStruct
     end
   end
 
+  def register email, password
+    CFUser.add_user CFUser.new(nil, email, nil)
+  end
+
   def info
     {:description => "Cloud Foundry sponsored by Pivotal"}
   end
