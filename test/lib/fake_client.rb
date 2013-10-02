@@ -4,7 +4,7 @@ class FakeClient < OpenStruct
 
   # Generic Structs
   Struct.new("Token", :auth_header, :refresh_token)
-  Struct.new("Organization", :name, :spaces)
+  Struct.new("Organization", :name, :spaces, :users)
   Struct.new('Domain', :name)
   Struct.new('Instance', :state)
 
@@ -46,7 +46,7 @@ class FakeClient < OpenStruct
   end
 
   def organizations
-    [Struct::Organization.new("Acme", [])]
+    [Organization.new("Acme", [spaces])]
   end
 
   def space

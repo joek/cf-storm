@@ -2,9 +2,9 @@
 body {font-size:16px;font-family: Arial, Helvetica, sans-serif;}
 a {
 	color: #0971b2;
-    text-decoration: none;
+    text-decoration: none; 
 }
-a:hover {border-bottom: 1px solid #0971b2;}
+a:hover {border-bottom: none;}
 textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
     background-color: #FFFFFF;
     border: 1px solid #dcdcdc;
@@ -26,16 +26,24 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     border-color: #0971b2;
     box-shadow: 0 0 8px #cce0ec;
     outline: 0 none;}
-.btn {line-height:32px;color:#fff;font-size:20px;background:#0971b2;border-color:#0971b2;border-bottom-color:#1d4766;}
-.well {padding:19px 24px;background:#fafafa;border: 1px solid #FAFAFA;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;} 
+.btn {line-height:32px;color:#fff;font-size:20px;background:#0971b2;border-color:#0971b2;border-bottom-color:#1d4766;text-shadow:none;box-shadow:none;}
+.btn:hover, .btn:focus {
+color:#fff;
+background:#055e96;
+}
+.well {padding:19px 24px;background:#fafafa;border: 1px solid #FAFAFA;-moz-box-shadow:none;-webkit-box-shadow:none;box-shadow:none;}  
 
 /*Login*/
 .login h5 {margin:10px 0 21px;padding:0 0 8px;font-size:30px;font-weight:bold;border-bottom:1px solid #e1e1e1;}
 .login h5 label {color:#969696;font-size:12px;}
 .login label {padding:20px 0 0;color:#969696;font-size:1em;}
+.loginLogo {}
+.loginLogo a {display:block;width:123px;height:27px;margin:0 auto;background:url(../img/bgLoginLogo.png) no-repeat;}
 .login .btnWrap {padding:35px 0 0;text-align:right;}
 
 /*Footer*/
 .nav-footer {height:54px;background:#1d1d1d;border-bottom:5px solid #000;}
 .nav-footer .navbar-inner {background:none;border:none;}
 .nav-footer.navbar-inverse .brand, .navbar-inverse .nav > li > a {color:#0971b2;font-size:1em;}
+.nav-footer.navbar-inverse .nav > li > a:focus, .nav-footer.navbar-inverse .nav > li > a:hover {color:#055e96;text-decoration:none;border:none;}
+

@@ -63,6 +63,11 @@ class Apps < Cuba
     route.delete
     set_flash! 'Route unmapped successfully'
   end
+  
+  def load_stats_and_routes
+    @stats     = @app.stopped? ? [] : @app.stats.sort
+    @routes    = @app.routes
+  end
 
   define do
 
@@ -75,11 +80,11 @@ class Apps < Cuba
     on get do
       if @app.nil?
         set_flash! "The app '#{vars[:app_name]}' does not " +
-                   "exists in '#{@space.name}' space", :alert
+          "exists in '#{@space.name}' space", :alert
+
         res.write view('shared/not-found')
       else
-        @stats     = @app.stopped? ? [] : @app.stats.sort
-        @routes    = @app.routes
+        load_stats_and_routes
         res.write view('apps/show')
       end
     end
@@ -124,6 +129,7 @@ class Apps < Cuba
     on delete do
       destroy_failed_and_set_flash!
     end
+
     # Nothing matched the request address
     on default do
       res.write view('404')

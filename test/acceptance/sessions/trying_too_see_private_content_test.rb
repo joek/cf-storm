@@ -43,10 +43,10 @@ scope do
   end
 
   test 'I logout ' do
+    login_user!
     click_link 'Logout'
     assert page.find '#new-session'
   end
-
 
   test 'I login against other CF api besides pivotal' do
     visit '/sessions/new'
