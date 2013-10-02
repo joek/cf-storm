@@ -1,5 +1,10 @@
 %ul.breadcrumb
   = partial("shared/breadcrumb")
+  %li
+    %span.divider /
+  %li
+    %a.wait-trigger{:href => space_path(@space)}= space_human_name(@space)
+    = partial 'shared/apps_counter'
 
 %table#apps-list.table.table-hover
   %tbody
