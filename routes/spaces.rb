@@ -34,7 +34,11 @@ class Spaces < Cuba
         res.write view('apps/index')
       end
     end
-     
+    
+    on get, 'async/spaces-menu' do 
+      
+    end
+  
     # Nothing matched the request address
     on default do
       res.write view('404')
