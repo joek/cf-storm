@@ -1,6 +1,6 @@
 class Spaces < Cuba
   Cuba.plugin Cuba::With
-  
+
   define do
 
     on get, 'new' do
@@ -23,7 +23,7 @@ class Spaces < Cuba
         run Apps
       end
     end
-    
+
     on get, ':space_name/apps' do |space_name|
       load_space space_name
 
@@ -34,11 +34,7 @@ class Spaces < Cuba
         res.write view('apps/index')
       end
     end
-    
-    on get, 'async/spaces-menu' do 
-      
-    end
-  
+
     # Nothing matched the request address
     on default do
       res.write view('404')
