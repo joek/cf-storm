@@ -3,7 +3,7 @@
   %table.table
     %tr
       %th Name
-      %th Dashboard
+      //%th Dashboard
       %th Plan
       %th Plan Desc
       %th
@@ -26,7 +26,7 @@
           %span.label.label-info Pass =>
           = binding.manifest[:entity][:credentials][:password]
 
-        %td
-          %a.btn{:href => binding.service_instance.dashboard_url, :target => '_blank'} Manage
+        //%td
+        //  %a.btn{:href => binding.service_instance.dashboard_url, :target => '_blank'} Manage
         %td= binding.service_instance.service_plan.name
         %td= binding.service_instance.service_plan.description
