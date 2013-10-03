@@ -1,0 +1,32 @@
+#app-services.well
+  %h4 Services
+  %table.table
+    %tr
+      %th Name
+      %th Dashboard
+      %th Plan
+      %th Plan Desc
+      %th
+    - if @service_bindings.empty?
+      %tr
+        %td No services for this app
+        %td
+        %td
+        %td
+        %td
+    - @service_bindings.each do |binding|
+      %tr
+        %td
+          = binding.service_instance.name
+          %br
+          %span.label.label-info Hostname =>
+          = binding.manifest[:entity][:credentials][:hostname]
+          %span.label.label-info Port =>
+          = binding.manifest[:entity][:credentials][:port]
+          %span.label.label-info Pass =>
+          = binding.manifest[:entity][:credentials][:password]
+
+        %td
+          %a.btn{:href => binding.service_instance.dashboard_url, :target => '_blank'} Manage
+        %td= binding.service_instance.service_plan.name
+        %td= binding.service_instance.service_plan.description

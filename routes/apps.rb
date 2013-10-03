@@ -63,7 +63,7 @@ class Apps < Cuba
     route.delete
     set_flash! 'Route unmapped successfully'
   end
-  
+
   def load_stats_and_routes
     @stats     = @app.stopped? ? [] : @app.stats.sort
     @routes    = @app.routes
@@ -85,6 +85,7 @@ class Apps < Cuba
         res.write view('shared/not-found')
       else
         load_stats_and_routes
+        @service_bindings = @app.service_bindings
         res.write view('apps/show')
       end
     end
