@@ -12,6 +12,7 @@ scope do
 
       click_button 'Register'
     end
+    
     assert has_content? 'lol.master@example.com'
   end
 end

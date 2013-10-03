@@ -12,6 +12,9 @@ class CFUser < Struct.new(:name, :email, :full_name)
 
     user
   end
+  
+  def organizations=(orgs)
+  end  
 
   def add_managed_organization org
   end
