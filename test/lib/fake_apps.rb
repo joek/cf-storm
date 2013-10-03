@@ -11,6 +11,13 @@ class App < Struct.new(:name, :state, :memory, :stats, :url, :guid)
 
   end
 
+  def service_bindings
+    plan = Struct::ServicePlan.new('lolPlan', 'Lol lol lol lol')
+    service_instance = Struct::ServiceInstance.new('lol-service', 'lolcat.com', plan)
+    manifest = { :entity => { :credentials => { :port => 1, :hostname => 'lol.com.ar', :password => '1234' } } }
+    [Struct::ServiceBinding.new(service_instance, manifest)]
+  end
+
   def started?
     self.state == 'STARTED'
   end
@@ -76,14 +83,14 @@ class App < Struct.new(:name, :state, :memory, :stats, :url, :guid)
 
   def health_with(up, down)
     self.stats = {}
-     
+
     up.times do |t|
       self.stats[t.to_s] = custom_stat 'RUNNING'
-    end 
+    end
 
     down.times do |t|
       self.stats[(up + t).to_s] = custom_stat 'DOWN'
-    end  
+    end
   end
 
   def total_instances

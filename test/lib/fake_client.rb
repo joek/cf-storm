@@ -7,6 +7,9 @@ class FakeClient < OpenStruct
   Struct.new("Organization", :name, :spaces, :users)
   Struct.new('Domain', :name)
   Struct.new('Instance', :state)
+  Struct.new('ServiceBinding', :service_instance, :manifest)
+  Struct.new('ServiceInstance', :name, :dashboard_url, :service_plan)
+  Struct.new('ServicePlan', :name, :description)
 
   def login(credentials)
     valid_usernames = [Settings::API_TEST_USERNAME]

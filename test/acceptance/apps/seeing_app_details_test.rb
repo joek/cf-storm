@@ -34,4 +34,15 @@ scope do
     assert find('#current-health')['value'] == "100"
   end
 
+  test 'I see the app services' do
+    test_service = @app.service_bindings.first
+
+    find("#app-details-#{@app.guid}").click
+
+    within('#app-services') do
+      assert has_content? test_service.service_instance.name
+      assert has_content? test_service.service_instance.service_plan.name
+    end
+  end
+
 end
