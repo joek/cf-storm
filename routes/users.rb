@@ -5,7 +5,7 @@ class Users < Cuba
     # TODO Add spaces
     # TODO Think what org add when creating
     new_user = current_user.client.register(email, password)
-    
+
     current_user.organizations.each do |org|
       new_user.add_managed_organization org
       new_user.add_billing_managed_organization org
