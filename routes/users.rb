@@ -12,6 +12,8 @@ class Users < Cuba
       new_user.add_audited_organization org
       new_user.organizations = current_user.organizations
     end
+    
+    current_user.spaces.each{|s| new_user.add_space s }  
 
     new_user.update!
   end
@@ -19,7 +21,14 @@ class Users < Cuba
   define do
     on get do
       @users = current_user.current_organization.users
-      res.write view('users/index')
+
+      begin
+        @users.first.email
+        res.write view('users/index')
+      rescue CFoundry::UAAError 
+        set_flash! "You are not allowed visit this section", :alert
+        res.redirect root_path
+      end
     end
 
     on post, param('email'), param('password') do |email, password|
