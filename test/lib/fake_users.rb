@@ -24,6 +24,9 @@ class CFUser < Struct.new(:name, :email, :full_name)
 
   def add_audited_organization org
   end
+  
+  def add_space s
+  end  
 
   def update!
     true
