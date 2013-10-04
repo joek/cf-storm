@@ -5,17 +5,19 @@
   %li
     %a{:href => users_path}= Users
 
-#new-user-form.well
+#new-user-form
+  %h4 Create new user
   %form{:action => users_path, :method => 'post'}
     %label Email
     %input{:type => 'email', :name => 'email'}
 
     %label Password
     %input{:type => 'password', :name => 'password'}
-
+    %br
     %button.wait-trigger.btn{:type => 'submit'}
       Register
 
+%h4 User list
 %table#users-list.table.table-hober
   %tbody
     %tr
