@@ -65,7 +65,7 @@ class Apps < Cuba
   end
 
   def load_stats_and_routes
-    @stats     = @app.stopped? ? [] : @app.stats.sort
+    @stats     = @app.stopped? ? [] : @app.stats.sort_by{|key, value| key.to_i}
     @routes    = @app.routes
   end
 
