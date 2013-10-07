@@ -29,6 +29,7 @@ class Sessions < Cuba
     end
 
     on get, 'delete' do
+      current_user.logout
       session.delete 'current_user_id'
       res.redirect '/sessions/new'
     end

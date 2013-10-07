@@ -25,6 +25,14 @@ class User  < Ohm::Model
     @@_clients
   end
 
+  def logout
+    self.client.logout
+    @@_clients.delete client_key
+    self.token = nil
+    self.refresh_token = nil
+    self.save
+  end
+
   def current_organization
     client.current_organization || client.organizations.first
   end
