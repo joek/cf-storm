@@ -10,8 +10,8 @@ Cuba.plugin Cuba::Render
 Cuba.settings[:render][:template_engine] = 'haml'
 
 Cuba.use Rack::Session::Cookie,
-  key: '__insert app name__',
-  secret: '__insert secret here__'
+  key: 'cf_storm_app',
+  secret: '1aae4f5eb740067d22088604cd0dc189d'
 
 Cuba.use Rack::Static,
   root: 'public',
