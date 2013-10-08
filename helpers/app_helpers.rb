@@ -21,7 +21,7 @@ module AppHelpers
   end
 
   def cpu_usage number
-    "%.2f%" % number
+    "%.2f%" % (number * 100)
   end
 
   def to_megabytes bytes
@@ -58,11 +58,11 @@ module AppHelpers
     end
 
   end
-  
+
   def running_instances(stats)
     stats.map{|k,v| v}.select{|s| s[:state] == "RUNNING"}.size
-  end  
-    
+  end
+
   def app_power_control_button_class app
     return 'btn btn-danger' if app.started?
     return 'btn btn-success'
