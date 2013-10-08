@@ -5,25 +5,35 @@
   %li
     %a{:href => users_path}= Users
 
-#new-user-form
-  %h4 Create new user
-  %form{:action => users_path, :method => 'post'}
-    %label Email
-    %input{:type => 'email', :name => 'email'}
+.container-fluid
 
-    %label Password
-    %input{:type => 'password', :name => 'password'}
-    %br
-    %button.wait-trigger.btn{:type => 'submit'}
-      Register
-
-%h4 User list
-%table#users-list.table.table-hober
-  %tbody
-    %tr
-      %th e-Mail
-      %th Full Name
-    - @users.each do |user|
-      %tr
-        %td= user.email
-        %td= user.full_name
+  .row-fluid
+    .span6
+      #new-user-form
+        %form{:action => users_path, :method => 'post'}
+          .input-prepend.input-append
+            %span.add-on Create User
+            %input{:type => 'email', :name => 'email', 
+                   :placeholder => "e-Mail"}
+                  
+            %input.span4{:type => 'password', :name => 'password',
+             :placeholder => 'Password'}
+            %button.wait-trigger.btn{:type => 'submit'}
+              Register
+              
+      %table#users-list.table.table-condensed.table-striped
+        %tbody
+          %tr
+            %th e-Mail
+          - @users.each do |user|
+            %tr
+              %td= user.email
+      
+    .span6  
+      %h5 About User's creation...
+      %hr
+      When you create a new user using this section, 
+      the new user will be created under the current organization
+      which in this case is 
+      %b= current_user.current_organization.name
+      and the user will be added to all the spaces where you are.

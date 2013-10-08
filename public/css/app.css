@@ -81,3 +81,7 @@
     background-color: red !important;
     cursor: pointer;
 }
+
+.breadcrumb {
+  font-size: 19px;
+}
