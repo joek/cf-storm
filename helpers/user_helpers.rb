@@ -5,7 +5,7 @@ module UserHelpers
   end
 
   def current_user_spaces
-    @spaces ||= current_user.spaces(:depth => 0) if current_user
+    @spaces ||= current_user.current_organization.spaces(:depth => 0) if current_user
   end
 
   def load_app(space_name, app_name)

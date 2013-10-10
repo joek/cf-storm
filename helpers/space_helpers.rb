@@ -5,7 +5,7 @@ module SpaceHelpers
   end
 
   def space_path(space)
-    URI.escape("/spaces/#{space.name}/apps")
+    URI.escape("/spaces/#{space.nil? ? 'none' : space.name}/apps")
   end
 
 end

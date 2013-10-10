@@ -27,11 +27,16 @@ class Spaces < Cuba
     on get, ':space_name/apps' do |space_name|
       load_space space_name
 
-      if @space.nil?
-        set_flash! "The space '#{space_name}' does not exists"
-        res.write view('shared/not-found')
+
+      if @spaces.empty?
+        res.write view('spaces/no_spaces')
       else
-        res.write view('apps/index')
+        if @space.nil?
+          set_flash! "The space '#{space_name}' does not exists"
+          res.write view('shared/not-found')
+        else
+          res.write view('apps/index')
+        end
       end
     end
 
