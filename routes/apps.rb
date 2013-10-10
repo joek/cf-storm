@@ -65,27 +65,19 @@ class Apps < Cuba
   end
 
   def load_stats
-    @stats        = @app.stopped? ? [] : @app.stats.sort_by{|key, value| key.to_i}
+    @stats = @app.stopped? ? [] : @app.stats.sort_by{|key, value| key.to_i}
   end
 
   def load_stats_and_routes
     load_stats
-    @routes    = @app.routes
+    @routes = @app.routes
   end
 
   define do
-
-    @@_app_pool = {}
-
     load_app vars[:space_name], vars[:app_name]
 
     on get, 'map_url' do
       res.write view('apps/map_url')
-    end
-
-    on get, 'async_stats' do
-      load_stats
-      res.write partial('apps/stats')
     end
 
     on get do

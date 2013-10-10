@@ -60,6 +60,10 @@ class FakeClient < OpenStruct
     Space.new '', ''
   end
 
+  def self.spaces
+    @@_spaces
+  end
+
   def spaces(args = nil)
     @@_spaces ||= Space.spaces_for_test
 
@@ -67,7 +71,7 @@ class FakeClient < OpenStruct
   end
 
   def self.apps
-    @@_apps ||= App.apps_for_test
+    @@_apps ||= FakeApp.apps_for_test
   end
 
   def apps

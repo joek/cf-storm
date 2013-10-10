@@ -7,7 +7,7 @@ scope do
   end
 
   test 'should format a number to percentage for cpu usage when is high' do
-    assert req.cpu_usage(24.566817) == '24.57%'
+    assert req.cpu_usage(0.24566817) == '24.57%'
   end
 
   test 'should humanize memory amount' do

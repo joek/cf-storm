@@ -1,4 +1,4 @@
-class App < Struct.new(:name, :state, :memory, :stats, :url, :guid)
+class FakeApp < Struct.new(:name, :state, :memory, :stats, :url, :guid)
   def self.apps_for_test
     ["Windows 8", "Win95", "DOS"].map do |a|
       self.new a, #name
