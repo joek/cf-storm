@@ -57,21 +57,20 @@ $(function(){
 });
 
 $(function(){
-    if($('#app-stats')){
-        window.setTimeout(ajaxAppStats, 3000);
-    };
+    window.setTimeout(ajaxAppStats, 3000);
 });
 
 function ajaxAppStats() {
-    $.ajax({
-        url: '/async_stats/' + $('#astats').attr('data-app-id'),
-        type: 'GET',
-        dataType: 'html',
-        contentType: 'application/html; charset=utf-8',
-        success: function(data){
-            $('#astats').html(data)
-            window.setTimeout(ajaxAppStats, 1000);
-        }
-    });
-
+    if(document.getElementById('astats')){
+        $.ajax({
+            url: '/async_stats/' + $('#astats').attr('data-app-id'),
+            type: 'GET',
+            dataType: 'html',
+            contentType: 'application/html; charset=utf-8',
+            success: function(data){
+                $('#astats').html(data)
+                window.setTimeout(ajaxAppStats, 1000);
+            }
+        });
+    }
 }

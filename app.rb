@@ -63,7 +63,7 @@ Cuba.define do
   end
 
   on get, 'async_stats/:guid' do |guid|
-    @stats = App.rebuild(guid)
+    @stats = App.rebuild(guid).stats.sort_by{|key, value| key.to_i}
     res.write partial('apps/stats')
   end
 
