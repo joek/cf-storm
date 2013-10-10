@@ -65,7 +65,7 @@ class Apps < Cuba
   end
 
   def load_stats
-    @stats     = @app.stopped? ? [] : @app.stats.sort_by{|key, value| key.to_i}
+    @stats        = @app.stopped? ? [] : @app.stats.sort_by{|key, value| key.to_i}
   end
 
   def load_stats_and_routes
@@ -74,6 +74,8 @@ class Apps < Cuba
   end
 
   define do
+
+    @@_app_pool = {}
 
     load_app vars[:space_name], vars[:app_name]
 
@@ -95,6 +97,9 @@ class Apps < Cuba
       else
         load_stats_and_routes
         @service_bindings = @app.service_bindings
+
+        # CACHE!!!!
+        App.store @app
         res.write view('apps/show')
       end
     end

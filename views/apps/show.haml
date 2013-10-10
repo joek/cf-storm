@@ -32,7 +32,7 @@
           %button.btn.btn-danger.wait-trigger{:type => 'submit'} Destroy
 
   .span8
-    #astats
+    #astats{'data-app-id' => @app.guid}
     = partial("apps/stats")
 
     %hr

@@ -62,6 +62,11 @@ Cuba.define do
     end
   end
 
+  on get, 'async_stats/:guid' do |guid|
+    @stats = App.rebuild(guid)
+    res.write partial('apps/stats')
+  end
+
   on root do
     if current_user
       res.redirect root_path
