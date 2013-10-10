@@ -52,6 +52,26 @@ function updateKnob(value){
 
 $(function(){
     $('.row-link').click(function(){
-	window.open($(this).attr('data-path'), '_self');
+        window.open($(this).attr('data-path'), '_self');
     });
 });
+
+$(function(){
+    if($('#app-stats')){
+        window.setTimeout(ajaxAppStats, 3000);
+    };
+});
+
+function ajaxAppStats() {
+    $.ajax({
+        url: document.URL + '/async_stats',
+        type: 'GET',
+        dataType: 'html',
+        contentType: 'application/html; charset=utf-8',
+        success: function(data){
+            $('#astats').html(data)
+            window.setTimeout(ajaxAppStats, 3000);
+        }
+    });
+
+}

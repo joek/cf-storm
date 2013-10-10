@@ -64,8 +64,12 @@ class Apps < Cuba
     set_flash! 'Route unmapped successfully'
   end
 
-  def load_stats_and_routes
+  def load_stats
     @stats     = @app.stopped? ? [] : @app.stats.sort_by{|key, value| key.to_i}
+  end
+
+  def load_stats_and_routes
+    load_stats
     @routes    = @app.routes
   end
 
@@ -75,6 +79,11 @@ class Apps < Cuba
 
     on get, 'map_url' do
       res.write view('apps/map_url')
+    end
+
+    on get, 'async_stats' do
+      load_stats
+      res.write partial('apps/stats')
     end
 
     on get do
@@ -89,6 +98,7 @@ class Apps < Cuba
         res.write view('apps/show')
       end
     end
+
 
     on put, param('state') do |state|
       @app.started? ? @app.stop! : @app.start!
