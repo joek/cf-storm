@@ -1,34 +1,34 @@
-#nav-menu.navbar.navbar-inverse.navbar-fixed-top
-  .navbar-inner
-    .container
-      %a.brand{:href => root_path} CF Storm
-      %ul.nav
-        %li.active.dropdown
-          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-            #current-space
-              = space_human_name(@space)
-              %strong.caret
-
-          %ul#space-menu.dropdown-menu
-            - @spaces.each do |space|
-              %li
-                %a{:href => space_path(space), :id => "space-#{space.guid}"}= space_human_name(space)
-            %li.divider
-            %li
-              %a{:tabindex => "-1", :href => new_path(:spaces) } Create Space
-
-        %li
-          %a{:href => users_path} Users
-
-      %ul.nav.pull-right
-        %li
-          %img#user-avatar{:src => user_avatar_path(current_user),
-              :title => "You are logged in as #{current_user.email}"}
-
-        %li.dropdown
-          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-            #{current_user.email}
+%div#nav-menu{:class => ui_navbar_top}
+  %div{:class => bs.navbar_header}
+    %a{:class => bs.brand, :href => root_path} CF Storm
+  %div{:class => ui_navbar_content}
+    %ul{:class => ui_navbar_list}
+      %li{:class => bs.dropdown}
+        %a{:class => bs.dropdown_toggle, "data-toggle" => "dropdown", :href => "#"}
+          #current-space
+            = space_human_name(@space)
             %strong.caret
-          %ul.dropdown-menu
+
+        %ul#space-menu{:class => bs.dropdown_menu}
+          - @spaces.each do |space|
             %li
-              %a{:href => '/sessions/delete'} Logout
+              %a{:href => space_path(space), :id => "space-#{space.guid}"}= space_human_name(space)
+          %li{:class => bs.divider}
+          %li
+            %a{:tabindex => "-1", :href => new_path(:spaces)} Create Space
+
+      %li
+        %a{:href => users_path} Users
+
+    %ul{:class => ui_navbar_right}
+      %li
+        %img#user-avatar{:src => user_avatar_path(current_user),
+            :title => "You are logged in as #{current_user.email}"}
+
+      %li{:class => bs.dropdown}
+        %a{:class => bs.dropdown_toggle, "data-toggle" => "dropdown", :href => "#"}
+          #{current_user.email}
+          %strong{:class => bs.caret}
+        %ul{:class => bs.dropdown_menu}
+          %li
+            %a{:href => '/sessions/delete'} Logout

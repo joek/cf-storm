@@ -1,8 +1,8 @@
 %br
-.well.span3.offset4
+%div{:class => "#{bs.well} #{bs.width(3)} #{bs.width_offset(4)}"}
   %h5
     Cloud Foundry Storm Login
-    %span.label.pull-right.label-info
+    %span{:class => "#{bs.label} #{bs.float_right} #{bs.label_info}"}
       beta
   %hr
   %form{:name => 'session', :id => 'new-session',
@@ -10,12 +10,12 @@
 
     %fieldset
       %label{:for => "email"} Email
-      %input.span12{:type => "text", :name => "email", :placeholder => "Email"}
+      %input{:class => bs.width(12), :type => "text", :name => "email", :placeholder => "Email"}
 
       %label{:for => "password"} Password
-      %input.span12{:type => "password", :name => "password", :placeholder => "Password"}
+      %input{:class => bs.width(12), :type => "password", :name => "password", :placeholder => "Password"}
 
       %label{:for => "endpoint"} Endpoint
-      %input.span12{:type => "text", :name => "endpoint", :placeholder => Settings::API_URL}
+      %input{:class => bs.width(12), :type => "text", :name => "endpoint", :placeholder => Settings::API_URL}
 
-      %button.btn{:type => "submit"} Sign in
+      %button{:class => bs.btn, :type => "submit"} Sign in

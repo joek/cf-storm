@@ -1,6 +1,6 @@
 - if flash? :alert
-  .alert.alert-error
+  %div{:class => "#{bs.alert} #{bs.alert_error}"}
     = flash :alert
 - else
-  .alert.alert-info
+  %div{:class => "#{bs.alert} #{bs.alert_info}"}
     = flash :notice

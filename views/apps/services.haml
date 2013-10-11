@@ -1,6 +1,6 @@
-#app-services.well
+#app-services{:class => bs.well}
   %h4 Services
-  %table.table
+  %table{:class => bs.table}
     %tr
       %th Name
       //%th Dashboard
@@ -19,14 +19,14 @@
         %td
           = binding.service_instance.name
           %br
-          %span.label.label-info Hostname =>
+          %span{:class => "#{bs.label} #{bs.label_info}"} Hostname =>
           = binding.manifest[:entity][:credentials][:hostname]
-          %span.label.label-info Port =>
+          %span{:class => "#{bs.label} #{bs.label_info}"} Port =>
           = binding.manifest[:entity][:credentials][:port]
-          %span.label.label-info Pass =>
+          %span{:class => "#{bs.label} #{bs.label_info}"} Pass =>
           = binding.manifest[:entity][:credentials][:password]
 
         //%td
-        //  %a.btn{:href => binding.service_instance.dashboard_url, :target => '_blank'} Manage
+        //  %a{:href => binding.service_instance.dashboard_url, :target => '_blank', :class => bs.btn} Manage
         %td= binding.service_instance.service_plan.name
         %td= binding.service_instance.service_plan.description

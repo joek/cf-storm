@@ -1,7 +1,5 @@
 %ul{:class => bs.breadcrumb}
-  %li= partial ('shared/breadcrumb')
-  %li
-    %span{:class => bs.divider} /
+  = partial ('shared/breadcrumb')
   %li
     %a.wait-trigger{:href => space_path(@space)}= space_human_name(@space)
     = partial 'shared/apps_counter'
@@ -13,8 +11,7 @@
         %td
           = app_state_icon app, "App is"
           = app.name
-        %td.span2
-          #app-actions
+          #app-actions{:class => bs.float_right}
             %form{:action => app_path(@space, app), :method => 'post', :class => 'simple-button'}
               %input{:type => 'hidden', :value => 'put', :name => '_method'}
               %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}

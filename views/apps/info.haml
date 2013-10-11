@@ -1,21 +1,21 @@
 %h4
   Info
-  %span.pull-right{:class => app_label_state_class(@app)}
+  %span{:class => "#{app_label_state_class(@app)} #{bs.float_right}"}
     = @app.state
 
 
 %hr
 
-.app-show-stop.span6.pull-right.centered
+.app-show-stop.centered{:class => "#{bs.width(6)} #{bs.float_right}"}
   %form{:action => app_path(@space, @app), :method => 'post', :class => 'simple-button'}
     %input{:type => 'hidden', :value => 'put', :name => '_method'}
     %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
     %input{:type => 'hidden', :value => 'show', :name => 'back_to'}
     %button.wait-trigger{:type => 'submit',
             :id => app_state_class(@app),
-            :class => (app_power_control_button_class(@app) + ' btn-large'),
+            :class => "#{app_power_control_button_class(@app)} #{bs.btn_large}",
             :title => 'Start/Stop Application'}
-      %i.icon-off
+      %i{:class => "#{bs.icon('off')}"}
 
 
 #app-health{:title => 'Health: Instances running divided by total instances'}
@@ -37,18 +37,18 @@
                 %option.current-app-mem{:value => 2**mem, :selected => true}= 2**mem
               - else
                 %option{:value => 2**mem}= 2**mem
-          %button.btn.wait-trigger{:type => 'submit'} Update
+          %button.wait-trigger{:class => bs.btn, :type => 'submit'} Update
 
 #app-instances
   #instance-quota
     %form{:action => app_path(@space, @app), :method => 'post'}
       //TODO convert these to bootstrap helpers (ids and classes)
       .input-prepend.input-append
-        %span.add-on.span3 Instances
+        %span{:class => "#{bs.input_addon} #{bs.width(3)}"} Instances
         %select#appendedInputButton{:name => 'instances'}
           - 20.times do |n|
             - if n == @app.total_instances
               %option.current-instances{:value => n, :selected => true}= n
             - else
               %option{:value => n}= n
-        %button.btn.wait-trigger{:type => 'submit'} Update
+        %button.wait-trigger{:class => bs.btn, :type => 'submit'} Update

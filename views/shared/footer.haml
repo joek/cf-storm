@@ -1,18 +1,18 @@
-#nav-footer.navbar.navbar-inverse.navbar-fixed-bottom
-  .navbar-inner
-    .container
-      %ul.nav
-        %li
-          %p.navbar-text CF Storm 1.0.0
-        %li
-          %a{:href => "http://www.altoros.com", :target => 'blank'} Created and Maintained by Altoros
-        %li
-          %a{:href => "https://raw.github.com/Altoros/cf-storm/master/LICENSE.md", :target => 'blank'} Code licensed under MIT License
+#nav-footer{:class => ui_navbar_bottom}
+  %div{:class => bs.navbar_header}
+    %a{:class => bs.brand, :href => root_path} CF Storm 1.0.0
 
-      %ul.nav.pull-right
-        %li
-          %a.icon-twitter{:href => "https://twitter.com/Altoros", :target => 'blank'}
-        %li
-          %a.icon-github{:href => "https://github.com/Altoros/cf-storm", :target => 'blank'}
-        %li
-          %a.icon-bug{:href => "https://github.com/Altoros/cf-storm/issues", :target => 'blank'}
+  %div{:class => ui_navbar_content}
+    %ul{:class => ui_navbar_list}
+      %li
+        %a{:href => "http://www.altoros.com", :target => 'blank'} Created and Maintained by Altoros
+      %li
+        %a{:href => "https://raw.github.com/Altoros/cf-storm/master/LICENSE.md", :target => 'blank'} Code licensed under MIT License
+
+    %ul{:class => ui_navbar_right}
+      %li
+        %a{:class => bs.icon('twitter'), :href => "https://twitter.com/Altoros", :target => 'blank'}
+      %li
+        %a{:class => bs.icon('github'), :href => "https://github.com/Altoros/cf-storm", :target => 'blank'}
+      %li
+        %a{:class => bs.icon('bug'), :href => "https://github.com/Altoros/cf-storm/issues", :target => 'blank'}

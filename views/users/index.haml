@@ -1,39 +1,40 @@
-%ul.breadcrumb
+%ul{:class => bs.breadcrumb}
   = partial("shared/breadcrumb")
   %li
-    %span.divider /
+    %span{:class => bs.divider} /
   %li
     %a{:href => users_path}= Users
 
-.container-fluid
+%div{:class => bs.container}
 
-  .row-fluid
-    .span6
+  %div{:class => bs.row}
+    %div{:class => bs.width(6)}
       #new-user-form
         %form{:action => users_path, :method => 'post'}
+          // TODO convert these to helpers
           .input-prepend.input-append
-            %span.add-on Create User
-            %input{:type => 'email', :name => 'email', 
+            %span{:class => bs.input_addon} Create User
+            %input{:type => 'email', :name => 'email',
                    :placeholder => "e-Mail"}
-                  
-            %input.span4{:type => 'password', :name => 'password',
+
+            %input{:class => bs.width(4), :type => 'password', :name => 'password',
              :placeholder => 'Password'}
-            %button.wait-trigger.btn{:type => 'submit'}
+            %button.wait-trigger{:class => bs.btn, :type => 'submit'}
               Register
-              
-      %table#users-list.table.table-condensed.table-striped
+
+      %table#users-list{:class => "#{bs.table} #{bs.table_condensed} #{bs.table_stripped}"}
         %tbody
           %tr
             %th e-Mail
           - @users.each do |user|
             %tr
               %td= user.email
-      
-    .span6  
+
+    %div{:class => bs.width(6)}
       %h5 About User's creation...
       %hr
-      When you create a new user using this section, 
+      When you create a new user using this section,
       the new user will be created under the current organization
-      which in this case is 
+      which in this case is
       %b= current_user.current_organization.name
       and the user will be added to every organization's spaces.

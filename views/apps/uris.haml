@@ -1,30 +1,30 @@
-#app-uris.well
+#app-uris{:class => bs.well}
   %h4 URL List
   %hr
-  %table.table
+  %table{:class => bs.table}
     - @routes.each do |route|
       %tr
         %td
           %a{:href => "http://#{route.name}", :target => '_blank'}= "http://#{route.name}"
-        %td.span3
+        %td{:class => bs.width(3)}
           %form{:action => app_path(@space, @app), :method => 'post', :class => 'simple-button'}
             %input{:type => 'hidden', :value => 'delete', :name => '_method'}
             %input{:type => 'hidden', :value => route.guid, :name => 'route_guid'}
             - if @routes.size == 1
               %a{:id => "unmap-#{route.guid}",
-               :class => "btn btn-danger trigger-unmap-confirmation",
+               :class => "#{bs.btn} #{bs.btn_large} trigger-unmap-confirmation",
                :title => 'Remove route',
                :href => '#none'}
                 %i.icon-trash
               %button.wait-trigger{:type => 'submit',
-               :class => "btn btn-danger unmap-confirmed",
+               :class => "#{bs.btn} #{bs.btn_danger} unmap-confirmed",
                :style => 'display: none;',
                :title => 'It is the last route, are you really really sure?' }
                 Really?
             - else
               %button{:type => 'submit',
                :id => "unmap-#{route.guid}",
-               :class => "btn btn-danger",
+               :class => "#{bs.btn} #{bs.btn_danger}",
                :title => 'Remove route'}
                 %i.icon-trash
 
@@ -32,10 +32,10 @@
   %form{:action => app_path(@space, @app), :method => 'post'}
     // TODO convert these classes and ids to helpers
     .input-prepend.input-append
-      %span.add-on URL
+      %span{:class => bs.add_on} URL
       %input{:type => 'text', :name => 'url'}
       %select{:disabled => false, :name => 'domain'}
         - current_user.domains(:depth => 0).each do |domain|
           %option{:value => domain.name}= domain.name
 
-      %button.btn.wait-trigger{:type => 'submit'} Add URL
+      %button.wait-trigger{:class => bs.btn, :type => 'submit'} Add URL

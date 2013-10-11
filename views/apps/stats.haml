@@ -1,7 +1,7 @@
-#app-stats.well
+#app-stats{:class => bs.well}
   %h4 Stats
   %hr
-  %table.table
+  %table{:class => bs.table}
     %tr
       %th Instance Id
       %th Cpu Usage
@@ -11,14 +11,14 @@
       %th State
     - if @stats.empty?
       %tr
-        %td - 
+        %td -
         %td.cpu-usage -
-        %td.mem-usage - 
+        %td.mem-usage -
         %td.disk-usage -
         %td.uptime -
-        %td.instane-state - 
-        
-        
+        %td.instane-state -
+
+
     - @stats.each do |instance_id, app_stat|
       %tr
         %td= instance_id
@@ -34,4 +34,3 @@
           %td.uptime -
         %td.instance-state
           %span{:class => instance_status_class(app_stat)}= app_stat[:state]
-

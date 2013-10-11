@@ -23,7 +23,7 @@ def assert_app_details app
 end
 
 def load_default_space_and_app
-o  @space ||= current_user.current_organization.spaces.find{ |s| s.name == 'development'}
+  @space ||= current_user.current_organization.spaces.find{ |s| s.name == 'development'}
   @app   ||= @space.apps.find{ |a| a.name == 'DOS' } || @space.apps.first
 end
 
