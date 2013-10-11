@@ -1,11 +1,12 @@
-%ul{:class => breadcrum_class}
+%ul{:class => bs.breadcrumb}
+  %li= partial ('shared/breadcrumb')
   %li
-    %span.divider /
+    %span{:class => bs.divider} /
   %li
     %a.wait-trigger{:href => space_path(@space)}= space_human_name(@space)
     = partial 'shared/apps_counter'
 
-%table#apps-list{:class => apps_list_class}
+%table#apps-list{:class => "#{bs.table} #{bs.table_hover}"}
   %tbody
     - @apps.each do |app|
       %tr.row-link{:'data-path' => app_path(@space, app)}
@@ -18,14 +19,14 @@
               %input{:type => 'hidden', :value => 'put', :name => '_method'}
               %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
               %input{:type => 'hidden', :value => 'index', :name => 'back_to'}
-              .btn-group
+              %div{:class => bs.btn_group}
                 %button.wait-trigger{:type => 'submit',
                    :id => app_state_class(app),
                    :class => app_power_control_button_class(app),
                    :title => 'Start/Stop Application'}
-                  %i.icon-off
-                %a.wait-trigger{:href => app_path(@space, app), :id => "app-details-#{app.guid}", :class => 'btn', :title => 'View application details'}
-                  %i.icon-cog
+                  %i{:class => bs.icon('off')}
+                %a.wait-trigger{:href => app_path(@space, app), :id => "app-details-#{app.guid}", :class => bs.btn, :title => 'View application details'}
+                  %i{:class => bs.icon('cog')}
     - if @apps.empty?
       %tr
         %td

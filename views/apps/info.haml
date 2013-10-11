@@ -27,6 +27,7 @@
 #app-memory
   #app-mem-form
     %form{:action => app_path(@space, @app), :method => 'post'}
+      //TODO convert these to bootstrap helpers (ids and classes)
       .input-append
         .input-prepend.input-append
           %span.add-on.span3 Memory
@@ -41,6 +42,7 @@
 #app-instances
   #instance-quota
     %form{:action => app_path(@space, @app), :method => 'post'}
+      //TODO convert these to bootstrap helpers (ids and classes)
       .input-prepend.input-append
         %span.add-on.span3 Instances
         %select#appendedInputButton{:name => 'instances'}

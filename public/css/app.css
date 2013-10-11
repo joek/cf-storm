@@ -14,7 +14,7 @@
   padding: 4px 7px 0 7px !important;
 }
 
-.body-custom {
+.spacing {
   padding-top: 56px;
   padding-bottom: 56px;
 }
@@ -79,7 +79,6 @@
 }
 
 .row-link:hover {
-    background-color: red !important;
     cursor: pointer;
 }
 
