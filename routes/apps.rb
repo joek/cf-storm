@@ -73,6 +73,11 @@ class Apps < Cuba
     @routes = @app.routes
   end
 
+  def redirect_to_path path
+    res.redirect app_path(@space, @app) if path == 'show'
+    res.redirect space_path(@space) if path == 'index'
+  end
+
   define do
     load_app vars[:space_name], vars[:app_name]
 
@@ -97,9 +102,10 @@ class Apps < Cuba
     end
 
 
-    on put, param('state') do |state|
+    on put, param('state'), param('back_to') do |state, back_to|
       @app.started? ? @app.stop! : @app.start!
-      res.redirect space_path @space
+      redirect_to_path back_to
+      # res.redirect space_path @space
     end
 
     on post, param('instances') do |instances|

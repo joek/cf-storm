@@ -18,6 +18,7 @@
             %form{:action => app_path(@space, app), :method => 'post', :class => 'simple-button'}
               %input{:type => 'hidden', :value => 'put', :name => '_method'}
               %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
+              %input{:type => 'hidden', :value => 'index', :name => 'back_to'}
               .btn-group
                 %button.wait-trigger{:type => 'submit',
                    :id => app_state_class(app),
