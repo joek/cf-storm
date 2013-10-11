@@ -24,31 +24,35 @@
     %input#current-health{:type => 'hidden', :value => app_health(@app, @stats)}
     %input#health-monitor{:type => 'text', :value => 0, :disabled => true, 'data-width' => '100', 'data-height' => '100'}
 
+
 #app-memory
   #app-mem-form
-    %form{:action => app_path(@space, @app), :method => 'post'}
-      //TODO convert these to bootstrap helpers (ids and classes)
-      .input-append
-        .input-prepend.input-append
-          %span.add-on.span3 Memory
-          %select#appendedInputButton{:name => 'memory'}
-            - (7..14).each do |mem|
-              - if 2**mem == @app.memory
-                %option.current-app-mem{:value => 2**mem, :selected => true}= 2**mem
-              - else
-                %option{:value => 2**mem}= 2**mem
+    %form{:action => app_path(@space, @app), :method => 'post', :class => bs.form_inline}
+      %div{:class => bs.input_group}
+        %label{:for => 'memory', :class => bs.input_addon, :title => 'Random Access Memory'}
+          %span{:class => bs.icon('ticket')}
+        %select#memory{:name => 'memory', :class => bs.form_control}
+          - (7..14).each do |mem|
+            - if 2**mem == @app.memory
+              %option.current-app-mem{:value => 2**mem, :selected => true}= 2**mem
+            - else
+              %option{:value => 2**mem}= 2**mem
+        %span{:class => bs.input_group_btn}
           %button.wait-trigger{:class => bs.btn, :type => 'submit'} Update
 
+%br
 #app-instances
-  #instance-quota
-    %form{:action => app_path(@space, @app), :method => 'post'}
-      //TODO convert these to bootstrap helpers (ids and classes)
-      .input-prepend.input-append
-        %span{:class => "#{bs.input_addon} #{bs.width(3)}"} Instances
-        %select#appendedInputButton{:name => 'instances'}
+  %div#instance-quota
+    %form{:action => app_path(@space, @app), :method => 'post', :class => bs.form_inline}
+      %div{:class => bs.input_group}
+        %label{:for => 'instances', :class => bs.input_addon, :title => 'Instances'}
+          %span{:class => bs.icon('cogs')}
+
+        %select#instances{:name => 'instances', :class => bs.form_control}
           - 20.times do |n|
             - if n == @app.total_instances
               %option.current-instances{:value => n, :selected => true}= n
             - else
               %option{:value => n}= n
-        %button.wait-trigger{:class => bs.btn, :type => 'submit'} Update
+        %span{:class => bs.input_group_btn}
+          %button.wait-trigger{:class => bs.btn, :type => 'submit'} Update

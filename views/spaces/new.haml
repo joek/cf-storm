@@ -1,11 +1,10 @@
-%div{:class => bs.row_fluid}
-  %div{:class => bs.width(4)}
-    %div{:class => bs.well}
-      %h4 Create space
-      %hr
-      %form#space-create-form{:action => '/spaces', :method => 'post'}
-        // TODO add these to helpers
-        .input-prepend.input-append
-          %span{:class => "#{bs.width(3)} #{bs.input_addon}"} Name
-          %input{:type => 'text', :name => 'space_name'}
-          %button{:class => "#{bs.btn} #{bs.btn_danger}", :type => 'submit'} Create
+%div{:class => "#{bs.well} #{bs.width(4)} #{bs.width_offset(4)}"}
+  %h4 Create space
+  %hr
+  %form#space-create-form{:action => '/spaces', :method => 'post'}
+    %div{:class => bs.input_group}
+      %label{:class => bs.input_addon}
+        %span{:class => bs.icon('terminal'), :title => 'Space name'}
+      %input{:type => 'text', :name => 'space_name', :class => bs.form_control}
+      %span{:class => bs.input_group_btn}
+        %button{:class => "#{bs.btn} #{bs.btn_danger}", :type => 'submit'} Create

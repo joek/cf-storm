@@ -83,8 +83,20 @@ module BootstrapHelpers
       'navbar-brand'
     end
 
-    def btn
-      'btn btn-default'
+    def btn kind='default', size=nil
+      "btn btn-#{kind}#{size ? (' btn-' + size) : ''}"
+    end
+
+    def panel kind='default'
+      "panel panel-#{kind}"
+    end
+
+    def panel_heading
+      'panel-heading'
+    end
+
+    def panel_body
+      'panel-body'
     end
 
     def divider
@@ -103,8 +115,28 @@ module BootstrapHelpers
       'btn-lg'
     end
 
+    def form_group
+      'form-group'
+    end
+
+    def form_control
+      'form-control'
+    end
+
+    def input_group
+      'input-group'
+    end
+
+    def form_inline
+      'form-horizontal'
+    end
+
     def input_addon
       'input-group-addon'
+    end
+
+    def input_group_btn
+      'input-group-btn'
     end
 
     def table

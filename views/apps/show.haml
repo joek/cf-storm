@@ -1,22 +1,18 @@
 %ul.breadcrumb
   = partial("shared/breadcrumb")
   %li
-    %span.divider /
-  %li
     %a.wait-trigger{:href => space_path(@space)}= space_human_name(@space)
     = partial 'shared/apps_counter'
   %li
-    %span.divider /
-  %li
     %a.wait-trigger{:href => app_path(@space, @app)}= @app.name.capitalize
 
-.row-fluid
-  .span4
-    .well
+%div{:class => bs.row}
+  %div{:class => bs.width(4)}
+    %div{:class => bs.well}
       = partial("apps/info")
 
     %hr
-    #app-destroy-form.well
+    #app-destroy-form{:class => bs.well}
       %h4 Danger Zone
       %hr
       %p.justified
@@ -25,13 +21,15 @@
         destroyed from the space.
         %b This change can't be undone.
       %form{:action => app_path(@space, @app), :method => 'post'}
-        %input{:type => 'hidden', :value => 'delete', :name => '_method'}
-        .input-prepend.input-append
-          %span.add-on.span3 App name
-          %input{:type => 'text', :name => 'app_name'}
-          %button.btn.btn-danger.wait-trigger{:type => 'submit'} Destroy
+        %div{:class => bs.input_group}
+          %label{:class => bs.input_addon, :title => 'App Name'}
+            %span{:class => bs.icon('terminal')}
+          %input{:type => 'hidden', :value => 'delete', :name => '_method'}
+          %input{:type => 'text', :name => 'app_name', :class => bs.form_control}
+          %span{:class => bs.input_group_btn}
+            %button.wait-trigger{:class => bs.btn('danger'), :type => 'submit'} Destroy
 
-  .span8
+  %div{:class => bs.width(8)}
     #astats{'data-app-id' => @app.guid}
       = partial("apps/stats")
 

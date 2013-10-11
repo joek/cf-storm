@@ -1,8 +1,6 @@
 %ul{:class => bs.breadcrumb}
   = partial("shared/breadcrumb")
   %li
-    %span{:class => bs.divider} /
-  %li
     %a{:href => users_path}= Users
 
 %div{:class => bs.container}
@@ -11,17 +9,19 @@
     %div{:class => bs.width(6)}
       #new-user-form
         %form{:action => users_path, :method => 'post'}
-          // TODO convert these to helpers
-          .input-prepend.input-append
-            %span{:class => bs.input_addon} Create User
+          %div{:class => bs.input_group}
+            %label{:class => bs.input_addon, :title => 'Human electronic mail address'}
+              %span{:class => bs.icon('user')}
             %input{:type => 'email', :name => 'email',
-                   :placeholder => "e-Mail"}
-
+                   :placeholder => "e-Mail", :class => bs.form_control}
+            %label{:class => bs.input_addon, :title => 'Human secure password'}
+              %span{:class => bs.icon('key')}
             %input{:class => bs.width(4), :type => 'password', :name => 'password',
-             :placeholder => 'Password'}
-            %button.wait-trigger{:class => bs.btn, :type => 'submit'}
-              Register
-
+             :placeholder => 'Password', :class => bs.form_control}
+            %span{:class => bs.input_group_btn}
+              %button.wait-trigger{:class => bs.btn, :type => 'submit'}
+                Register
+      %br
       %table#users-list{:class => "#{bs.table} #{bs.table_condensed} #{bs.table_stripped}"}
         %tbody
           %tr
@@ -30,11 +30,14 @@
             %tr
               %td= user.email
 
+
     %div{:class => bs.width(6)}
-      %h5 About User's creation...
-      %hr
-      When you create a new user using this section,
-      the new user will be created under the current organization
-      which in this case is
-      %b= current_user.current_organization.name
-      and the user will be added to every organization's spaces.
+      %div{:class => bs.panel}
+        %div{:class => bs.panel_heading}
+          About User's creation...
+        %div{:class => bs.panel_body}
+          When you create a new user using this section,
+          the new user will be created under the current organization
+          which in this case is
+          %b= current_user.current_organization.name
+          and the user will be added to every organization's spaces.
