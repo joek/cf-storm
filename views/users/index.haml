@@ -29,15 +29,15 @@
           - @users.each do |user|
             %tr
               %td
-                = user.email
+                %span= user.email
                 - unless user.email == current_user.email
-                  %div{:id => "delete-user-#{user.guid}"}
-                  %form{:action => users_path, :method => 'post', :class => "#{bs.width(1)} #{bs.float_right}"}
-                    %div{:class => bs.input_group}
-                      %input{:type => 'hidden', :value => 'delete', :name => '_method'}
-                      %input{:type => 'hidden', :name => 'user_guid', :value => user.guid}
-                        %button.wait-trigger{:class => "#{bs.btn('danger')} #{bs.btn_xs}", :type => 'submit'}
-                          %span{:class => bs.icon('trash')}
+                  %div{:id => "delete-user-#{user.guid}", :class => "#{bs.width(1)} #{bs.float_right}"}
+                    %form{:action => users_path, :method => 'post'}
+                      %div{:class => bs.input_group}
+                        %input{:type => 'hidden', :value => 'delete', :name => '_method'}
+                        %input{:type => 'hidden', :name => 'user_guid', :value => user.guid}
+                          %button.wait-trigger{:class => "#{bs.btn('danger')} #{bs.btn_xs}", :type => 'submit'}
+                            %span{:class => bs.icon('trash')}
 
 
     %div{:class => bs.width(6)}
