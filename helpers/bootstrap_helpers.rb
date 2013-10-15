@@ -27,8 +27,6 @@ module BootstrapHelpers
     ui_navbar_list + ' ' + bs.navbar_right
   end
 
-
-
   class BootstrapUI
 
     def navbar_nav
@@ -181,6 +179,10 @@ module BootstrapHelpers
 
     def alert_error
       alert_danger
+    end
+
+    def btn_xs
+      'btn-xs'
     end
 
     def alert_danger

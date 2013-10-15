@@ -12,7 +12,16 @@ scope do
 
       click_button 'Register'
     end
-    
+
     assert has_content? 'lol.master@example.com'
+  end
+
+  test 'I delete a user' do
+    user_count = req.current_organization.users.size
+    click_link 'Users'
+    within('#users-list') do
+      all('.btn').first.click
+    end
+    assert req.current_organization.users.size < user_count
   end
 end

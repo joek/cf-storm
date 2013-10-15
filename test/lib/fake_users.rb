@@ -12,9 +12,9 @@ class CFUser < Struct.new(:name, :email, :full_name)
 
     user
   end
-  
+
   def organizations=(orgs)
-  end  
+  end
 
   def add_managed_organization org
   end
@@ -24,11 +24,20 @@ class CFUser < Struct.new(:name, :email, :full_name)
 
   def add_audited_organization org
   end
-  
+
   def add_space s
-  end  
+  end
 
   def update!
+    true
+  end
+
+  def guid
+    Digest::MD5.hexdigest self.email
+  end
+
+  def delete
+    @@_users.delete_if{ |u| u.guid == self.guid }
     true
   end
 

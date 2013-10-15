@@ -1,6 +1,6 @@
 class FakeOrganization < Struct.new(:name, :spaces)
 
-  def users
+  def users depth=0
     CFUser.test_users
   end
 

@@ -37,5 +37,13 @@ class Users < Cuba
     on post do
       res.redirect 'users/index'
     end
+
+    on delete, param('user_guid') do |user_guid|
+      user = current_organization.users(:depth => 0).find{|u| u.guid == user_guid}
+      if user
+        user.delete ? set_flash!('User deleted', :notice) : set_flash!('Something went wrong, try again later', :alert)
+      end
+      res.redirect users_path
+    end
   end
 end

@@ -9,6 +9,7 @@ class FakeReq
   include UserHelpers
   include AppHelpers
   include SpaceHelpers
+  include OrganizationHelpers
   include MainHelpers
 
   def session
