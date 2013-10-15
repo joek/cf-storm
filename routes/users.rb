@@ -12,8 +12,8 @@ class Users < Cuba
       new_user.add_audited_organization org
       new_user.organizations = current_user.organizations
     end
-    
-    current_user.spaces.each{|s| new_user.add_space s }  
+
+    current_user.spaces.each{|s| new_user.add_space s }
 
     new_user.update!
   end
@@ -23,9 +23,9 @@ class Users < Cuba
       @users = current_user.current_organization.users
 
       begin
-        @users.first.email
+        @users.first.email unless @users.empty?
         res.write view('users/index')
-      rescue CFoundry::UAAError 
+      rescue CFoundry::UAAError
         set_flash! "You are not allowed visit this section", :alert
         res.redirect root_path
       end
@@ -33,6 +33,10 @@ class Users < Cuba
 
     on post, param('email'), param('password') do |email, password|
       create_user_and_set_flash! email, password
+      res.redirect 'users/index'
+    end
+
+    on post do
       res.redirect 'users/index'
     end
   end
