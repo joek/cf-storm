@@ -180,7 +180,11 @@ module BootstrapHelpers
     end
 
     def alert_error
-      'alert-error'
+      alert_danger
+    end
+
+    def alert_danger
+      'alert-danger'
     end
 
     def alert_info
