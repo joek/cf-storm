@@ -5,6 +5,18 @@
     %ul{:class => ui_navbar_list}
       %li{:class => bs.dropdown}
         %a{:class => bs.dropdown_toggle, "data-toggle" => "dropdown", :href => "#"}
+          #current-organization
+            Organizations
+            %strong.caret
+
+        %ul#organization-menu{:class => bs.dropdown_menu}
+          - current_user.organizations.each do |org|
+            %li
+              %a{:href => '#none', :id => "organizaiton-#{org.guid}"}= org.name
+
+
+      %li{:class => bs.dropdown}
+        %a{:class => bs.dropdown_toggle, "data-toggle" => "dropdown", :href => "#"}
           #current-space
             = space_human_name(@space)
             %strong.caret

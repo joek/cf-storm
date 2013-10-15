@@ -8,4 +8,8 @@ class Organization < Struct.new(:name, :spaces)
     FakeClient.spaces
   end
 
+  def guid
+    Digest::MD5.hexdigest self.name
+  end
+
 end
