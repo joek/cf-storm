@@ -3,7 +3,7 @@
     %a{:class => bs.brand, :href => root_path} CF Storm
   %div{:class => ui_navbar_content}
     %ul{:class => ui_navbar_list}
-      %li{:class => bs.dropdown}
+      %li{:class => bs.dropdown, :title => 'Organization'}
         %a{:class => bs.dropdown_toggle, "data-toggle" => "dropdown", :href => "#"}
           #current-organization
             = current_organization.name || 'Organizations'
@@ -15,13 +15,16 @@
               %a{:href => organization_path(org), :id => "organizaiton-#{org.guid}"}= org.name
 
 
-      %li{:class => bs.dropdown}
+      %li{:class => bs.dropdown, :title => 'Space'}
         %a{:class => bs.dropdown_toggle, "data-toggle" => "dropdown", :href => "#"}
           #current-space
             = space_human_name(@space)
             %strong.caret
 
         %ul#space-menu{:class => bs.dropdown_menu}
+          - if @spaces.empty?
+            %li
+              %a{:href => '#none'} --- No spaces ---
           - @spaces.each do |space|
             %li
               %a{:href => space_path(space), :id => "space-#{space.guid}"}= space_human_name(space)
