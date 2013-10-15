@@ -4,7 +4,12 @@ class Users < Cuba
     # TODO Optimize this
     # TODO Add spaces
     # TODO Think what org add when creating
-    new_user = current_user.client.register(email, password)
+    begin
+      new_user = current_user.client.register(email, password)
+    rescue CFoundry::UAAError
+      set_flash! 'Access denied!', :alert
+      return nil
+    end
 
     new_user.add_managed_organization current_organization
     new_user.add_billing_managed_organization current_organization
