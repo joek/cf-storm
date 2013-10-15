@@ -1,2 +1,4 @@
 %li
   = current_user.endpoint
+%li
+  = current_user.current_organization.name || 'Undefined'

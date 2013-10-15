@@ -6,12 +6,10 @@ class Users < Cuba
     # TODO Think what org add when creating
     new_user = current_user.client.register(email, password)
 
-    current_user.organizations.each do |org|
-      new_user.add_managed_organization org
-      new_user.add_billing_managed_organization org
-      new_user.add_audited_organization org
-      new_user.organizations = current_user.organizations
-    end
+    new_user.add_managed_organization current_organization
+    new_user.add_billing_managed_organization current_organization
+    new_user.add_audited_organization current_organization
+    new_user.organizations = current_organization
 
     current_user.spaces.each{|s| new_user.add_space s }
 

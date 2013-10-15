@@ -8,6 +8,7 @@ class User  < Ohm::Model
   attribute :token
   attribute :refresh_token
   attribute :api_url
+  attribute :current_organization_guid
 
   index :email
   index :api_url
@@ -34,7 +35,15 @@ class User  < Ohm::Model
   end
 
   def current_organization
-    client.current_organization || client.organizations.first
+    return Organization.rebuild self.current_organization_guid if self.current_organization_guid
+    return client.current_organization if client.current_organization
+    client.organizations.first
+  end
+
+  def current_organization= org
+    Organization.store org
+    self.current_organization_guid = org.guid
+    self.save
   end
 
   def create_space!(name)

@@ -47,6 +47,16 @@ Cuba.define do
     run Sessions
   end
 
+  on "organizations/:organization_name" do |org|
+    if current_user
+      with :organization_name => org do
+        run Organizations
+      end
+    else
+      res.redirect '/sessions/new'
+    end
+  end
+
   on "spaces" do |space|
     if current_user
       run Spaces

@@ -6,13 +6,13 @@
       %li{:class => bs.dropdown}
         %a{:class => bs.dropdown_toggle, "data-toggle" => "dropdown", :href => "#"}
           #current-organization
-            Organizations
+            = current_organization.name || 'Organizations'
             %strong.caret
 
         %ul#organization-menu{:class => bs.dropdown_menu}
           - current_user.organizations.each do |org|
             %li
-              %a{:href => '#none', :id => "organizaiton-#{org.guid}"}= org.name
+              %a{:href => organization_path(org), :id => "organizaiton-#{org.guid}"}= org.name
 
 
       %li{:class => bs.dropdown}
