@@ -8,14 +8,16 @@
   %form{:name => 'session', :id => 'new-session',
         :action => '/sessions', :method => 'post'}
 
-    %fieldset
+    %div{:class => bs.form_group}
       %label{:for => "email"} Email
-      %input{:class => bs.width(12), :type => "text", :name => "email", :placeholder => "Email"}
+      %input{:class => "#{bs.width(12)} #{bs.form_control}", :type => "text", :name => "email", :placeholder => "Email"}
 
+    %div{:class => bs.form_group}
       %label{:for => "password"} Password
-      %input{:class => bs.width(12), :type => "password", :name => "password", :placeholder => "Password"}
+      %input{:class => "#{bs.width(12)} #{bs.form_control}", :type => "password", :name => "password", :placeholder => "Password"}
 
+    %div{:class => bs.form_group}
       %label{:for => "endpoint"} Endpoint
-      %input{:class => bs.width(12), :type => "text", :name => "endpoint", :placeholder => Settings::API_URL}
+      %input{:class => "#{bs.width(12)} #{bs.form_control}", :type => "text", :name => "endpoint", :placeholder => Settings::API_URL}
 
-      %button{:class => bs.btn, :type => "submit"} Sign in
+    %button{:class => bs.btn, :type => "submit"} Sign in
