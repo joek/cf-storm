@@ -1,6 +1,6 @@
 #nav-footer{:class => ui_navbar_bottom}
   %div{:class => bs.navbar_header}
-    %a{:class => bs.brand, :href => root_path} CF Storm 1.0.0
+    %a{:class => bs.brand, :href => (current_user ? root_path : '#none')} CF Storm 1.0.0
 
   %div{:class => ui_navbar_content}
     %ul{:class => ui_navbar_list}
