@@ -5,7 +5,7 @@ class User  < Ohm::Model
                  :domains_by_name, :spaces, :space_by_name, :organizations
 
 
-  def_delegators :remote_data, :family_name, :given_name, :name
+  def_delegators :remote_data, :family_name, :given_name, :name, :guid
 
   attribute :email
   attribute :token
@@ -31,6 +31,11 @@ class User  < Ohm::Model
 
   def self.clients
     @@_clients
+  end
+
+
+  def change_password new, old
+    client.base.uaa.change_password self.guid, new, old
   end
 
   def logout

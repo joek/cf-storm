@@ -1,14 +1,40 @@
-#user-info
-  %table{:class => bs.table}
-    %tr
-      %td e-Mail
-      %td= current_user.email
-    %tr
-      %td Name
-      %td= current_user.name || '<i>Undefined</i>'
-    %tr
-      %td First Name
-      %td= current_user.given_name || '<i>Undefined</i>'
-    %tr
-      %td Last Name
-      %td= current_user.family_name || '<i>Undefined</i>'
+%div{:class => bs.row}
+  %div#user-info{:class => bs.width(6)}
+    %table{:class => bs.table}
+      %tr
+        %td e-Mail
+        - require 'debugger'
+        - debugger
+        %td= @user.email
+      %tr
+        %td Name
+        %td= @user.name || '<i>Undefined</i>'
+      %tr
+        %td First Name
+        %td= @user.given_name || '<i>Undefined</i>'
+      %tr
+        %td Last Name
+        %td= @user.family_name || '<i>Undefined</i>'
+
+  %div#user-pass{:class => "#{bs.width(6)} #{bs.well}"}
+    %form{:action => '/users', :method => 'post', :class => bs.form_inline}
+      %input{:type => 'hidden', :value => 'put', :name => '_method'}
+      %div{:class => bs.input_group}
+        %label{:for => 'old_password', :class => bs.input_addon, :title => 'Your old password'}
+          %span{:class => bs.icon('key')}
+          %span{:class => bs.icon('reply')}
+        %input{:type => 'password', :name => 'old_password', :class => bs.form_control, :placeholder => 'Your old password'}
+      %br
+      %div{:class => bs.input_group}
+        %label{:for => 'password', :class => bs.input_addon, :title => 'Your new password'}
+          %span{:class => bs.icon('key')}
+          %span{:class => bs.icon('asterisk')}
+        %input{:type => 'password', :name => 'password', :class => bs.form_control, :placeholder => 'Your new password'}
+      %br
+      %div{:class => bs.input_group}
+        %label{:for => 'password_confirmation', :class => bs.input_addon, :title => 'Your password again'}
+          %span{:class => bs.icon('key')}
+          %span{:class => bs.icon('ok')}
+        %input{:type => 'password', :name => 'password_confirmation', :class => bs.form_control, :placeholder => 'Your password again'}
+      %br
+      %button.wait-trigger{:class => bs.btn, :type => 'submit'} Change

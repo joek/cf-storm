@@ -10,6 +10,7 @@ class FakeClient < OpenStruct
   Struct.new('ServiceBinding', :service_instance, :manifest)
   Struct.new('ServiceInstance', :name, :dashboard_url, :service_plan)
   Struct.new('ServicePlan', :name, :description)
+  Struct.new('BaseClient', :uaa)
 
   def login(credentials)
     valid_usernames = [Settings::API_TEST_USERNAME]
@@ -21,6 +22,10 @@ class FakeClient < OpenStruct
       raise CFoundry::Denied
     end
     token
+  end
+
+  def base
+    Struct::BaseClient.new UAA.new
   end
 
   def current_user

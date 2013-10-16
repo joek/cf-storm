@@ -1,5 +1,16 @@
 class Users < Cuba
 
+  def update_password_and_set_flash! new, old
+    begin
+      current_user.change_password new, old
+      set_flash! 'Password changed succesfully'
+      true
+    rescue CFoundry::UAAError => e
+      set_flash! e.description, :alert
+      false
+    end
+  end
+
   def create_user_and_set_flash! email, password
     # TODO Optimize this
     # TODO Add spaces
@@ -23,6 +34,7 @@ class Users < Cuba
 
   define do
     on get, 'profile' do
+      @user = current_user
       res.write view('users/profile')
     end
 
@@ -45,6 +57,14 @@ class Users < Cuba
 
     on post do
       res.redirect 'users/index'
+    end
+
+    on put, param('old_password'), param('password'), param('password_confirmation') do |old_pass, pass, pass_conf|
+      if update_password_and_set_flash!(pass, old_pass)
+        res.redirect '/session/delete'
+      else
+        res.redirect 'users/profile'
+      end
     end
 
     on delete, param('user_guid') do |user_guid|
