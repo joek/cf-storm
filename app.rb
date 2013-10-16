@@ -39,6 +39,15 @@ Ohm.connect(url: Settings::REDIS_URL)
 
 Cuba.use Rack::MethodOverride
 
+# ugly fix for marshal
+class OpenSSL::SSL::SSLContext
+  def _dump_data
+  end
+  def _load_data *args
+  end
+end
+
+
 Cuba.define do
 
   on 'favicon.ico' do

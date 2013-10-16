@@ -67,6 +67,10 @@ class Users < Cuba
       end
     end
 
+    on put do
+      res.redirect 'users/profile'
+    end
+
     on delete, param('user_guid') do |user_guid|
       user = current_organization.users(:depth => 0).find{|u| u.guid == user_guid}
       if user
