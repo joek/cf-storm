@@ -49,7 +49,7 @@ class User  < Ohm::Model
   def current_organization
     return Organization.rebuild self.current_organization_guid if self.current_organization_guid
     return client.current_organization if client.current_organization
-    client.organizations.first
+    client.organizations(:depth => 0).first
   end
 
   def current_organization= org
@@ -70,7 +70,7 @@ class User  < Ohm::Model
     user ||= User.new :email => email, :api_url => endpoint
 
     token = user.login(:username => email, :password => password)
-    user.current_organization = user.organizations.first if user.current_organization_guid.nil?
+    user.current_organization = user.organizations(:depth => 0).first if user.current_organization_guid.nil?
     user.cftoken = token
     user.save
   end
