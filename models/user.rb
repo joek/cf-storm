@@ -70,6 +70,7 @@ class User  < Ohm::Model
     user ||= User.new :email => email, :api_url => endpoint
 
     token = user.login(:username => email, :password => password)
+    user.current_organization = user.organizations.first if user.current_organization_guid.nil?
     user.cftoken = token
     user.save
   end
