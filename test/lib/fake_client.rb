@@ -15,10 +15,20 @@ class FakeClient < OpenStruct
     valid_usernames = [Settings::API_TEST_USERNAME]
     if valid_usernames.include? credentials[:username]
       token = Struct::Token.new "my-auth-token", "my-refresh-token"
+      self.current_user = CFUser.new 'test_user', credentials[:username], 'My User',
+                                'My'
     else
       raise CFoundry::Denied
     end
     token
+  end
+
+  def current_user
+    @@_current_user
+  end
+
+  def current_user= user
+    @@_current_user = user
   end
 
   def self.check_valid_endpoint! endpoint

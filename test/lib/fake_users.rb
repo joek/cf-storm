@@ -1,8 +1,8 @@
-class CFUser < Struct.new(:name, :email, :full_name)
+class CFUser < Struct.new(:name, :email, :full_name, :given_name, :family_name)
 
   def self.test_users
-    @@_users ||= [new('manuel', Settings::API_TEST_USERNAME, 'Manuel Garcia'),
-                  new('lolmaster', 'lol@lol.lol', 'Lol')]
+    @@_users ||= [new('manuel', Settings::API_TEST_USERNAME, 'Manuel Garcia', 'Manuel', 'garcia'),
+                  new('lolmaster', 'lol@lol.lol', 'LOL', 'Master')]
 
   end
 

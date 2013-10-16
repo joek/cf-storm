@@ -22,7 +22,11 @@ class Users < Cuba
   end
 
   define do
-    on get do
+    on get, 'profile' do
+      res.write view('users/profile')
+    end
+
+    on get  do
       @users = current_user.current_organization.users
 
       begin
@@ -50,5 +54,6 @@ class Users < Cuba
       end
       res.redirect users_path
     end
+
   end
 end

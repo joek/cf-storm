@@ -4,6 +4,9 @@ class User  < Ohm::Model
   def_delegators :client, :login, :domains, :route,
                  :domains_by_name, :spaces, :space_by_name, :organizations
 
+
+  def_delegators :remote_data, :family_name, :given_name, :name
+
   attribute :email
   attribute :token
   attribute :refresh_token
@@ -16,6 +19,10 @@ class User  < Ohm::Model
   def initialize(*args)
     @@_clients ||= {}
     super
+  end
+
+  def remote_data
+    client.current_user
   end
 
   def self.clear_client_cache!

@@ -1,0 +1,14 @@
+#user-info
+  %table{:class => bs.table}
+    %tr
+      %td e-Mail
+      %td= current_user.email
+    %tr
+      %td Name
+      %td= current_user.name || '<i>Undefined</i>'
+    %tr
+      %td First Name
+      %td= current_user.given_name || '<i>Undefined</i>'
+    %tr
+      %td Last Name
+      %td= current_user.family_name || '<i>Undefined</i>'

@@ -22,6 +22,10 @@ def assert_app_details app
   app.uris.each {|u| assert has_content? u}
 end
 
+def load_user
+  @user ||= current_user
+end
+
 def load_default_space_and_app
   @space ||= current_user.current_organization.spaces.find{ |s| s.name == 'development'}
   @app   ||= @space.apps.find{ |a| a.name == 'DOS' } || @space.apps.first
