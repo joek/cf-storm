@@ -1,4 +1,8 @@
 %div{:class => bs.row}
+  %div{:class => bs.width(2)}
+    %img#user-profile-avatar{:src => user_avatar_path(current_user, 150),
+                     :title => "This is you"}
+
   %div#user-info{:class => bs.width(6)}
     %table{:class => bs.table}
       - @user.uaa_data[:emails].each do |email|
@@ -12,7 +16,7 @@
         %td Last Name
         %td= @user.uaa_data[:name][:familyname] || '<i>Undefined</i>'
 
-  %div#user-pass{:class => "#{bs.width(6)} #{bs.well}"}
+  %div#user-pass{:class => "#{bs.width(4)} #{bs.well}"}
     %p.justified
       If you change your password, keep in mind that you'll
       have to relogin with your new password.
