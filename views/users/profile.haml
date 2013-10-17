@@ -15,6 +15,9 @@
         %td= @user.family_name || '<i>Undefined</i>'
 
   %div#user-pass{:class => "#{bs.width(6)} #{bs.well}"}
+    %p.justified
+      If you change your password, keep in mind that you'll
+      have to relogin with your new password.
     %form{:action => '/users', :method => 'post', :class => bs.form_inline}
       %input{:type => 'hidden', :value => 'put', :name => '_method'}
       %div{:class => bs.input_group}
