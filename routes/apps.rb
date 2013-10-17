@@ -94,7 +94,6 @@ class Apps < Cuba
     end
 
     on get do
-      require 'debugger'; debugger
       if @app.nil?
         set_flash! "The app '#{vars[:app_name]}' does not " +
           "exists in '#{@space.name}' space", :alert
