@@ -1,12 +1,16 @@
 class Users < Cuba
 
-  def update_password_and_set_flash! new, old
+  def update_password_and_set_flash! new, conf, old
     begin
+      raise PasswordMissmatch if new != conf
       current_user.change_password new, old
       set_flash! 'Password changed succesfully'
       true
     rescue CFoundry::UAAError => e
       set_flash! e.description, :alert
+      false
+    rescue PasswordMissmatch => e
+      set_flash! e.message, :alert
       false
     end
   end
@@ -60,7 +64,7 @@ class Users < Cuba
     end
 
     on put, param('old_password'), param('password'), param('password_confirmation') do |old_pass, pass, pass_conf|
-      if update_password_and_set_flash!(pass, old_pass)
+      if update_password_and_set_flash!(pass, pass_conf, old_pass)
         res.redirect '/session/delete'
       else
         res.redirect 'users/profile'
