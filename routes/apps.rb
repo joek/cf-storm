@@ -94,7 +94,6 @@ class Apps < Cuba
     end
 
     on get do
-      require 'debugger'; debugger
       if @app.nil?
         set_flash! "The app '#{vars[:app_name]}' does not " +
           "exists in '#{@space.name}' space", :alert
@@ -112,7 +111,11 @@ class Apps < Cuba
 
 
     on put, param('state'), param('back_to') do |state, back_to|
-      @app.started? ? @app.stop! : @app.start!
+      begin
+        @app.started? ? @app.stop! : @app.start!
+      rescue CFoundry::StagingError => e
+        set_flash! e.description, :alert
+      end
       redirect_to_path back_to
       # res.redirect space_path @space
     end
