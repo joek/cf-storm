@@ -27,6 +27,10 @@ module BootstrapHelpers
     ui_navbar_list + ' ' + bs.navbar_right
   end
 
+  def label kind='default'
+    "#{bs.label} label-#{kind}"
+  end
+
   class BootstrapUI
 
     def navbar_nav

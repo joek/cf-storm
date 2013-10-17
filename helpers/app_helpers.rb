@@ -1,7 +1,7 @@
 module AppHelpers
   def app_state_icon_class app
     app.started? ? 'label label-success icon-ok app-state-started' :
-                   'label label-inportant icon-remove app-state-stopped'
+                   'label label-danger icon-remove app-state-stopped'
   end
 
   def app_state_icon app, title
@@ -13,7 +13,7 @@ module AppHelpers
   end
 
   def app_label_state_class app
-    app.started? ? 'label label-success' : 'label label-important'
+    app.started? ? 'label label-success' : 'label label-danger'
   end
 
   def app_state_class app
