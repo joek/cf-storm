@@ -12,6 +12,7 @@ class User  < Ohm::Model
   attribute :refresh_token
   attribute :api_url
   attribute :current_organization_guid
+  attribute :guid
 
   index :email
   index :api_url
@@ -23,6 +24,10 @@ class User  < Ohm::Model
 
   def remote_data
     client.current_user
+  end
+
+  def uaa_data
+    @uaa_data  ||= client.base.uaa.user self.guid
   end
 
   def self.clear_client_cache!
@@ -72,6 +77,7 @@ class User  < Ohm::Model
     token = user.login(:username => email, :password => password)
     user.current_organization = user.organizations(:depth => 0).first if user.current_organization_guid.nil?
     user.cftoken = token
+    user.guid = user.client.current_user.guid
     user.save
   end
 

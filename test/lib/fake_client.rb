@@ -16,8 +16,7 @@ class FakeClient < OpenStruct
     valid_usernames = [Settings::API_TEST_USERNAME]
     if valid_usernames.include? credentials[:username]
       token = Struct::Token.new "my-auth-token", "my-refresh-token"
-      self.current_user = CFUser.new 'test_user', credentials[:username], 'My User',
-                                'My'
+      self.current_user = CFUser.new credentials[:username]
     else
       raise CFoundry::Denied
     end
@@ -47,7 +46,7 @@ class FakeClient < OpenStruct
   end
 
   def register email, password
-    CFUser.add_user CFUser.new(nil, email, nil)
+    CFUser.add_user CFUser.new(email)
   end
 
   def info
@@ -67,7 +66,7 @@ class FakeClient < OpenStruct
     nil
   end
 
-  def organizations
+  def organizations(depth=0)
     [FakeOrganization.new("Acme", [spaces])]
   end
 

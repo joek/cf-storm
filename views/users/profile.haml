@@ -1,18 +1,16 @@
 %div{:class => bs.row}
   %div#user-info{:class => bs.width(6)}
     %table{:class => bs.table}
-      %tr
-        %td e-Mail
-        %td= @user.email
-      %tr
-        %td Name
-        %td= @user.name || '<i>Undefined</i>'
+      - @user.uaa_data[:emails].each do |email|
+        %tr
+          %td e-Mail
+          %td= email[:value]
       %tr
         %td First Name
-        %td= @user.given_name || '<i>Undefined</i>'
+        %td= @user.uaa_data[:name][:givenname] || '<i>Undefined</i>'
       %tr
         %td Last Name
-        %td= @user.family_name || '<i>Undefined</i>'
+        %td= @user.uaa_data[:name][:familyname] || '<i>Undefined</i>'
 
   %div#user-pass{:class => "#{bs.width(6)} #{bs.well}"}
     %p.justified

@@ -1,8 +1,8 @@
-class CFUser < Struct.new(:name, :email, :full_name, :given_name, :family_name)
+class CFUser < Struct.new(:email)
 
   def self.test_users
-    @@_users ||= [new('manuel', Settings::API_TEST_USERNAME, 'Manuel Garcia', 'Manuel', 'garcia'),
-                  new('lolmaster', 'lol@lol.lol', 'LOL', 'Master')]
+    @@_users ||= [new(Settings::API_TEST_USERNAME),
+                  new('lol@lol.lol')]
 
   end
 
@@ -16,6 +16,9 @@ class CFUser < Struct.new(:name, :email, :full_name, :given_name, :family_name)
   def organizations=(orgs)
   end
 
+  def organizations
+  end
+
   def add_managed_organization org
   end
 
@@ -27,6 +30,13 @@ class CFUser < Struct.new(:name, :email, :full_name, :given_name, :family_name)
 
   def add_space s
   end
+
+  def given_name
+  end
+
+  def family_name
+  end
+
 
   def update!
     true

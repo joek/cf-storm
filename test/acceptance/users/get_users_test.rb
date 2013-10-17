@@ -20,21 +20,6 @@ scope do
       assert has_content? @user.email
       assert has_content? @user.given_name
       assert has_content? @user.family_name
-      assert has_content? @user.name
     end
-  end
-
-  test 'I change my password' do
-    with_hidden_elements do
-      click_link 'Profile'
-    end
-    within('#user-pass') do
-      fill_in 'old_password', :with => '12345678'
-      fill_in 'password', :with => '1234'
-      fill_in 'password_confirmation', :with => '1234'
-
-      click_button 'Change'
-    end
-    assert has_content? 'Password updated succesfully'
   end
 end
