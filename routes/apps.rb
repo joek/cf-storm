@@ -79,10 +79,17 @@ class Apps < Cuba
   end
 
   def load_logs
-    @env_log      = @app.file 'logs/env.log'
-    @staging_task = @app.file 'logs/staging_task.log'
-    @stderr       = @app.file 'logs/stderr.log'
-    @stdout       = @app.file 'logs/stdout.log'
+    @env_log      = @app.file('logs/env.log')
+    @staging_task = truncate_log(@app.file('logs/staging_task.log'))
+    @stderr       = truncate_log(@app.file('logs/stderr.log'))
+    @stdout       = @app.file('logs/stdout.log')
+  end
+
+  def truncate_log log, lines=100
+    max = log.split("\n").size
+    min = max - lines
+    min = 0 if min < 0
+    log.split("\n")[min..max].join("\n")
   end
 
   define do

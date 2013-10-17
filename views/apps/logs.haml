@@ -18,13 +18,13 @@
 
     %div{:class => bs.panel}
       %div{:class => bs.panel_heading}
-        Staging Task Log
+        Staging Task Log (last 100 lines)
       %div{:class => "#{bs.panel_body} log-container"}
         %code= @staging_task.gsub("\n", "<br />")
 
     %div{:class => bs.panel}
       %div{:class => bs.panel_heading}
-        STDERR Log
+        STDERR Log (last 100 lines)
       %div{:class => "#{bs.panel_body} log-container"}
         %code= @stderr.gsub("\n", "<br />")
 
