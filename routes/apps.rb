@@ -78,25 +78,15 @@ class Apps < Cuba
     res.redirect space_path(@space) if path == 'index'
   end
 
-  def load_logs
-    @env_log      = @app.file('logs/env.log')
-    @staging_task = truncate_log(@app.file('logs/staging_task.log'))
-    @stderr       = truncate_log(@app.file('logs/stderr.log'))
-    @stdout       = @app.file('logs/stdout.log')
-  end
 
-  def truncate_log log, lines=100
-    max = log.split("\n").size
-    min = max - lines
-    min = 0 if min < 0
-    log.split("\n")[min..max].join("\n")
-  end
 
   define do
     load_app vars[:space_name], vars[:app_name]
 
     on get, 'logs' do
-      load_logs
+      # CACHE!!!!
+      cache_app @app
+
       res.write view('apps/logs')
     end
 
@@ -111,7 +101,7 @@ class Apps < Cuba
         @service_bindings = @app.service_bindings
 
         # CACHE!!!!
-        App.store @app
+        cache_app @app
         res.write view('apps/show')
       end
     end

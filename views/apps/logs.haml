@@ -8,28 +8,32 @@
   %li
     %a{:href => app_logs_path(@space, @app)} Logs
 
-%div{:class => bs.row}
+%div#app-logs{:class => bs.row}
   %div{:class => bs.width(12)}
-    %div{:class => bs.panel}
+    %div#env-container{:class => bs.panel}
       %div{:class => bs.panel_heading}
-        Enviorement Log
+        Enviorement Log (last 100 lines)
+        %i#env-loading{:class => "#{bs.icon('spinner')} icon-spin"}
       %div{:class => "#{bs.panel_body} log-container"}
-        %code= @env_log.gsub("\n", "<br />")
+        %code#env{'data-path' => "/async_env_log/#{@app.guid}"}
 
-    %div{:class => bs.panel}
+    %div#staging-container{:class => bs.panel}
       %div{:class => bs.panel_heading}
         Staging Task Log (last 100 lines)
+        %i#staging-loading{:class => "#{bs.icon('spinner')} icon-spin"}
       %div{:class => "#{bs.panel_body} log-container"}
-        %code= @staging_task.gsub("\n", "<br />")
+        %code#staging{'data-path' => "/async_staging_log/#{@app.guid}"}
 
-    %div{:class => bs.panel}
+    %div#stderr-container{:class => bs.panel}
       %div{:class => bs.panel_heading}
         STDERR Log (last 100 lines)
+        %i#stderr-loading{:class => "#{bs.icon('spinner')} icon-spin"}
       %div{:class => "#{bs.panel_body} log-container"}
-        %code= @stderr.gsub("\n", "<br />")
+        %code#stderr{'data-path' => "/async_stderr_log/#{@app.guid}"}
 
-    %div{:class => bs.panel}
+    %div#stdout-container{:class => bs.panel}
       %div{:class => bs.panel_heading}
-        STDOUT Log
+        STDOUT Log (last 100 lines)
+        %i#stdout-loading{:class => "#{bs.icon('spinner')} icon-spin"}
       %div{:class => "#{bs.panel_body} log-container"}
-        %code= @stdout.gsub("\n", "<br />")
+        %code#stdout{'data-path' => "/async_stdout_log/#{@app.guid}"}

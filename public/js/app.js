@@ -74,3 +74,47 @@ function ajaxAppStats() {
         });
     }
 }
+
+$(function(){
+    $('#env').load($('#env').attr('data-path'), function(){
+        $('#env-loading').hide();
+        $('#env-container').find('.panel-body').slideToggle();
+    })
+});;
+
+$(function(){
+    $('#staging').load($('#staging').attr('data-path'), function(){
+        $('#staging-loading').hide();
+        $('#staging-container').find('.panel-body').slideToggle();
+    })
+});;
+
+$(function(){
+    $('#stderr').load($('#stderr').attr('data-path'), function(){
+        $('#stderr-loading').hide();
+        $('#stderr-container').find('.panel-body').slideToggle();
+    })
+});;
+
+$(function(){
+    $('#stdout').load($('#stdout').attr('data-path'), function(){
+        $('#stdout-loading').hide();
+        $('#stdout-container').find('.panel-body').slideToggle();
+    })
+});;
+
+$(function(){
+    $('#env-container').find('.panel-heading').click(function(){
+        $('#env-container').find('.panel-body').slideToggle()
+    });
+    $('#staging-container').find('.panel-heading').click(function(){
+        $('#staging-container').find('.panel-body').slideToggle()
+    });
+    $('#stderr-container').find('.panel-heading').click(function(){
+        $('#stderr-container').find('.panel-body').slideToggle()
+    });
+    $('#stdout-container').find('.panel-heading').click(function(){
+        $('#stdout-container').find('.panel-body').slideToggle()
+    });
+
+});

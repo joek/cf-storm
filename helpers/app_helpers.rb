@@ -72,4 +72,20 @@ module AppHelpers
     return 'btn btn-success'
   end
 
+  def cache_app app
+    App.store app
+  end
+
+  def get_app_from_cache guid
+    App.rebuild(guid)
+  end
+
+  def truncate_log log, lines=100
+    max = log.split("\n").size
+    min = max - lines
+    min = 0 if min < 0
+    log.split("\n")[min..max].join("<br />")
+  end
+
+
 end

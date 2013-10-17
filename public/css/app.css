@@ -103,3 +103,7 @@
 .badge-success {
     background-color: #468847;
 }
+
+.hidden {
+    display: none;
+}
