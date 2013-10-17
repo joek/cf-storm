@@ -39,6 +39,10 @@ module AppHelpers
     URI.escape("/spaces/#{space.name}/apps/#{app.name}")
   end
 
+  def app_logs_path space, app
+    app_path(space, app) + '/logs'
+  end
+
   def instance_status_class instance
     return 'label label-success' if instance[:state] == 'STARTED'
     return 'label label-success' if  instance[:state] == 'RUNNING'

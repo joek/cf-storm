@@ -29,6 +29,9 @@
           %span{:class => bs.input_group_btn}
             %button.wait-trigger{:class => bs.btn('danger'), :type => 'submit'} Destroy
 
+    %div{:class => bs.well}
+      %a{:href => app_logs_path(@space, @app), :class => bs.btn('default')} See Logs
+
   %div{:class => bs.width(8)}
     #astats{'data-app-id' => @app.guid}
       = partial("apps/stats")

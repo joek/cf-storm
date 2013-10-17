@@ -78,11 +78,19 @@ class Apps < Cuba
     res.redirect space_path(@space) if path == 'index'
   end
 
+  def load_logs
+    @env_log      = @app.file 'logs/env.log'
+    @staging_task = @app.file 'logs/staging_task.log'
+    @stderr       = @app.file 'logs/stderr.log'
+    @stdout       = @app.file 'logs/stdout.log'
+  end
+
   define do
     load_app vars[:space_name], vars[:app_name]
 
-    on get, 'map_url' do
-      res.write view('apps/map_url')
+    on get, 'logs' do
+      load_logs
+      res.write view('apps/logs')
     end
 
     on get do

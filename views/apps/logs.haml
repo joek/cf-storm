@@ -1,0 +1,35 @@
+%ul{:class => bs.breadcrumb}
+  = partial("shared/breadcrumb")
+  %li
+    %a.wait-trigger{:href => space_path(@space)}= space_human_name(@space)
+    = partial 'shared/apps_counter'
+  %li
+    %a.wait-trigger{:href => app_path(@space, @app)}= @app.name.capitalize
+  %li
+    %a{:href => app_logs_path(@space, @app)} Logs
+
+%div{:class => bs.row}
+  %div{:class => bs.width(12)}
+    %div{:class => bs.panel}
+      %div{:class => bs.panel_heading}
+        Enviorement Log
+      %div{:class => "#{bs.panel_body} log-container"}
+        %code= @env_log.gsub("\n", "<br />")
+
+    %div{:class => bs.panel}
+      %div{:class => bs.panel_heading}
+        Staging Task Log
+      %div{:class => "#{bs.panel_body} log-container"}
+        %code= @staging_task.gsub("\n", "<br />")
+
+    %div{:class => bs.panel}
+      %div{:class => bs.panel_heading}
+        STDERR Log
+      %div{:class => "#{bs.panel_body} log-container"}
+        %code= @stderr.gsub("\n", "<br />")
+
+    %div{:class => bs.panel}
+      %div{:class => bs.panel_heading}
+        STDOUT Log
+      %div{:class => "#{bs.panel_body} log-container"}
+        %code= @stdout.gsub("\n", "<br />")

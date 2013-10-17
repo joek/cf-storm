@@ -25,6 +25,10 @@
   padding-bottom: 56px;
 }
 
+.log-container{
+  overflow: auto;
+}
+
 #app-health {
   text-align: center;
   margin-bottom: 15px;
