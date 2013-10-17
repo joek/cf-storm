@@ -18,14 +18,29 @@ module MainHelpers
   def root_path
     space_path current_user_spaces.first
   end
-  
+
   def new_path(resource)
     "/#{resource}/new"
-  end 
- 
+  end
+
+  def app_release_date
+    Time.parse(raw_version.last).strftime('%d/%m/%Y %H:%M')
+  end
+
+  def app_version
+    raw_version.first
+  end
+
   private
   def session_flash
     session[:flash] ||= {}
   end
 
+  def raw_version
+    version_file = File.open('version', 'r')
+    data = version_file.read
+    version_file.close
+
+    data.split("\n")
+  end
 end

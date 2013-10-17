@@ -26,7 +26,6 @@ class Spaces < Cuba
     on get, ':space_name/apps' do |space_name|
       load_space space_name
 
-
       if @spaces.empty?
         res.write view('spaces/no_spaces')
       else

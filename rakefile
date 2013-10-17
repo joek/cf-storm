@@ -5,8 +5,40 @@ ENV["REDIS_URL"] = "redis://localhost:6379/13"
 
 task :default => 'test:all'
 
+namespace 'release' do
+  desc "Creates a tag and updates the version file. Pass VERSION if you need to set a specific one"
+  task :do do
+    version = File.open 'version', 'r'
+    current = version.read.split("\n").first
+    version.close
+    version = File.open 'version', 'w'
+    kind = 2
+    kind = 0 if ENV['KIND'] == 'major'
+    kind = 1 if ENV['KIND'] == 'medium'
+    unless current
+      puts '==> No current version'
+    else
+      current.gsub! "v", ''
+      current = current.split '.'
+      current[kind] = current[kind].to_i + 1
+      current = "v#{current.join('.')}"
+    end
+    current = ENV['VERSION'] if ENV['VERSION']
+    version << current
+    version << "\n"
+    version << Time.now
+    version.close
+
+
+    puts '==> Version file updated'
+    command = "git tag #{current}"
+    puts "==> Creating Git tag with version #{current}"
+    exec command
+  end
+end
+
 namespace 'test' do
-  task :require_files do 
+  task :require_files do
     require_relative "./app"
     require "cutest"
 
@@ -14,12 +46,12 @@ namespace 'test' do
     Dir["./test/lib/**/*.rb"].each { |rb| require rb }
     require_relative "test/helper"
   end
-  
-  task :require_acceptance_files => :require_files do 
+
+  task :require_acceptance_files => :require_files do
     require 'cuba/capybara'
     require_relative "test/acceptance/acceptance_helper"
   end
-  
+
   desc "Run tests in test/ folder"
   task :benchmark => :require_acceptance_files do
     require 'benchmark'
