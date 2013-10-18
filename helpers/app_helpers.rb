@@ -44,10 +44,10 @@ module AppHelpers
   end
 
   def instance_status_class instance
-    return 'label label-success' if instance[:state] == 'STARTED'
-    return 'label label-success' if  instance[:state] == 'RUNNING'
-    return 'label label.important' if instance[:state] == 'STOPPED'
-    return 'label'
+    return label('default') if instance[:state] == 'STARTED'
+    return label('success') if  instance[:state] == 'RUNNING'
+    return label('danger') if instance[:state] == 'STOPPED'
+    return label('default')
   end
 
   def app_map_url_path space, app
