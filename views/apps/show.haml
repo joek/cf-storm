@@ -33,13 +33,22 @@
       %a{:href => app_logs_path(@space, @app), :class => bs.btn('default')} See Logs
 
   %div{:class => bs.width(8)}
-    #astats{'data-path' => "/async/app/#{@app.guid}/stats"}
-      = partial("apps/stats")
+    #app-stats{:class => bs.well}
+      %h4
+        Stats
+        = loading_icon 'loading-stats'
+      #stats-content{'data-path' => app_async_request(@app.guid, 'stats')}
 
     %hr
-    = partial("apps/uris")
+    #app-uris{:class => bs.well}
+      %h4
+        URL List
+        = loading_icon 'loading-routes'
+      #routes-content{'data-path' => app_async_request(@app.guid, 'routes')}
 
     %hr
     #app-services{:class => bs.well}
-      %h4 Services
-      #services-content
+      %h4
+        Services
+        = loading_icon 'loading-services'
+      #services-content{'data-path' => app_async_request(@app.guid, 'service_bindings')}

@@ -78,8 +78,6 @@ class Apps < Cuba
     res.redirect space_path(@space) if path == 'index'
   end
 
-
-
   define do
     load_app vars[:space_name], vars[:app_name]
 
@@ -97,10 +95,8 @@ class Apps < Cuba
 
         res.write view('shared/not-found')
       else
-        load_stats_and_routes
-        @service_bindings = @app.service_bindings
-
         # CACHE!!!!
+
         cache_app @app
         res.write view('apps/show')
       end

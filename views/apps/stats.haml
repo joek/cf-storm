@@ -1,36 +1,35 @@
-#app-stats{:class => bs.well}
-  %h4 Stats
-  %hr
-  %table{:class => bs.table}
+%hr
+%table{:class => bs.table}
+  %tr
+    %th Instance Id
+    %th Cpu Usage
+    %th Memory
+    %th Disk Usage
+    %th Uptime
+    %th State
+  - if @stats.empty?
     %tr
-      %th Instance Id
-      %th Cpu Usage
-      %th Memory
-      %th Disk Usage
-      %th Uptime
-      %th State
-    - if @stats.empty?
-      %tr
-        %td -
+      %td -
+      %td.cpu-usage -
+      %td.mem-usage -
+      %td.disk-usage -
+      %td.uptime -
+      %td.instane-state -
+
+
+  %span#new-health{'data-health' => app_health(@app, @stats)}
+  - @stats.each do |instance_id, app_stat|
+    %tr
+      %td= instance_id
+      - if app_stat.keys.include? :stats
+        %td.cpu-usage= cpu_usage(app_stat[:stats][:usage][:cpu])
+        %td.mem-usage= to_megabytes(app_stat[:stats][:usage][:mem])
+        %td.disk-usage= to_megabytes(app_stat[:stats][:usage][:disk])
+        %td.uptime= human_time(app_stat[:stats][:uptime])
+      - else
         %td.cpu-usage -
         %td.mem-usage -
         %td.disk-usage -
         %td.uptime -
-        %td.instane-state -
-
-
-    - @stats.each do |instance_id, app_stat|
-      %tr
-        %td= instance_id
-        - if app_stat.keys.include? :stats
-          %td.cpu-usage= cpu_usage(app_stat[:stats][:usage][:cpu])
-          %td.mem-usage= to_megabytes(app_stat[:stats][:usage][:mem])
-          %td.disk-usage= to_megabytes(app_stat[:stats][:usage][:disk])
-          %td.uptime= human_time(app_stat[:stats][:uptime])
-        - else
-          %td.cpu-usage -
-          %td.mem-usage -
-          %td.disk-usage -
-          %td.uptime -
-        %td.instance-state
-          %span{:class => instance_status_class(app_stat)}= app_stat[:state]
+      %td.instance-state
+        %span{:class => instance_status_class(app_stat)}= app_stat[:state]

@@ -87,5 +87,7 @@ module AppHelpers
     log.split("\n")[min..max].join("<br />")
   end
 
-
+  def app_async_request guid, resource
+    "/async/app/#{guid}/#{resource}"
+  end
 end

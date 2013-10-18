@@ -1,7 +1,9 @@
+// Makes a loading screen when triggered
 $(function(){
     $('.wait-trigger').click(loadingMessage)
 })
 
+// The actual loading screen
 function loadingMessage() {
     $.blockUI({ css: {
         border: 'none',
@@ -18,13 +20,14 @@ function loadingMessage() {
               });
 };
 
+// Shows/hides the delete confirmation for deleting last route
 $(function() {
     $('.trigger-unmap-confirmation').click(function() {
         $('.unmap-confirmed').toggle();
     });
 });
 
-
+// Health monitor initializer
 $(function() {
     $('#health-monitor').knob({
         'max': 100,
@@ -37,17 +40,31 @@ $(function() {
     });
 });
 
-$(function() {
-    var current = parseInt($('#current-health').attr('value'));
-    for(i=0; i<=current; i++){
-        updateKnob(i);
-    };
-});
 
-function updateKnob(value){
+function setAppHealth() {
+    var prev_health = parseInt($('#current-health').attr('value'));
+    var new_health = parseInt($('#new-health').attr('data-health'));
+    var time = 300;
+    var time_add = 20;
+    $('#current-health').attr('value', new_health);
+    if(prev_health <= new_health){
+        for(i=prev_health; i<=new_health; i++){
+            updateKnob(i, time);
+            time = time + time_add;
+        };
+    }
+    else{
+        for(i=prev_health; i>=new_health; i--){
+            updateKnob(i, time);
+            time = time + time_add;
+        };
+    };
+};
+
+function updateKnob(value, time){
     window.setTimeout(function(){
         $('#health-monitor').val(value).trigger('change');
-    }, (300+(value*20)));
+    }, time);
 };
 
 $(function(){
@@ -56,24 +73,6 @@ $(function(){
     });
 });
 
-$(function(){
-    window.setTimeout(ajaxAppStats, 3000);
-});
-
-function ajaxAppStats() {
-    if(document.getElementById('astats')){
-        $.ajax({
-            url: $('#astats').attr('data-path'),
-            type: 'GET',
-            dataType: 'html',
-            contentType: 'application/html; charset=utf-8',
-            success: function(data){
-                $('#astats').html(data)
-                window.setTimeout(ajaxAppStats, 1000);
-            }
-        });
-    }
-}
 
 $(function(){
     $('#env').load($('#env').attr('data-path'), function(){
@@ -118,3 +117,38 @@ $(function(){
     });
 
 });
+
+// App show async loadings
+$(function(){
+    $('#app-services').find('#services-content').load($('#services-content').attr('data-path'), function(){
+        $('#loading-services').hide()
+    });
+
+    $('#app-uris').find('#routes-content').load($('#routes-content').attr('data-path'), function(){
+        $('#loading-routes').hide()
+    });
+
+    $('#app-stats').find('#stats-content').load($('#stats-content').attr('data-path'), function(){
+        $('#loading-stats').hide();
+        setAppHealth();
+        window.setTimeout(ajaxAppStats, 3000);
+    });
+
+});
+
+
+function ajaxAppStats() {
+    if(document.getElementById('stats-content')){
+        $.ajax({
+            url: $('#stats-content').attr('data-path'),
+            type: 'GET',
+            dataType: 'html',
+            contentType: 'application/html; charset=utf-8',
+            success: function(data){
+                $('#stats-content').html(data)
+                setAppHealth();
+                window.setTimeout(ajaxAppStats, 1000);
+            }
+        });
+    }
+}

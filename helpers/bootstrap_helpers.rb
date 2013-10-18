@@ -29,6 +29,9 @@ module BootstrapHelpers
 
   def label kind='default'
     "#{bs.label} label-#{kind}"
+
+  def loading_icon name
+    "<span id=\"#{name}\" class=\"#{bs.icon('spinner')} icon-spin\"></span>"
   end
 
   class BootstrapUI
