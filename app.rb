@@ -87,37 +87,6 @@ Cuba.define do
     run AjaxRequests
   end
 
-  on get, 'async_stats/:guid' do |guid|
-    app = get_app_from_cache guid
-    if app.started?
-      @stats = App.rebuild(guid).stats.sort_by{|key, value| key.to_i}
-      res.write partial('apps/stats')
-    else
-      @stats = []
-      res.status = 503
-      res.write partial('apps/stats')
-    end
-  end
-
-  on get, 'async_env_log/:guid' do |guid|
-    app = get_app_from_cache guid
-    res.write truncate_log(app.file('logs/env.log'))
-  end
-
-  on get, 'async_staging_log/:guid' do |guid|
-    app = get_app_from_cache guid
-    res.write truncate_log(app.file('logs/staging_task.log'))
-  end
-
-  on get, 'async_stderr_log/:guid' do |guid|
-    app = get_app_from_cache guid
-    res.write truncate_log(app.file('logs/stderr.log'))
-  end
-
-  on get, 'async_stdout_log/:guid' do |guid|
-    app = get_app_from_cache guid
-    res.write truncate_log(app.file('logs/stdout.log'))
-  end
 
   on root do
     if current_user
