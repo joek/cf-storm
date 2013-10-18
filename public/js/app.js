@@ -63,7 +63,7 @@ $(function(){
 function ajaxAppStats() {
     if(document.getElementById('astats')){
         $.ajax({
-            url: '/async_stats/' + $('#astats').attr('data-app-id'),
+            url: $('#astats').attr('data-path'),
             type: 'GET',
             dataType: 'html',
             contentType: 'application/html; charset=utf-8',

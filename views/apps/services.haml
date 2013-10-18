@@ -1,32 +1,30 @@
-#app-services{:class => bs.well}
-  %h4 Services
-  %table{:class => bs.table}
+%table{:class => bs.table}
+  %tr
+    %th Name
+    //%th Dashboard
+    %th Plan
+    %th Plan Desc
+    %th
+  - if @service_bindings.empty?
     %tr
-      %th Name
-      //%th Dashboard
-      %th Plan
-      %th Plan Desc
-      %th
-    - if @service_bindings.empty?
-      %tr
-        %td No services for this app
-        %td
-        %td
-        %td
-        %td
-    - @service_bindings.each do |binding|
-      %tr
-        %td
-          = binding.service_instance.name
-          %br
-          %span{:class => "#{bs.label} #{bs.label_info}"} Hostname =>
-          = binding.manifest[:entity][:credentials][:hostname]
-          %span{:class => "#{bs.label} #{bs.label_info}"} Port =>
-          = binding.manifest[:entity][:credentials][:port]
-          %span{:class => "#{bs.label} #{bs.label_info}"} Pass =>
-          = binding.manifest[:entity][:credentials][:password]
+      %td No services for this app
+      %td
+      %td
+      %td
+      %td
+  - @service_bindings.each do |binding|
+    %tr
+      %td
+        = binding.service_instance.name
+        %br
+        %span{:class => "#{bs.label} #{bs.label_info}"} Hostname =>
+        = binding.manifest[:entity][:credentials][:hostname]
+        %span{:class => "#{bs.label} #{bs.label_info}"} Port =>
+        = binding.manifest[:entity][:credentials][:port]
+        %span{:class => "#{bs.label} #{bs.label_info}"} Pass =>
+        = binding.manifest[:entity][:credentials][:password]
 
-        //%td
-        //  %a{:href => binding.service_instance.dashboard_url, :target => '_blank', :class => bs.btn} Manage
-        %td= binding.service_instance.service_plan.name
-        %td= binding.service_instance.service_plan.description
+      //%td
+      //  %a{:href => binding.service_instance.dashboard_url, :target => '_blank', :class => bs.btn} Manage
+      %td= binding.service_instance.service_plan.name
+      %td= binding.service_instance.service_plan.description

@@ -83,6 +83,10 @@ Cuba.define do
     end
   end
 
+  on get, 'async' do
+    run AjaxRequests
+  end
+
   on get, 'async_stats/:guid' do |guid|
     app = get_app_from_cache guid
     if app.started?

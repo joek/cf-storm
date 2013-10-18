@@ -15,25 +15,25 @@
         Enviorement Log (last 100 lines)
         %i#env-loading{:class => "#{bs.icon('spinner')} icon-spin"}
       %div{:class => "#{bs.panel_body} log-container"}
-        %code#env{'data-path' => "/async_env_log/#{@app.guid}"}
+        %code#env{'data-path' => "/async/app/#{@app.guid}/env_log"}
 
     %div#staging-container{:class => bs.panel}
       %div{:class => bs.panel_heading}
         Staging Task Log (last 100 lines)
         %i#staging-loading{:class => "#{bs.icon('spinner')} icon-spin"}
       %div{:class => "#{bs.panel_body} log-container"}
-        %code#staging{'data-path' => "/async_staging_log/#{@app.guid}"}
+        %code#staging{'data-path' => "/async/app/#{@app.guid}/staging_log"}
 
     %div#stderr-container{:class => bs.panel}
       %div{:class => bs.panel_heading}
         STDERR Log (last 100 lines)
         %i#stderr-loading{:class => "#{bs.icon('spinner')} icon-spin"}
       %div{:class => "#{bs.panel_body} log-container"}
-        %code#stderr{'data-path' => "/async_stderr_log/#{@app.guid}"}
+        %code#stderr{'data-path' => "/async/app/#{@app.guid}/stderr_log"}
 
     %div#stdout-container{:class => bs.panel}
       %div{:class => bs.panel_heading}
         STDOUT Log (last 100 lines)
         %i#stdout-loading{:class => "#{bs.icon('spinner')} icon-spin"}
       %div{:class => "#{bs.panel_body} log-container"}
-        %code#stdout{'data-path' => "/async_stdout_log/#{@app.guid}"}
+        %code#stdout{'data-path' => "/async/app/#{@app.guid}/stdout_log"}
