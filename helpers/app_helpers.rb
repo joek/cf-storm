@@ -1,19 +1,19 @@
 module AppHelpers
   def app_state_icon_class app
-    app.started? ? 'label label-success icon-ok app-state-started' :
-                   'label label-danger icon-remove app-state-stopped'
+    app.started? ? "#{label('success')} #{icon('ok')} app-state-started" :
+                   "#{label('danger')} #{icon('ok')} app-state-stopped"
   end
 
   def app_state_icon app, title
     if app.started?
-      "<span title=\"#{title} running\" class=\"badge badge-success app-state-started\"><i class=\"icon-ok\"></i></span>"
+      "<span title=\"#{title} running\" class=\"#{badge('success')} app-state-started\"><i class=\"icon-ok\"></i></span>"
     else
-      "<span title=\"#{title} stopped\" class=\"badge badge-important app-state-stopped\"><i class=\"icon-remove\"></i></span>"
+      "<span title=\"#{title} stopped\" class=\"#{bs.badge('important')} app-state-stopped\"><i class=\"icon-remove\"></i></span>"
     end
   end
 
   def app_label_state_class app
-    app.started? ? 'label label-success' : 'label label-danger'
+    app.started? ? label('success') : label('danger')
   end
 
   def app_state_class app

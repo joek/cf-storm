@@ -35,6 +35,10 @@ module BootstrapHelpers
     "<span id=\"#{name}\" class=\"#{bs.icon('spinner')} icon-spin\"></span>"
   end
 
+  def badge kind
+    "#{bs.badge} badge-#{kind}"
+  end
+
   class BootstrapUI
 
     def navbar_nav
