@@ -41,6 +41,7 @@ namespace 'test' do
   task :require_files do
     require_relative "./app"
     require "cutest"
+    require 'haml'
 
     # Complex Structs
     Dir["./test/lib/**/*.rb"].each { |rb| require rb }
