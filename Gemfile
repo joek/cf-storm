@@ -14,6 +14,8 @@ gem 'cfoundry'
 
 group :development, :test do
   gem "capybara"
+  gem "capybara-webkit"
+  gem "selenium-webdriver"
   gem 'cutest'
   gem 'debugger'
 end

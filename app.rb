@@ -47,6 +47,9 @@ class OpenSSL::SSL::SSLContext
   end
 end
 
+# Test mode
+# Dir["./test/lib/**/*.rb"].each { |rb| require rb }
+# User.default_client = FakeClient
 
 Cuba.define do
 

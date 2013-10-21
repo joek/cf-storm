@@ -36,3 +36,8 @@ def with_hidden_elements
   yield
   Capybara.ignore_hidden_elements = true
 end
+
+def set_js_driver
+  require 'capybara-webkit'
+  Capybara.current_driver = :selenium
+end

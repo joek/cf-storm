@@ -75,7 +75,7 @@ class FakeClient < OpenStruct
   end
 
   def self.spaces
-    @@_spaces
+    @@_spaces ||= Space.spaces_for_test
   end
 
   def spaces(args = nil)

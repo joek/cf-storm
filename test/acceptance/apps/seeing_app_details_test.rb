@@ -1,11 +1,11 @@
+# JavaScript capable testing
 scope do
-
   setup do
+    set_js_driver
     login_user!
     load_default_space_and_app
     @app.health_with(1, 0)
   end
-
 
   # Context: Seeing an app from developemnt space
   test 'I visit the lolmaster app details' do
@@ -26,12 +26,13 @@ scope do
       assert find('.uptime').text == expected_uptime
       assert find('.instance-state').text == @app.stats['0'][:state]
     end
-
   end
 
   test 'I see the health of an app as 100 when all instances are up' do
     find("#app-details-#{@app.guid}").click
-    assert find('#current-health')['value'] == "100"
+    with_hidden_elements do
+      assert find('#current-health')['value'] == "100"
+    end
   end
 
   test 'I see the app services' do
@@ -44,5 +45,4 @@ scope do
       assert has_content? test_service.service_instance.service_plan.name
     end
   end
-
 end

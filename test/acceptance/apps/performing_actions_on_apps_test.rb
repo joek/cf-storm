@@ -1,11 +1,82 @@
 # -*- coding: utf-8 -*-
-scope do
 
+# JavaScript capable testing
+scope do
   setup do
+    set_js_driver
     login_user!
     load_default_space_and_app
   end
-  
+
+  test 'I add a URL to the app' do
+    find("#app-details-#{@app.guid}").click
+    until page.evaluate_script('$.active') == 0
+      'lol wating ajax'
+    end
+    within('#app-uris') do
+      fill_in 'url', :with => 'new.url'
+    end
+
+    click_button 'Add URL'
+
+    assert has_content? 'URL Added to the app'
+    assert find('#app-uris')
+    within('#app-uris') do
+      assert has_content? 'http://new.url.lolmaster.com'
+    end
+  end
+
+  test 'I try to re-add an existing URL so I get an error msg' do
+    find("#app-details-#{@app.guid}").click
+
+    within('#app-uris') do
+      assert has_content? 'new.url.lolmaster.com'
+    end
+
+    within('#app-uris') do
+      fill_in 'url', :with => 'new.url'
+    end
+    click_button 'Add URL'
+
+    assert has_content? 'Route is already taken'
+    assert find('#app-uris')
+  end
+
+  test 'I remove one of the URLs from the app' do
+    find("#app-details-#{@app.guid}").click
+    route = @app.routes.first
+    within('#app-uris') do
+       find("#unmap-#{route.guid}").click
+    end
+
+    assert has_content? 'Route unmapped successfully'
+    assert find('#app-uris')
+    assert has_no_content? route.name
+  end
+
+  test 'I remove the last URL from the app' do
+    @app.reset_routes!
+    find("#app-details-#{@app.guid}").click
+    route = @app.routes.first
+    within('#app-uris') do
+      find("#unmap-#{route.guid}").click
+      find(".unmap-confirmed").click
+    end
+
+    assert has_content? 'Route unmapped successfully'
+    assert find('#app-uris')
+    assert has_no_content? route.name
+    @app.reset_routes!
+  end
+end
+
+scope do
+  setup do
+    Capybara.use_default_driver
+    login_user!
+    load_default_space_and_app
+  end
+
   # ------------------------------------------------------------------------
   # Context: Seeing app index page
 
@@ -16,7 +87,7 @@ scope do
   end
 
   # ------------------------------------------------------------------------
-  # Context: Seeing app show page 
+  # Context: Seeing app show page
 
   test 'I change app instances' do
     find("#app-details-#{@app.guid}").click
@@ -34,7 +105,7 @@ scope do
     find("#app-details-#{@app.guid}").click
     within '#instance-quota' do
       assert find('.current-instances').value.to_i == @app.total_instances
-      
+
       # instance limit is 10
       select '11', :from => 'instances'
       click_on 'Update'
@@ -64,7 +135,7 @@ scope do
     find("#app-details-#{@app.guid}").click
     within('#app-mem-form') do
       assert find('.current-app-mem').value.to_i == @app.memory
-      
+
       # Mem limit is 2048
       select '4096', :from => 'memory'
       click_on 'Update'
@@ -113,67 +184,10 @@ scope do
                  "app was not destroyed"
   end
 
+  #)===================
 
-  test 'I add a URL to the app' do
-    find("#app-details-#{@app.guid}").click
-    within('#app-uris') do
-      fill_in 'url', :with => 'new.url'
-    end
-    click_button 'Add URL'
 
-    assert has_content? 'URL Added to the app'
-    assert find('#app-uris')
-    within('#app-uris') do
-      assert has_content? 'http://new.url.lolmaster.com'
-    end
-  end
 
-  test 'I try to re-add an existing URL so I get an error msg' do
-    find("#app-details-#{@app.guid}").click
-
-    within('#app-uris') do
-      assert has_content? 'new.url.lolmaster.com'
-    end
-
-    within('#app-uris') do
-      fill_in 'url', :with => 'new.url'
-    end
-    click_button 'Add URL'
-
-    assert has_content? 'Route is already taken'
-    assert find('#app-uris')
-  end
-
-  test 'I remove one of the URLs from the app' do
-    find("#app-details-#{@app.guid}").click
-    route = @app.routes.first
-    within('#app-uris') do
-       find("#unmap-#{route.guid}").click
-    end
-
-    assert has_content? 'Route unmapped successfully'
-    assert find('#app-uris')
-    assert has_no_content? route.name
-  end
-
-  
-  test 'I remove the last URL from the app' do
-    @app.reset_routes!
-    find("#app-details-#{@app.guid}").click
-    route = @app.routes.first
-    within('#app-uris') do
-      find("#unmap-#{route.guid}").click
-      with_hidden_elements do
-        find(".unmap-confirmed").click
-      end
-
-    end
-
-    assert has_content? 'Route unmapped successfully'
-    assert find('#app-uris')
-    assert has_no_content? route.name
-    @app.reset_routes!
-  end
 
   test 'I visit a non-existent page so I get an error msg but not an exception' do
     visit "#{req.space_path(@space)}/non-exist"

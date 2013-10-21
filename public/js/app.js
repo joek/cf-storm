@@ -21,11 +21,11 @@ function loadingMessage() {
 };
 
 // Shows/hides the delete confirmation for deleting last route
-$(function() {
+function setUnmapTrigger() {
     $('.trigger-unmap-confirmation').click(function() {
         $('.unmap-confirmed').toggle();
     });
-});
+};
 
 // Health monitor initializer
 $(function() {
@@ -40,7 +40,7 @@ $(function() {
     });
 });
 
-
+// Sets a value for the knob and animates is
 function setAppHealth() {
     var prev_health = parseInt($('#current-health').attr('value'));
     var new_health = parseInt($('#new-health').attr('data-health'));
@@ -61,19 +61,21 @@ function setAppHealth() {
     };
 };
 
+// Animates the knob change
 function updateKnob(value, time){
     window.setTimeout(function(){
         $('#health-monitor').val(value).trigger('change');
     }, time);
 };
 
+// Makes a tr element clickable
 $(function(){
     $('.row-link').click(function(){
         window.open($(this).attr('data-path'), '_self');
     });
 });
 
-
+// Log pannels animation
 $(function(){
     $('#env').load($('#env').attr('data-path'), function(){
         $('#env-loading').hide();
@@ -102,6 +104,9 @@ $(function(){
     })
 });;
 
+// --------------------------------------------------------
+
+// Log loadings
 $(function(){
     $('#env-container').find('.panel-heading').click(function(){
         $('#env-container').find('.panel-body').slideToggle()
@@ -126,6 +131,7 @@ $(function(){
 
     $('#app-uris').find('#routes-content').load($('#routes-content').attr('data-path'), function(){
         $('#loading-routes').hide()
+        setUnmapTrigger();
     });
 
     $('#app-stats').find('#stats-content').load($('#stats-content').attr('data-path'), function(){

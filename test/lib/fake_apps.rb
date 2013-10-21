@@ -18,6 +18,10 @@ class FakeApp < Struct.new(:name, :state, :memory, :stats, :url, :guid)
     [Struct::ServiceBinding.new(service_instance, manifest)]
   end
 
+  def space
+    FakeClient.spaces.first
+  end
+
   def started?
     self.state == 'STARTED'
   end

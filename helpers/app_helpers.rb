@@ -8,7 +8,7 @@ module AppHelpers
     if app.started?
       "<span title=\"#{title} running\" class=\"#{badge('success')} app-state-started\"><i class=\"icon-ok\"></i></span>"
     else
-      "<span title=\"#{title} stopped\" class=\"#{bs.badge('important')} app-state-stopped\"><i class=\"icon-remove\"></i></span>"
+      "<span title=\"#{title} stopped\" class=\"#{badge('important')} app-state-stopped\"><i class=\"icon-remove\"></i></span>"
     end
   end
 
