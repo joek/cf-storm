@@ -18,7 +18,8 @@
       %p.justified
         In order to destroy an app, you should input its name on the
         following box. Only if the name is correct, the application will be
-        destroyed from the space.
+        destroyed from the space. Routes to this app will also be deleted
+        to free names from the organizations route pool.
         %b This change can't be undone.
       %form{:action => app_path(@space, @app), :method => 'post'}
         %div{:class => bs.input_group}
