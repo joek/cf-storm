@@ -1,21 +1,17 @@
-%h4
-  Info
-  %span{:class => "#{app_label_state_class(@app)} #{bs.float_right}"}
-    = @app.state
+-#%h5
+-#  %span{:class => "#{app_label_state_class(@app)} #{bs.float_right}"}
+-#    = @app.state
 
-
-%hr
-
-.app-show-stop.centered{:class => "#{bs.width(6)} #{bs.float_right}"}
-  %form{:action => app_path(@space, @app), :method => 'post', :class => 'simple-button'}
-    %input{:type => 'hidden', :value => 'put', :name => '_method'}
-    %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
-    %input{:type => 'hidden', :value => 'show', :name => 'back_to'}
-    %button.wait-trigger{:type => 'submit',
-            :id => app_state_class(@app),
-            :class => "#{app_power_control_button_class(@app)} #{bs.btn_large}",
-            :title => 'Start/Stop Application'}
-      %i{:class => "#{bs.icon('off')}"}
+-#.app-show-stop.centered{:class => "#{bs.width(6)} #{bs.float_right}"}
+-#  %form{:action => app_path(@space, @app), :method => 'post', :class => 'simple-button'}
+-#    %input{:type => 'hidden', :value => 'put', :name => '_method'}
+-#    %input{:type => 'hidden', :value => 'STOPPED', :name => 'state'}
+-#    %input{:type => 'hidden', :value => 'show', :name => 'back_to'}
+-#    %button.wait-trigger{:type => 'submit',
+-#            :id => app_state_class(@app),
+-#            :class => "#{app_power_control_button_class(@app)} #{bs.btn_large}",
+-#            :title => 'Start/Stop Application'}
+-#      %i{:class => "#{bs.icon('off')}"}
 
 
 #app-health{:title => 'Health: Instances running divided by total instances'}
@@ -56,3 +52,5 @@
               %option{:value => n}= n
         %span{:class => bs.input_group_btn}
           %button.wait-trigger{:class => bs.btn, :type => 'submit'} Update
+%br
+%a{:href => app_logs_path(@space, @app), :class => bs.btn('default')} See Logs

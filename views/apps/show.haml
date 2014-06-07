@@ -11,16 +11,11 @@
     %div{:class => bs.well}
       = partial("apps/info")
 
-    %hr
     #app-destroy-form{:class => bs.well}
-      %h4 Danger Zone
-      %hr
+      %h5 Danger Zone
       %p.justified
-        In order to destroy an app, you should input its name on the
-        following box. Only if the name is correct, the application will be
-        destroyed from the space. Routes to this app will also be deleted
-        to free names from the organizations route pool.
-        %b This change can't be undone.
+        This action <b>CAN NOT</b> be undone.
+        Please type in the name of the application to confirm.
       %form{:action => app_path(@space, @app), :method => 'post'}
         %div{:class => bs.input_group}
           %label{:class => bs.input_addon, :title => 'App Name'}
@@ -30,26 +25,21 @@
           %span{:class => bs.input_group_btn}
             %button.wait-trigger{:class => bs.btn('danger'), :type => 'submit'} Destroy
 
-    %div{:class => bs.well}
-      %a{:href => app_logs_path(@space, @app), :class => bs.btn('default')} See Logs
-
   %div{:class => bs.width(8)}
     #app-stats{:class => bs.well}
-      %h4
+      %h5
         Stats
         = loading_icon 'loading-stats'
       #stats-content{'data-path' => app_async_request(@app.guid, 'stats')}
 
-    %hr
     #app-uris{:class => bs.well}
-      %h4
+      %h5
         URL List
         = loading_icon 'loading-routes'
       #routes-content{'data-path' => app_async_request(@app.guid, 'routes')}
 
-    %hr
     #app-services{:class => bs.well}
-      %h4
+      %h5
         Services
         = loading_icon 'loading-services'
       #services-content{'data-path' => app_async_request(@app.guid, 'service_bindings')}
