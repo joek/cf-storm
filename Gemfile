@@ -8,14 +8,15 @@ gem 'mote'
 gem 'tilt'
 gem 'haml'
 gem 'rack-protection'
-gem 'ohm'
+gem 'ohm', '>2.0.0'
+gem 'redic-pool'
 gem 'rake'
 gem 'cfoundry'
 
 group :development, :test do
-  gem "capybara"
-  gem "capybara-webkit"
-  gem "selenium-webdriver"
+  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'selenium-webdriver'
   gem 'cutest'
   gem 'debugger'
 end
