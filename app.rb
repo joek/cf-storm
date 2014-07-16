@@ -1,5 +1,6 @@
 require File.expand_path('shotgun',  File.dirname(__FILE__))
 require File.expand_path("settings", File.dirname(__FILE__))
+require 'redic/pool'
 
 require 'cuba/render'
 
@@ -35,7 +36,7 @@ Cuba.plugin SpaceHelpers
 Cuba.plugin OrganizationHelpers
 Cuba.plugin BootstrapHelpers
 
-Ohm.connect(url: Settings::REDIS_URL)
+Ohm.redis = Redic::Pool.new(Settings::REDIS_URL, size: Settings::REDIS_CONNECTION_POOL_SIZE)
 
 Cuba.use Rack::MethodOverride
 
